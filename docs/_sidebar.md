@@ -1,6 +1,6 @@
-- [Getting Started](gettingstarted.md)
-- [Universal Mods](games/universal.md)
-- Officially Supported Games
+* [Getting Started](gettingstarted.md)
+* [Universal Mods](games/universal.md)
+* Officially Supported Games
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
     - [Pistol Whip](games/pistolwhip.md)

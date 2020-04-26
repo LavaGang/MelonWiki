@@ -1,5 +1,5 @@
 # BONEWORKS
 
-> The BONEWORKS mods and community are mostly on the [BONEWORKS Discord](https://discord.gg/mjmpUR8)
+> The BONEWORKS community is mostly on the [BONEWORKS Discord](https://discord.gg/mjmpUR8)
 
-## Available mods:
+Available BONEWORKS mods are on the [BoneTome mods page](https://bonetome.com/mods/)
