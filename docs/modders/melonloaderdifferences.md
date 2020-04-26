@@ -84,4 +84,30 @@ MyComponent.AddUnityEvent(new System.Action<Component>(component => {
 
 ### Events
 
-!> Coming Soon
+!> This code is subject to change and become easier with the upcoming updates
+
+Event in unity are kinda similar to properties.<br/>
+let's imagine you have an `event Action<Player> onPlayerJoin;`. This code will generate the following methods:
+ - `add_onPlayerJoin(Action<Player>)`: equivalent of doing `onPlayerJoin +=`
+ - `remove_onPlayerJoin(Action<Player>)`: equivalent of doing `onPlayerJoin -=`
+
+As expected, the `+=` and `-=` methods can't be used on an Il2Cpp type, since the type has already been processed. We will have to use the generated methods. Since these methods were using some `System.Action`, these have been converted to `Il2CppSystem.Action`.<br/>
+Using MelonLoader, our event is now something like this:
+```cs
+Action<Player> onPlayerJoin;
+public void add_onPlayerJoin(Il2CppSystem.Action<Player> value) { /* does stuff with onPlayerJoin */ }
+public void remove_onPlayerJoin(Il2CppSystem.Action<Player> value) { /* does stuff with onPlayerJoin */ }
+```
+
+In case we want to add an event calling `void MyEventListener(Player player)`, we now have to do the following:
+```cs
+playerManagerInstance.add_onPlayerJoin(new Action<Player>(MyEventListener));
+// ...
+void MyEventListener(Player player) { /* Do things */ }
+```
+
+Sometime, the `add_` and `remove_` methods are stripped by the Il2Cpp compiler. In such cases, we have to use the `CombineImpl` method:
+```cs
+playerManagerInstance.onPlayerJoin
+    .CombineImpl((Il2CppSystem.Action<Player>) MyEventListener)
+```
