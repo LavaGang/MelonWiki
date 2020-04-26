@@ -60,7 +60,7 @@ MelonMod have a few virtual method that can be overridden:
  - `OnFixedUpdate()`: Called at the end of each `Update` call
  - `OnGUI()`: Called during the GUI update
  - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.
- - `VRChat_OnUiManagerInit()`: (VRChat only) Called if the `VRCUiManager` component has been initialized this frame. This method is called at the end of the frame, before Update.
+ - `VRChat_OnUiManagerInit()`: (VRChat only) Called if the `VRCUiManager` component has been initialized this frame. This method is called at the end of the frame, before OnUpdate.
 
 !> - `OnGUI()` is currently broken.<br/> - `VRChat_OnUiManagerInit()` may be removed in the future.
 
