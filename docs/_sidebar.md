@@ -9,3 +9,4 @@
     - [Quick Start](modders/quickstart.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
+- [Credits](credits.md)
