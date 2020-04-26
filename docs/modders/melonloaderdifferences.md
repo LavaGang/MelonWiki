@@ -2,6 +2,8 @@
 
 MelonLoader have some "small" things that doesn't work the exact same as if you were modding a Mono game.
 
+> If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _Slaynash#2879_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
+
 ### Custom Components
 
 Custom components (and custom Types in general) are currently not supported by MelonLoader over Il2Cpp.<br/>
@@ -16,6 +18,18 @@ In a standard Mono game, you would use `StartCoroutine`. Since MelonMod isn't a 
 To do that, MelonLoader includes replacement class: `MelonLoader.MelonCoroutines`!
  - `CoroD Start<T>(T routine)`: Starts a new coroutine, which will be ran at the end of the frame.
  - `void Stop(CoroD routine)`: Stops a running coroutine.
+
+### Usage of Il2Cpp Types
+
+In case you want to run an Il2Cpp method taking a type, you may want to use `.GetType()`.<br/>
+`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.Il2CppType`.
+```cs
+Resources.FindObjectsOfTypeAll(Camera.Il2CppType);
+```
+Note: you can use the Mono type directly in case of generic method:
+```cs
+Resources.FindObjectsOfTypeAll<Camera>();
+```
 
 ### Il2Cpp types and casting
 
@@ -47,3 +61,27 @@ This means we can use it like this:
 ```cs
 Debug.Log((Il2CppSystem.String) "Hello World!");
 ```
+
+### Actions
+
+We know, you all love those delegates. Except they don't work as-is with Il2Cpp.
+
+Most Unity events have an implicit cast of `System.Action`, which is a delegate type.<br>
+The current issue is that an Il2Cpp event will now take an `Il2CppSystem.Action`, which isn't a delegate type anymore. We will have to use the implicit cast of `Il2CppSystem.Action` to cast an `System.Action`.
+
+Let's say we have a method `MyComponent.AddAction(Action<Component> onComponentDidSomething)`. We can use it like this:
+```cs
+MyComponent.AddAction(new System.Action<Component>(component => {
+    MelonModLogger.Log($"The component {component.name} did something!");
+}))
+```
+or with `MyComponent.AddUnityEvent(UnityEngine.UnityEvent<Component> onComponentDidSomething)`:
+```cs
+MyComponent.AddUnityEvent(new System.Action<Component>(component => {
+    MelonModLogger.Log($"The component {component.name} did something!");
+}))
+```
+
+### Events
+
+!> Coming Soon

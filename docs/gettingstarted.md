@@ -1,6 +1,6 @@
 # Getting Started
 
-MelonLoader is a mod loader working on most unity games. I has initially been designed to focus Il2Cpp games, but also supports Mono games.<br/>
+MelonLoader is a mod loader working on most unity games. It has initially been designed to focus Il2Cpp games, but also supports Mono games.<br/>
 To use it, you will first need to install it to the desired game.
 
 !> Please note that MelonLoader doesn't do anything on its own. You will have to install some mods to make changes to your game.
@@ -83,11 +83,13 @@ You can find some mods in the Officially Supported Games category.
 
 # Launch commands
 
-MelonLoader have a few launch commands, as defined here:
+MelonLoader have a few launch arguments, as defined here:
 
-| Argument              | Description                              |
-| --------------------- | ---------------------------------------- |
-| --no-mods             | Launch game without loading Mods         |
-| --melonloader.console | Normal Console                           |
-| --melonloader.debug   | Debug Console                            |
-| --melonloader.mupot   | Experimental MUPOT Mode for IL2CPP Games |
+| Argument                    | Description                              |
+| --------------------------- | ---------------------------------------- |
+| --no-mods                   | Launch game without loading Mods         |
+| --melonloader.console       | Normal Console                           |
+| --melonloader.debug         | Debug Console                            |
+| --melonloader.mupot         | Experimental MUPOT Mode for IL2CPP Games |
+| --melonloader.rainbow       | Rainbow Console Color                    |
+| --melonloader.randomrainbow | Random Rainbow Console Color             |
