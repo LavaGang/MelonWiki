@@ -80,3 +80,14 @@ You can find some mods in the Officially Supported Games category.
 # Installation on Mono games
 
 !> Coming Soon
+
+# Launch commands
+
+MelonLoader have a few launch commands, as defined here:
+
+| Argument              | Description                              |
+| --------------------- | ---------------------------------------- |
+| --no-mods             | Launch game without loading Mods         |
+| --melonloader.console | Normal Console                           |
+| --melonloader.debug   | Debug Console                            |
+| --melonloader.mupot   | Experimental MUPOT Mode for IL2CPP Games |
