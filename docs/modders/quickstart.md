@@ -73,17 +73,13 @@ Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
 
 ```cs
-public override void OnApplicationStart()
+public override void OnUpdate()
 {
-    // Debug.Log takes an object.
-    // Since we are using the generated assemblies,
-    // we need to cast our string (which is a System.String)
-    // to an Il2Cpp string (aka Il2CppSystem.String).
-    // Note: This only apply to Il2Cpp object instances.
-    // You can pass primitive types (bool, int, float, ...),
-    // struct (Vector3, Quaternion, ) and enums as-is.
-    Debug.Log((Il2CppSystem.String) "Hello World!");
+    if(Input.GetKeyDown(KeyCode.T))
+    {
+        MelonModLogger.Log("You just pressed T")
+    }
 }
 ```
 
-You now have a mod that prints `Hello World!` when initialized!
+You now have a mod that prints "You just pressed T" when you, well press the T key!
