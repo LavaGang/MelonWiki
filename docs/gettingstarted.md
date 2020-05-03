@@ -10,7 +10,7 @@ To use it, you will first need to install it to the desired game.
 
 !> This method requires Windows 8 or newer.
 
- - Download the [MelonLoader installation script](https://github.com/Slaynash/MelonLoaderAutoInstaller/releases/download/v1.3/MelonLoaderInstaller.bat). We will call it `MelonLoaderInstaller.bat`.
+ - Download the [MelonLoader installation script](https://github.com/Slaynash/MelonLoaderAutoInstaller/releases/download/v1.4.1/MelonLoaderInstaller.bat). We will call it `MelonLoaderInstaller.bat`.
  - Move MelonLoaderInstaller.bat to your game folder, next to your game executable.<br/>
  On steam, you can find the folder by right clicking your game name, clicking `Properties...`, going to the `LOCAL FILES` tab, and pressing the `BROWSE LOCAL FILES...` button.
 
