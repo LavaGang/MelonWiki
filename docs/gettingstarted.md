@@ -8,19 +8,19 @@ To use it, you will first need to install it to the desired game.
 
 # Automated Installation
 
-- Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Installer.exe).
+- Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
 - Run MelonLoader.Installer.exe and Follow the Instructions.
 
 # Manual Installation
 
 ### Il2Cpp Games
 
-- Download [MelonLoader.Il2Cpp.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Il2Cpp.zip)
+- Download [MelonLoader.Il2Cpp.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Il2Cpp.zip)
 - Extract MelonLoader.Il2Cpp.zip to the Game's Installation Folder.
 
 ### Mono Games
 
-- Download [MelonLoader.Mono.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Mono.zip)
+- Download [MelonLoader.Mono.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Mono.zip)
 - Extract MelonLoader.Mono.zip to the Game's Installation Folder.
 
 
