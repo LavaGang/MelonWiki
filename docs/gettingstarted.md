@@ -5,10 +5,12 @@ To use it, you will first need to install it to the desired game.
 
 !> Please note that MelonLoader doesn't do anything on its own. You will have to install some mods to make changes to your game.
 
+
 # Automated Installation
 
 - Download [MelonLoader.Installer.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Installer.zip).
 - Run MelonLoader.Installer.exe and Follow the Instructions.
+
 
 # Manual Installation
 
@@ -22,8 +24,10 @@ To use it, you will first need to install it to the desired game.
 - Download [MelonLoader.Mono.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Mono.zip)
 - Extract MelonLoader.Mono.zip to the Game's Installation Folder.
 
+
 # Contact
 ?> If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!
+
 
 # Launch commands
 
