@@ -11,6 +11,8 @@ To use it, you will first need to install it to the desired game.
 - Download [MelonLoader.Installer.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/download/v0.2.1/MelonLoader.Installer.zip).
 - Run MelonLoader.Installer.exe and Follow the Instructions.
 
+!> If the Installer complains about needing .NET Core installed, please download [.NET Core 3.1 Runtime](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+
 
 # Manual Installation
 
