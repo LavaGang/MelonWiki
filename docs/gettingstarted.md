@@ -8,8 +8,10 @@ To use it, you will first need to install it to the desired game.
 
 # Automated Installation
 
-- Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
-- Run MelonLoader.Installer.exe and Follow the Instructions.
+- Down due to Microsoft Windows Defender breaking it with a False Positive.
+- Will be back soon.
+- Until then refer to another installer or try Manual Installation below.
+
 
 # Manual Installation
 
