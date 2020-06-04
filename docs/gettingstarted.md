@@ -8,8 +8,8 @@ To use it, you will first need to install it to the desired game.
 
 # Automated Installation
 
-- Down due to Microsoft Windows Defender breaking it with a False Positive.
-- Will be back soon.
+- Down due to Microsoft Windows Defender and NortonLifeLock Symantec breaking it with a False Positive.
+- The Installer will be back soon after we get this resolved.
 - Until then refer to another installer or try Manual Installation below.
 
 
