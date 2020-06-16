@@ -3,7 +3,7 @@
 Here is the list of persons that have helped in any way to the creation of MelonLoader:
 
 ### Lava Gang (Staff)
-- Herp Derpinstine: Creator and main developer of MelonLoader
+- Herp Derpinstine: Creator and Main Developer of MelonLoader
 - knah: Developer of Il2CppAssemblyUnhollower
 - Camobiwon: Owner of the BONEWORKS community discord
 - Charlie: Admin of the BONEWORKS server
@@ -24,9 +24,8 @@ Here is the list of persons that have helped in any way to the creation of Melon
 
 ### MelonLoader Modders
 - kronik: Developer of MelonLoader
-- zeobviouslyfakeacc: Harmony patching for Il2Cpp (currently unreleased)
+- zeobviouslyfakeacc: Harmony patching for Il2Cpp
 
 ### Outsiders
-- Atilion: winnmm proxy
 - Perfare: Developer of Il2CppDumper
 - pardeike: Developer of Harmony
