@@ -35,7 +35,7 @@ To use it, you will first need to install it to the desired game.
 
 # Launch commands
 
-MelonLoader has some launch arguments, as defined here:
+- MelonLoader has some launch arguments, as defined here:
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
