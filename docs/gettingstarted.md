@@ -4,14 +4,6 @@
 - In order to run MelonLoader you must have [Microsoft Visual C++ 2015-2019 Redistributable](https://aka.ms/vs/16/release/vc_redist.x64.exe) installed.
 
 
-# Getting Started
-
-MelonLoader is a Mod loader working on most Unity games both Il2Cpp and Mono.  
-To use it, you will first need to install it to the desired game.
-
-!> Please note that MelonLoader doesn't do anything on its own. You will have to install some mods to make changes to your game.
-
-
 # Automated Installation
 
 1. Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
