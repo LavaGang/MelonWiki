@@ -1,3 +1,9 @@
+# Requirements
+
+- In order to run the Automated Installer and MelonLoader you must have .NET Framework 4.7.2 Runtime installed.
+- In order to run MelonLoader you must have Microsoft Visual C++ 2015-2019 Redistributable installed.
+
+
 # Getting Started
 
 MelonLoader is a mod loader working on most unity games. It has initially been designed to focus Il2Cpp games, but also supports Mono games.<br/>
@@ -8,21 +14,19 @@ To use it, you will first need to install it to the desired game.
 
 # Automated Installation
 
-- Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
-- Run MelonLoader.Installer.exe and Follow the Instructions.
+1. Download MelonLoader.Installer.exe from the latest version in [Releases](https://github.com/HerpDerpinstine/MelonLoader/releases).
+2. Run MelonLoader.Installer.exe.
+3. Click the SELECT button.
+4. Select and Open the Game's EXE in your Game's Installation Folder.
+5. Select which Version of MelonLoader to install using the Drop-Down List.  (Or leave it as-is for the Latest Version.)
+6. Click the INSTALL or RE-INSTALL button.
 
 
 # Manual Installation
 
-### Il2Cpp Games
-
-- Download [MelonLoader.Il2Cpp.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Il2Cpp.zip)
-- Extract MelonLoader.Il2Cpp.zip to the Game's Installation Folder.
-
-### Mono Games
-
-- Download [MelonLoader.Mono.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Mono.zip)
-- Extract MelonLoader.Mono.zip to the Game's Installation Folder.
+1. Download MelonLoader.zip from the latest version in [Releases](https://github.com/HerpDerpinstine/MelonLoader/releases).
+2. Extract the MelonLoader folder from MelonLoader.zip to the Game's Installation Folder.
+3. Extract version.dll from MelonLoader.zip to the Game's Installation Folder.
 
 
 # Contact
@@ -31,13 +35,16 @@ To use it, you will first need to install it to the desired game.
 
 # Launch commands
 
-MelonLoader have a few launch arguments, as defined here:
+MelonLoader has some launch arguments, as defined here:
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
-| --no-mods             | Launch game without loading Mods         |
-| --melonloader.debug   | Debug Console                            |
-| --melonloader.quitfix   | Fixes the Hanging Process Issue with some Games |
-| --melonloader.maxlogs   | Max Log Files   [ Default: 10 ] [ Disable: 0 ] |
-| --melonloader.rainbow | Rainbow Console Color                |
+| --no-mods | Launch game without loading Mods |
+| --quitfix | Fixes the Hanging Process Issue with some Games |
+| --melonloader.hideconsole | Hides the Normal Console |
+| --melonloader.debug | Debug Console |
+| --melonloader.rainbow | Rainbow Console Color |
 | --melonloader.randomrainbow | Random Rainbow Console Color |
+| --melonloader.maxlogs | Max Log Files   [ Default: 10 ] [ Disable: 0 ] |
+| --melonloader.devmodsonly | Loads only Mods with the "-dev.dll" extension |
+| --melonloader.agregenerate | Forces Assembly to be Regenerated on Il2Cpp Games |
