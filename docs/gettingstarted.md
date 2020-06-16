@@ -6,7 +6,7 @@
 
 # Getting Started
 
-MelonLoader is a mod loader working on most unity games. It has initially been designed to focus Il2Cpp games, but also supports Mono games.<br/>
+MelonLoader is a Mod loader working on most Unity games both Il2Cpp and Mono.  
 To use it, you will first need to install it to the desired game.
 
 !> Please note that MelonLoader doesn't do anything on its own. You will have to install some mods to make changes to your game.
