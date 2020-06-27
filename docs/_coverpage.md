@@ -10,4 +10,4 @@
 - Made and used by multiple game communities
 
 [Discord](https://discord.gg/2Wn3N2P)
-[Get Started](#getting-started)
+[Get Started](#requirements)
