@@ -16,4 +16,6 @@
 | [CppExplorer](https://github.com/sinaioutlander/CppExplorer/releases)           | [sinaioutlander](https://github.com/sinaioutlander) | An in-game explorer and a suite of debugging tools for IL2CPP Unity games, using MelonLoader.                                                                                                                 |  |  |
 
 - Mono Mods:
- - No mods available yet
+| Name                                                                            | Author                                              | Description                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [MonoExplorer](https://github.com/sinai-dev/MonoExplorer/releases)           | [sinai-dev](https://github.com/sinai-dev) | An in-game explorer and a suite of debugging tools for Mono Unity games, using MelonLoader.                                                                                                                 |  |  |
