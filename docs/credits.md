@@ -23,6 +23,8 @@ Here is the list of persons that have helped in any way to the creation of Melon
 ### MelonLoader Modders
 - kronik: Developer of MelonLoader
 - zeobviouslyfakeacc: Harmony patching for Il2Cpp
+- Sinai: Creator of CppExplorer and MonoExplorer
+- KortyBoi: Creator of XSOverlayTitleHider and GamePriority
 
 ### Outsiders
 - Perfare: Developer of Il2CppDumper
