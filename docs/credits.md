@@ -21,7 +21,6 @@ Here is the list of persons that have helped in any way to the creation of Melon
 - Hordini: Community Manager, does most of the discord support
 
 ### MelonLoader Modders
-- kronik: Developer of MelonLoader
 - zeobviouslyfakeacc: Harmony patching for Il2Cpp
 - Sinai: Creator of CppExplorer and MonoExplorer
 - KortyBoi: Creator of XSOverlayTitleHider and GamePriority
