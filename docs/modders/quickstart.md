@@ -19,7 +19,7 @@ To do that, go to the `Properties` directory, and add these two lines to the `As
 using MelonLoader;
 // ...
 [assembly: MelonModInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
-[assembly: MelonModGame("GameName", "GameStudio")]
+[assembly: MelonModGame("GameStudio", "GameName")]
 ```
 MelonModInfo contains 4 parameters:
 - `MyMod`: The main class of your mod. We will talk about it later
@@ -28,8 +28,8 @@ MelonModInfo contains 4 parameters:
 - `Author Name`: The name of author of the mod
 
 MelonModGame contains 2 parameters:
-- `GameName`: The name of the game, as defined in the Unity settings.
 - `GameStudio`: The name of the developer(s) of the game, as defined in the Unity settings.
+- `GameName`: The name of the game, as defined in the Unity settings.
 
 ?> You can get the value of `GameName` and `GameStudio` on the top of the Logs file.<br/>You can also set these two parameters to `null` if you want you mod to be Universal.
 
