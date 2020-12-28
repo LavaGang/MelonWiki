@@ -18,8 +18,8 @@ To do that, go to the `Properties` directory, and add these two lines to the `As
 ```cs
 using MelonLoader;
 // ...
-[assembly: MelonModInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
-[assembly: MelonModGame("GameStudio", "GameName")]
+[assembly: MelonInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
+[assembly: MelonGame("GameStudio", "GameName")]
 ```
 MelonModInfo contains 4 parameters:
 - `MyMod`: The main class of your mod. We will talk about it later
