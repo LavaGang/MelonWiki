@@ -18,16 +18,16 @@ To do that, go to the `Properties` directory, and add these two lines to the `As
 ```cs
 using MelonLoader;
 // ...
-[assembly: MelonModInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
-[assembly: MelonModGame("GameStudio", "GameName")]
+[assembly: MelonInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
+[assembly: MelonGame("GameStudio", "GameName")]
 ```
-MelonModInfo contains 4 parameters:
+MelonInfo contains 4 parameters:
 - `MyMod`: The main class of your mod. We will talk about it later
 - `My Mod Name`: The name of your mod
 - `version`: The version of the mod. It should respect the [semver format](https://semver.org/) (example: `1.0.0`)
 - `Author Name`: The name of author of the mod
 
-MelonModGame contains 2 parameters:
+MelonGame contains 2 parameters:
 - `GameStudio`: The name of the developer(s) of the game, as defined in the Unity settings.
 - `GameName`: The name of the game, as defined in the Unity settings.
 
