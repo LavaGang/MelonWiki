@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600");
+
+.markdown-section code {
+	font-weight: 400 !important;
+}
+
+.markdown-section p.tip code {
+	background-color: var(--codeBackgroudColor);
+	font-family: var(--codeFontFamily)
+}
+
+.cover-main {
+	color: #34495e;
+}
+
+.cover-main > h1 > a > span {
+	color: #34495e;
+}

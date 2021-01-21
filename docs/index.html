@@ -6,8 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="The MelonLoader Wiki">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-  <link rel=icon href="_media/icon.webp" /> 
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />
+  <link rel=icon href="_media/icon.webp" />
+  <!--<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css" />
+  <!--<link rel="stylesheet" href="/prism-atom-dark.css" title="prism-atom-dark" type="text/css">-->
+  <link rel="stylesheet" href="/prism-vs-darklight.css">
+  <link rel="stylesheet" href="/style.css" />
+  
 </head>
 <body>
   <div id="app"></div>
@@ -15,14 +20,75 @@
     window.$docsify = {
       name: 'MelonLoader Wiki',
       repo: 'https://github.com/Slaynash/MelonWiki',
-	  loadSidebar: true,
-	  coverpage: true,
-	  homepage: 'gettingstarted.md',
-      subMaxLevel: 3
+  	  loadSidebar: true,
+	    coverpage: true,
+	    homepage: 'gettingstarted.md',
+      subMaxLevel: 3,
+      darklightTheme: {
+        siteFont: 'Dosis, Source Sans Pro',
+        bodyFontSize: '15px',
+        codeFontFamily: 'Roboto Mono, Monaco, courier, monospace',
+        dark: {
+          //background: '#2A3339',
+          highlightColor: "#EEEEEA",
+          coverBackground: 'linear-gradient(to left bottom, hsl(138, 100%, 85%) 0%,hsl(120, 100%, 85%) 100%)',
+
+          codeBackgroundColor: '#1E1E1E',
+          codeTextColor: '#DCDCDA',
+
+          // C#
+          codeCommentColor: '#23A658',
+          codeStringColor: '#EA9D78',
+          codeFunctionColor: '#A0D7A7',
+          codeClassnameColor: '#13C9C6',
+          codeKeywordColor: "#439CE2",
+          codePreprocessorpropertyColor: '#9B9B99',
+
+          // Css
+          cssAtruleColor: '#439CE2', // codeKeywordColor;
+          cssForegroundColor: '#C8C8C6',
+          cssSelectorColor: '#D8BA76',
+          cssPropertyColor: '#67DCFF',
+
+          // Markup (HTML, XML)
+          codeDoctypeColor: '#13C9C6', // codeClassnameColor
+          codeMarkuptagColor: '#439CE2', // codeKeywordColor
+          codeAttrnameColor: '#87DCFF',
+          codeMarkuppunctuationColor: '#80807F',
+          codeMarkupattrvalueColor: '#C8C8C6' // cssForegroundColor
+        },
+        light: {
+          codeBackgroundColor: '#FFFFFC',
+          codeForegroundColor:'#000',
+          coverBackground: 'linear-gradient(to left bottom, hsl(138, 100%, 85%) 0%,hsl(120, 100%, 85%) 100%)',
+
+          // C#
+          codeCommentColor: '#008016',
+          codeStringColor: '#E11500',
+          codeFunctionColor: '#785318',
+          codeClassnameColor: '#0491C1',
+          codeKeywordColor: '#3200FF',
+          codePreprocessorpropertyColor: '#80807F',
+
+          // Css
+          cssAtruleColor: '#3200FF', // codeKeywordColor
+          cssForegrounColord: '#3200FF',
+          cssSelectorColor: '#B80000',
+          cssPropertyColor: "#B80000", // cssSelectorColor
+
+          // Markup (HTML, XML)
+          codeDoctypeColor: '#0491C1', // codeClassnameColor
+          codeMarkuptagColor: "#B80000", // cssSelectorColor
+          codeAttrnameColor: '#FF0000',
+          codeMarkuppunctuationColor: '#3200FF', // codeKeywordColor
+          codeMarkupattrvalueColor: '#3200FF' // codeKeywordColor
+        }
+      }
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-batch.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-csharp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"></script>
 </body>
 </html>

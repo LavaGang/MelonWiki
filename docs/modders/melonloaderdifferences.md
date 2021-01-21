@@ -4,10 +4,57 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 > If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _Slaynash#2879_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
 
-### Custom Components
+### Custom Components / Il2Cpp type inheritance
 
-Custom components (and custom Types in general) are currently not supported by MelonLoader over Il2Cpp.<br/>
-This means you can't create a new class that extends `Component`, `MonoBehaviour`, or another existing Il2Cpp type.
+> For more infos, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
+
+When making a class inheriting from an Il2Cpp type, we have to respect the 4 following rules:
+ - Inherit from a non-abstract IL2CPP class
+ - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
+ - Register the class before using it, using `ClassInjector.RegisterTypeInIl2Cpp<T>()`
+ - If you need to instantiate it from the mono-side, you need to have a constructor calling `ClassInjector.DerivedConstructorPointer<T>()` and `ClassInjector.DerivedConstructorBody(this)`
+
+Here is a very basic example:
+```cs
+class MyCustomComponent : MonoBehaviour
+{
+    public MyCustomComponent(IntPtr ptr) : base(ptr) {}
+
+    // Optional, only used in case you want to instantiate this class in the mono-side
+    // Don't use this on MonoBehaviours / Components!
+    public MyCustomComponent() : base(ClassInjector.DerivedConstructorPointer<MyCustomComponent>()) => ClassInjector.DerivedConstructorBody(this);
+
+    // Code, same as in a normal component
+}
+```
+
+A good practice is to call `ClassInjector.RegisterTypeInIl2Cpp<T>()` the earlier possible, to avoid any issue.<br/>
+In a mod, this would looks like this:
+```cs
+class MyMod : MelonMod
+{
+    public override void OnApplicationStart()
+    {
+        ClassInjector.RegisterTypeInIl2Cpp<MyCustomComponent>();
+
+        // ...
+
+        // And then, add it to a component:
+        ourGameObject.AddComponent<MyCustomComponent>();
+
+        // Or in case you want to instantiate it:
+        new MyCustomComponent(); // Requires the default constructor shown above
+    }
+}
+```
+
+Limitations:
+ - Interfaces can't be implemented
+ - Virtual methods can't be overridden
+ - Only instance methods are exposed to IL2CPP side - no fields, properties, events or static methods will be visible to IL2CPP reflection
+ - Only a limited set of types is supported for method signatures
+
+If you don't want to expose a method to the Il2Cpp side (either because it's not required or to avoid errors), you can add the `[HideFromIl2Cpp]` attribute to the method
 
 ### Coroutines
 

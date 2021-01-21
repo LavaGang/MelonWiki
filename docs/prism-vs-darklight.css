@@ -1,0 +1,77 @@
+code[class*="lang-"] {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background: var(--codeBackgroundColor);
+    color: var(--codeTextColor);
+}
+
+.token.punctuation {
+    color: var(--codeTextColor);
+}
+
+.token.comment {
+    color: var(--codeCommentColor);
+}
+
+.token.string {
+    color: var(--codeStringColor);
+}
+
+.token.function {
+    color: var(--codeFunctionColor);
+}
+
+.token.class-name {
+    color: var(--codeClassnameColor);
+}
+
+.token.doctype, .token.prolog {
+    color: var(--codeDoctypeColor);
+}
+
+.token.keyword {
+    color: var(--codeKeywordColor);
+}
+
+.token.preprocessor.property {
+    color: var(--codePreprocessorpropertyColor);
+}
+
+.token.preprocessor.property.keyword {
+    color: var(--codePreprocessorpropertyColor);
+}
+
+.token.selector {
+    color: var(--cssSelectorColor);
+}
+
+.token.atrule {
+    color: var(--cssArtuleColor);
+}
+
+.token.tag {
+    color: var(--codeMarkuptagColor);
+}
+
+.token.attr-name {
+    color: var(--codeAttrnameColor);
+}
+
+.token.attr-value {
+    color: var(--codeMarkupattrvalueColor);
+}
+
+code[class*="lang-css"] {
+    color: var(--cssForegroundColor);
+}
+
+code[class*="lang-css"].token.property {
+    color: var(--cssPropertyColor);
+}
+
+code[class*="lang-css"].token.property {
+    color: var(--cssForegroundColor);
+}
+
+code[class*="lang-markup"].token.punctuation {
+    color: var(--codeMarkuppunctuationColor);
+}

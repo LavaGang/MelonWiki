@@ -71,6 +71,7 @@ Thanks to Il2CppAssemblyUnhollower, we have a fair pack of generated proxy assem
 
 Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
+> Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
 
 ```cs
 public override void OnUpdate()
