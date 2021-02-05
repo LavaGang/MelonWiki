@@ -161,7 +161,7 @@ MyComponent.AddUnityEvent(new System.Action<Component>(component => {
 
 !> This code is subject to change and become easier with the upcoming updates
 
-Event in unity are kinda similar to properties.<br/>
+Events in unity are kinda similar to properties.<br/>
 let's imagine you have an `event Action<Player> onPlayerJoin;`. This code will generate the following methods:
  - `add_onPlayerJoin(Action<Player>)`: equivalent of doing `onPlayerJoin +=`
  - `remove_onPlayerJoin(Action<Player>)`: equivalent of doing `onPlayerJoin -=`
@@ -174,7 +174,7 @@ public void add_onPlayerJoin(Il2CppSystem.Action<Player> value) { /* does stuff 
 public void remove_onPlayerJoin(Il2CppSystem.Action<Player> value) { /* does stuff with onPlayerJoin */ }
 ```
 
-In case we want to add an event calling `void MyEventListener(Player player)`, we now have to do the following:
+In the case we want to add an event calling `void MyEventListener(Player player)`, we now have to do the following:
 ```cs
 playerManagerInstance.add_onPlayerJoin(new Action<Player>(MyEventListener));
 // ...
