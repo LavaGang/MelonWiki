@@ -1,7 +1,3 @@
-# Disclaimer
-
-!> Modding Phasmophobia is neither supported by MelonLoader or the developers of Phasmophobia due to the number of cheaters, **do not** attempt to mod Phasmophobia with MelonLoader
-
 # Requirements
 
 - In order to run the Automated Installer and MelonLoader you must have [.NET Framework 4.7.2 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net472) installed.
