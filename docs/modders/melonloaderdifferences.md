@@ -27,9 +27,9 @@ For methods:
 - All of these are separated by underscores
 
 For classes:
-- Names will start with the inherited type or `Enum` for enums, or `Interface` for interfaces
+- Names will start with the inherited type or `Enum` for enums, or `Interface` for interfaces. If the type inherited is obfuscated the name will start with the first non-obfuscated name with an integer representing the inheritance depth to get to the non-obfuscated class.
 - Then the access modifier/s
-- Then the first 2 letters of various members listed limited to 10 members
+- Then the first 2 letters of various members listed limited to 10 members. If an enum has a number it will be the number of entries minus one
 - Then `Unique` if the name is unique, or if there is another class with the same name, an integer
 
 ### Custom Components / Il2Cpp Type Inheritance
