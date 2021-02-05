@@ -4,9 +4,37 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 > If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _Slaynash#2879_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
 
+### Il2CppAssemblyUnhollower Generated Names
+
+> You may ignore this section if your game is not obfuscated
+
+Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from il2cpp code. It will automatically assign auto-generated to obfuscated names. 
+
+The names are generated following certain rules:
+For fields and properties:
+- Names will start with `field` for fields, and `prop` for properties
+- Then it will be the access modifier: `Public`, `Private`, etc.
+- Then it will have an integer which is added to prevent name overlap
+- All of these are split by underscores
+
+For methods:
+- Names will start with `Method`
+- Then the access modifier/s listed, separated by underscores
+- Then a list of the parameter Types in order, separated by underscores
+- Then the return type
+- Optionally, there will be `PDM`, standing for "Possibly Dead Method", which is added if there is no reference to the method in the code, but not that inline references are not counted as references due to limitations and methods with `PDM` may still be called by the game
+- Then it will have an integer which is added to prevent name overlap
+- All of these are separated by underscores
+
+For classes:
+- Names will start with the inherited type or `Enum` for enums, or `Interface` for interfaces
+- Then the access modifier/s
+- Then the first 2 letters of various members listed limited to 10 members
+- Then `Unique` if the name is unique, or if there is another class with the same name, an integer
+
 ### Custom Components / Il2Cpp type inheritance
 
-> For more infos, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
+> For more info, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
 
 When making a class inheriting from an Il2Cpp type, we have to respect the 4 following rules:
  - Inherit from a non-abstract IL2CPP class
