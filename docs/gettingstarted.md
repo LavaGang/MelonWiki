@@ -52,7 +52,7 @@ MelonLoader has some launch arguments, listed here:
 | --melonloader.agregenerate | Forces Assembly to be Regenerated on Il2Cpp Games |
 | --melonloader.agfvunhollower | Forces use a Specified Version of Il2CppAssemblyUnhollower |
 | --melonloader.consoleontop | Forces the Console over all other Applications |
-
+<br>
 MelonLoader 0.3.0 has slightly different launch arguments, listed here:
 
 | Argument              | Description                              |
