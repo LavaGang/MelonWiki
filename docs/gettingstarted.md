@@ -13,6 +13,7 @@
 5. Select which Version of MelonLoader to install using the Drop-Down List.  (Or leave it as-is for the Latest Version.)
 6. Click the INSTALL or RE-INSTALL button.
 
+?> If you would like to install MelonLoader 0.3.0 (practically required for VRChat modding) turn on `Show ALPHA Pre-Releases` in the installer settings
 
 # Manual Installation
 
@@ -27,16 +28,48 @@
 
 # Launch commands
 
-- MelonLoader has some launch arguments, as defined here:
+MelonLoader has some launch arguments, listed here:
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
-| --no-mods | Launch game without loading Mods |
-| --quitfix | Fixes the Hanging Process Issue with some Games |
-| --melonloader.hideconsole | Hides the Normal Console |
-| --melonloader.debug | Debug Console |
-| --melonloader.rainbow | Rainbow Console Color |
-| --melonloader.randomrainbow | Random Rainbow Console Color |
-| --melonloader.maxlogs | Max Log Files   [ Default: 10 ] [ Disable: 0 ] |
-| --melonloader.devmodsonly | Loads only Mods with the "-dev.dll" extension |
+| --no-mods	| Launch game without loading Mods |
+| --quitfix	| Fixes the Hanging Process Issue with some Games |
+| --melonloader.hideconsole	| Hides the Normal Console |
+| --melonloader.hidewarnings | Hides Warnings from Displaying |
+| --melonloader.debug	| Debug Mode/Console |
+| --melonloader.magenta	| Magenta Console Color |
+| --melonloader.rainbow	| Rainbow Console Color |
+| --melonloader.randomrainbow	| Random Rainbow Console Color |
+| --melonloader.maxlogs	| Max Log Files [ Default: 10 ] [ Disable: 0 ] |
+| --melonloader.maxwarnings	| Max Warnings per Log File [ Default: 100 ] [ Disable: 0 ] |
+| --melonloader.maxerrors	| Max Errors per Log File [ Default: 100 ] [ Disable: 0 ] |
+| --melonloader.loadmodeplugins	| Load Mode for Plugins [ Default: 0 ] |
+| --melonloader.loadmodemods | Load Mode for Mods [ Default: 0 ] |
 | --melonloader.agregenerate | Forces Assembly to be Regenerated on Il2Cpp Games |
+| --melonloader.agfvunhollower | Forces use a Specified Version of Il2CppAssemblyUnhollower |
+| --melonloader.consoleontop | Forces the Console over all other Applications |
+
+
+MelonLoader 0.3.0 has slightly different launch arguments, listed here:
+
+| Argument              | Description                              |
+| --------------------- | ---------------------------------------- |
+| --no-mods	| Launch game without loading any Plugins Mods |
+| --quitfix	| Fixes the Hanging Process Issue with some Games |
+| --melonloader.consoleontop | Forces the Console to always stay on-top of all other Applications |
+| --melonloader.hideconsole	| Hides the Console |
+| --melonloader.hidewarnings | Hides Warnings from Displaying |
+| --melonloader.debug	| Debug Mode |
+| --melonloader.dab	| Debug Analytics Blocker |
+| --melonloader.magenta	| Magenta Console Color |
+| --melonloader.rainbow	| Rainbow Console Color |
+| --melonloader.randomrainbow	| Random Rainbow Console Color |
+| --melonloader.maxlogs	| Max Log Files [ Default: 10 ] [ Disable: 0 ] |
+| --melonloader.maxwarnings	| Max Warnings per Log File [ Default: 100 ] [ Disable: 0 ] |
+| --melonloader.maxerrors	| Max Errors per Log File [ Default: 100 ] [ Disable: 0 ] |
+| --melonloader.loadmodeplugins | Load Mode for Plugins [ Default: 0 ] |
+| --melonloader.loadmodemods | Load Mode for Mods [ Default: 0 ] |
+| --melonloader.agfregenerate	| Forces Regeneration of Assembly |
+| --melonloader.agfvunity	| Forces use a Specified Version of Unity Dependencies |
+| --melonloader.agfvdumper | Forces use a Specified Version of Dumper |
+| --melonloader.agfvunhollower | Forces use a Specified Version of Il2CppAssemblyUnhollower |
