@@ -8,7 +8,7 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 ?> You may ignore this section if your game is not obfuscated
 
-Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from il2cpp code. It will automatically assign auto-generated to obfuscated names. 
+Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
 
 The names are generated following certain rules:
 For fields and properties:
@@ -37,7 +37,7 @@ For classes:
 > For more info, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
 
 When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
- - Inherit from a non-abstract IL2CPP class
+ - Inherit from a non-abstract Il2Cpp class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
  - Register the class before using it, using `ClassInjector.RegisterTypeInIl2Cpp<T>()`
  - If you need to instantiate it from the mono-side, you need to have a constructor calling `ClassInjector.DerivedConstructorPointer<T>()` and `ClassInjector.DerivedConstructorBody(this)`
