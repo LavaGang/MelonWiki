@@ -10,4 +10,5 @@
     - [MelonLoader differences](modders/melonloaderdifferences.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
+    - [Xref Scanning](modders/xrefscanning.md)
 - [Credits](credits.md)
