@@ -6,7 +6,7 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 ### Il2CppAssemblyUnhollower Generated Names
 
-> You may ignore this section if your game is not obfuscated
+?> You may ignore this section if your game is not obfuscated
 
 Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from il2cpp code. It will automatically assign auto-generated to obfuscated names. 
 
@@ -32,11 +32,11 @@ For classes:
 - Then the first 2 letters of various members listed limited to 10 members
 - Then `Unique` if the name is unique, or if there is another class with the same name, an integer
 
-### Custom Components / Il2Cpp type inheritance
+### Custom Components / Il2Cpp Type Inheritance
 
 > For more info, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
 
-When making a class inheriting from an Il2Cpp type, we have to respect the 4 following rules:
+When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
  - Inherit from a non-abstract IL2CPP class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
  - Register the class before using it, using `ClassInjector.RegisterTypeInIl2Cpp<T>()`
@@ -56,8 +56,8 @@ class MyCustomComponent : MonoBehaviour
 }
 ```
 
-A good practice is to call `ClassInjector.RegisterTypeInIl2Cpp<T>()` the earlier possible, to avoid any issue.<br/>
-In a mod, this would looks like this:
+A good practice is to call `ClassInjector.RegisterTypeInIl2Cpp<T>()` as early as possible to avoid issue.<br/>
+In a mod, it would look like this:
 ```cs
 class MyMod : MelonMod
 {
@@ -80,7 +80,7 @@ Limitations:
  - Interfaces can't be implemented
  - Virtual methods can't be overridden
  - Only instance methods are exposed to IL2CPP side - no fields, properties, events or static methods will be visible to IL2CPP reflection
- - Only a limited set of types is supported for method signatures
+ - Only a limited set of types are supported for method signatures
 
 If you don't want to expose a method to the Il2Cpp side (either because it's not required or to avoid errors), you can add the `[HideFromIl2Cpp]` attribute to the method
 
@@ -106,7 +106,7 @@ Note: you can use the Mono type directly in case of generic method:
 Resources.FindObjectsOfTypeAll<Camera>();
 ```
 
-### Il2Cpp types and casting
+### Casting Il2Cpp Types
 
 In a standard Mono game, casting is quite easy.<br/>
 Let's say we have a class `MyChildClass`, which inherit from `MyParentClass`.<br />
@@ -129,7 +129,7 @@ MyChildClass childInstanceCasted = childInstance.Cast<MyChildClass>();
 
 ### System.String vs Il2CppSystem.String
 
-in a lot of languages, the type `string` is used the same way as if it was a primitive type. This isn't a primitive type, so the same rules as Il2Cpp objects apply.
+in a lot of languages, the type `string` is used the same way as if it was a primitive type. `string` isn't a primitive type, so the same rules as Il2Cpp objects apply.
 
 Most methods that was asking for a `string` (`System.String`) will now ask for an `Il2CppSystem.String`. Thankfully, `Il2CppSystem.String` has an explicit cast for `string`.<br/>
 This means we can use it like this:
@@ -139,7 +139,7 @@ Debug.Log((Il2CppSystem.String) "Hello World!");
 
 ### Actions
 
-We know, you all love those delegates. Except they don't work as-is with Il2Cpp.
+We know, you all love delegates. Except they do not work as-is with Il2Cpp.
 
 Most Unity events have an implicit cast of `System.Action`, which is a delegate type.<br>
 The current issue is that an Il2Cpp event will now take an `Il2CppSystem.Action`, which isn't a delegate type anymore. We will have to use the implicit cast of `Il2CppSystem.Action` to cast an `System.Action`.
