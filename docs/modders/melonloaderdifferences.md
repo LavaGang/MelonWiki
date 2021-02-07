@@ -8,14 +8,14 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 ?> You may ignore this section if your game is not obfuscated
 
-Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
+Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated names to obfuscated names. 
 
-The names are generated following certain rules:
+The names are generated following certain rules:<br>
 For fields and properties:
 - Names will start with `field` for fields, and `prop` for properties
 - Then it will be the access modifier: `Public`, `Private`, etc.
 - Then it will have an integer which is added to prevent name overlap
-- All of these are split by underscores
+- All of these are separated by underscores
 
 For methods:
 - Names will start with `Method`
@@ -27,9 +27,9 @@ For methods:
 - All of these are separated by underscores
 
 For classes:
-- Names will start with the inherited type or `Enum` for enums, or `Interface` for interfaces. If the type inherited is obfuscated the name will start with the first non-obfuscated name with an integer representing the inheritance depth to get to the non-obfuscated class.
+- Names will start with the inherited type or `Enum` for enums, or `Interface` for interfaces. If the type inherited is obfuscated the name will start with the first non-obfuscated name with an integer representing the inheritance depth needed to get to the non-obfuscated class.
 - Then the access modifier/s
-- Then the first 2 letters of various members listed limited to 10 members. If an enum has a number it will be the number of entries minus one
+- Then the first 2 letters of various members listed limited to 10 members. If an enum has a number it will be the number of entries minus one, the member order is pseudo-random
 - Then `Unique` if the name is unique, or if there is another class with the same name, an integer
 
 ### Custom Components / Il2Cpp Type Inheritance
