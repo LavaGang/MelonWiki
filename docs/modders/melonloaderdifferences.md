@@ -22,7 +22,7 @@ For methods:
 - Then the access modifier/s listed, separated by underscores
 - Then a list of the parameter Types in order, separated by underscores
 - Then the return type
-- Optionally, there will be `PDM`, standing for "Possibly Dead Method", which is added if there is no reference to the method in the code, but not that inline references are not counted as references due to limitations and methods with `PDM` may still be called by the game
+- Optionally, there will be `PDM`, standing for "Possibly Dead Method", which is added if there is no reference to the method in the code, but note that inline references are not counted as references due to limitations and methods with `PDM` may still be called by the game
 - Then it will have an integer which is added to prevent name overlap
 - All of these are separated by underscores
 
