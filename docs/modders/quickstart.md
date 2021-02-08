@@ -98,3 +98,12 @@ public override void OnUpdate()
 ```
 
 You now have a mod that prints "You just pressed T" when you, well press the T key!
+
+### Mod Preferences 
+
+> If you are modding using MelonLoader 0.3.0, please refer to [Mod Preferences in MelonLoader 0.3.0](quickstart.md?id=Mod-Preferences-in-MelonLoader-0.3.0)
+
+Often times when developing a mod, it is preferable to have some kind of config the user can edit.<br>
+Luckily with MelonLoader, there is a built-in way to do this using the `MelonPrefs`.<br>
+
+### Mod Preferences in MelonLoader 0.3.0
