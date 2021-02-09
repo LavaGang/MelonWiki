@@ -104,6 +104,28 @@ You now have a mod that prints "You just pressed T" when you, well press the T k
 > If you are modding using MelonLoader 0.3.0, please refer to [Mod Preferences in MelonLoader 0.3.0](quickstart.md?id=Mod-Preferences-in-MelonLoader-0.3.0)
 
 Often times when developing a mod, it is preferable to have some kind of config the user can edit.<br>
-Luckily with MelonLoader, there is a built-in way to do this using the `MelonPrefs`.<br>
+Luckily with MelonLoader, there is a built-in way to do this using the `MelonPrefs` class.
+MelonLoader will save these preferences in `UserData\modprefs.ini`.<br>
+To make a preference you first register a category using `RegisterCategory()`, then you can save preferences to that category using `RegisterInt()`, `RegisterFloat()`, `RegisterBool()` and `RegisterString()`.
+
+Here's an example that will register the integer `intPreference` with the default value of 100, to the `MyMod` category, which will display as `MyMod Settings`.
+```cs
+// As early as possible, likely in OnApplicationStart()
+string myCategory = "MyMod";
+
+MelonPrefs.RegisterCategory(myCategory, "MyMod Settings");
+MelonPrefs.RegisterInt(myCategory, "intPreference", 100, "My int preference");
+```
+
+To access this newly saved preference, just use `GetInt()` or, `GetBool()`, `GetFloat()`, or `GetString()` respectively.
+```cs
+int myInt = MelonPrefs.GetInt(myCategory, "intPreference");
+```
+
+Keep in mind that the override `OnModSettingsApplied()` is run when mod preferences are saved, so make sure to take advantage of this in your mods.
+
+?> Multiple categories or preferences with the same name will cause errors!
 
 ### Mod Preferences in MelonLoader 0.3.0
+
+> Not done 
