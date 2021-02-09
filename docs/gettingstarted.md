@@ -17,11 +17,14 @@
 
 # Manual Installation
 
-1. If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) and if your game is 64bit download [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip)
+1. - If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) 
+   - If your game is 64bit download either: <br> 
+     - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip) for Melonloader 0.3.0 <br>
+     - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.2.7.4/MelonLoader.x64.zip) for Melonloader 0.2.7.4
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
 3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
-(If you aren't sure if your game is 32bit or 64bit an easy way is to open task manager and if your game is 32bit it'll say `Among Us.exe (32 bit)` for example and just `VRChat.exe` for example if it's 64bit)
+?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `VRChat.exe`
 
 # Contact
 ?> If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!
