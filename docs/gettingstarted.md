@@ -13,14 +13,15 @@
 5. Select which Version of MelonLoader to install using the Drop-Down List.  (Or leave it as-is for the Latest Version.)
 6. Click the INSTALL or RE-INSTALL button.
 
-?> If you would like to install MelonLoader 0.3.0 (practically required for VRChat modding) turn on `Show ALPHA Pre-Releases` in the installer settings
+?> If you would like to install MelonLoader 0.3.0 (required for 32bit games and practically required for VRChat modding) turn on `Show ALPHA Pre-Releases` in the installer settings
 
 # Manual Installation
 
-1. Download [MelonLoader.zip](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.zip).
-2. Extract the MelonLoader folder from MelonLoader.zip to the Game's Installation Folder.
-3. Extract version.dll from MelonLoader.zip to the Game's Installation Folder.
+1. If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) and if your game is 64bit download [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip)
+2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
+3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
+(If you aren't sure if your game is 32bit or 64bit an easy way is to open task manager and if your game is 32bit it'll say `Among Us.exe (32 bit)` for example and just `VRChat.exe` for example if it's 64bit)
 
 # Contact
 ?> If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!
