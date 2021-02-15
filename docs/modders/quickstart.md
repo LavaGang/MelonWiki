@@ -111,13 +111,15 @@ To make a preference you first register a category using `RegisterCategory()`, t
 Here's an example that will register the integer `intPreference` with the default value of 100, to the `MyMod` category, which will display as `MyMod Settings`.
 ```cs
 // As early as possible, likely in OnApplicationStart()
-string myCategory = "MyMod";
+string myCategory = "MyMod"; // This will serve as a sort of ID for your category
 
-MelonPrefs.RegisterCategory(myCategory, "MyMod Settings");
-MelonPrefs.RegisterInt(myCategory, "intPreference", 100, "My int preference");
+MelonPrefs.RegisterCategory(myCategory, "MyMod Settings"); 
+
+int myInt = 100; // The int here is the default value
+MelonPrefs.RegisterInt(myCategory, "intPreference", myInt, "My int Preference."); 
 ```
 
-To access this newly saved preference, just use `GetInt()` or, `GetBool()`, `GetFloat()`, or `GetString()` respectively.
+To access this newly saved preference, just use `GetInt()`, `GetBool()`, `GetFloat()`, or `GetString()` respectively.
 ```cs
 int myInt = MelonPrefs.GetInt(myCategory, "intPreference");
 ```
@@ -128,4 +130,66 @@ Keep in mind that the override `OnModSettingsApplied()` is run when mod preferen
 
 ### Mod Preferences in MelonLoader 0.3.0
 
-> Not done 
+There are a few differences between preferences in MelonLoader 0.2.7.4 and MelonLoader 0.3.0, most notably, the ability to define deserializers and serializers for custom classes.<br>
+A few other differences are:
+- Preferences are now saved in the TOML, instead of ini, format.
+- Some Unity classes are already mapped. Specifically, `Vector4`, `Vector3`, `Vector2`, `Quaternion`, `Color` and `Color32`.
+- And of course, the functions used to do this are different.
+
+First let's walk through storing a `Color` in a preference.<br>
+Like MelonLoader 0.2.7.4, we need to create a category first. We do this using `CreateCategory()` in the `MelonPreferences` class.
+```cs
+// Like MelonLoader 0.2.7.4, this code should run as early as possible
+string myCategory = "MyMod"; // This will serve as a sort of ID for your category
+
+MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
+```
+
+Now, all that needs to be done is to call `CreateEntry<T>()` to create the entry.
+```cs
+// Like MelonLoader 0.2.7.4, this code should run as early as possible
+string myCategory = "MyMod"; // This will serve as a sort of ID for your category
+
+MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
+
+Color myColor = Color.white; // The default color value
+MelonPreferences.CreateEntry(myCategory, "colorPreference", myColor, "My Color Preference.");
+```
+
+Now to access this preference, use `GetEntryValue<T>()`.
+```cs
+Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, "colorPreference");
+```
+
+?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
+
+To add your own serializer/deserializer to the mapper we use the `RegisterMapper<T>()` method in the `Mappers` class.<br>
+As its parameters, we use a function called the deserializer, or reader as the first parameter, and a fcuntion called the serializer, or writer as the second parameter.<br>
+The reader should take a `TomlObject` as its parameter and return something of type `T`. The writer does the opposite.
+
+The custom class that will be stored in this example is defined like so:
+```cs
+public class MyObject
+{
+    string myString;
+    int myInt;
+}
+```
+First, in our reader, we will use the `ReadArray()` method in the `Mappers` class to parse the `TomlObject` parameter.
+```cs
+public static MyObject MyObjectReader(TomlObject value)
+{
+    string[] strings = MelonPreferences.Mappers.ReadArray<string>(value);
+    return new MyObject() { myString = strings[0], myInt = float.Parse(strings[1]) };
+}
+```
+
+Then, in the writer, we will use the `WriteArray<T>()` method in the `Mappers`.
+```cs
+public static TomlObject MyObjectWriter(MyObject value) 
+{
+    string[] strings = new string[] { value.myString, value.myInt.ToString() };
+    return MelonPreferences.Mappers.WriteArray<string>(strings);
+}
+```
+And we are done. Now it is possible to store something of type `MyObject` using `MelonPreferences`.
