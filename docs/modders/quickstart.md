@@ -108,7 +108,7 @@ Luckily with MelonLoader, there is a built-in way to do this using the `MelonPre
 MelonLoader will save these preferences in `UserData\modprefs.ini`.<br>
 To make a preference you first register a category using `RegisterCategory()`, then you can save preferences to that category using `RegisterInt()`, `RegisterFloat()`, `RegisterBool()` and `RegisterString()`.
 
-Here's an example that will register the integer `intPreference` with the default value of 100, to the `MyMod` category, which will display as `MyMod Settings`.
+Here's an example that will register the integer `myInt` with the ID of `intPreference` and the default value of 100, to the `MyMod` category, which will display as `MyMod Settings`.
 ```cs
 // As early as possible, likely in OnApplicationStart()
 string myCategory = "MyMod"; // This will serve as a sort of ID for your category
@@ -134,7 +134,8 @@ There are a few differences between preferences in MelonLoader 0.2.7.4 and Melon
 A few other differences are:
 - Preferences are now saved in the TOML, instead of ini, format.
 - Some Unity classes are already mapped. Specifically, `Vector4`, `Vector3`, `Vector2`, `Quaternion`, `Color` and `Color32`.
-- And of course, the functions used to do this are different.
+- Preferences are now stored in `UserData\MelonPreferences.cfg`.
+- And of course, the methods used to do this are different.
 
 First let's walk through storing a `Color` in a preference.<br>
 Like MelonLoader 0.2.7.4, we need to create a category first. We do this using `CreateCategory()` in the `MelonPreferences` class.
@@ -164,7 +165,7 @@ Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, "colorPreferen
 ?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
 
 To add your own serializer/deserializer to the mapper we use the `RegisterMapper<T>()` method in the `Mappers` class.<br>
-As its parameters, we use a function called the deserializer, or reader as the first parameter, and a fcuntion called the serializer, or writer as the second parameter.<br>
+As its parameters, we use a function called the deserializer, or reader as the first parameter, and a function called the serializer, or writer as the second parameter.<br>
 The reader should take a `TomlObject` as its parameter and return something of type `T`. The writer does the opposite.
 
 The custom class that will be stored in this example is defined like so:
@@ -180,11 +181,13 @@ First, in our reader, we will use the `ReadArray()` method in the `Mappers` clas
 public static MyObject MyObjectReader(TomlObject value)
 {
     string[] strings = MelonPreferences.Mappers.ReadArray<string>(value);
+    if (strings == null || strings.Length != 2) \\ Check if the data was corrupted somehow
+        return default;
     return new MyObject() { myString = strings[0], myInt = float.Parse(strings[1]) };
 }
 ```
 
-Then, in the writer, we will use the `WriteArray<T>()` method in the `Mappers`.
+Then, in the writer, we will use the `WriteArray<T>()` method in the `Mappers` class.
 ```cs
 public static TomlObject MyObjectWriter(MyObject value) 
 {
@@ -192,4 +195,11 @@ public static TomlObject MyObjectWriter(MyObject value)
     return MelonPreferences.Mappers.WriteArray<string>(strings);
 }
 ```
-And we are done. Now it is possible to store something of type `MyObject` using `MelonPreferences`.
+
+Lastly, we need to register the reader and writer. We can simply do this by using the `RegisterMapper<T>()` method in the `Mappers` class.
+```cs
+// Run this as early as possible, before you register preferences
+MelonPreferences.Mappers.RegisterMapper(MyObjectReader, MyObjectWriter);
+```
+
+And that is it. Now it is possible to store something of type `MyObject` using `MelonPreferences`.
