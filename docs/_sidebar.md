@@ -7,6 +7,7 @@
     - [VRChat](games/vrchat.md)
 - Create a new mod
     - [Quick Start](modders/quickstart.md)
+    - [Mod Preferences](modders/preferences.md)
     - [MelonLoader differences](modders/melonloaderdifferences.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
