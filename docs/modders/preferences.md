@@ -67,6 +67,8 @@ Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, myColorId);
 
 ?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
 
+### Adding Custom Serializers
+
 To add your own serializer/deserializer to the mapper we use the `RegisterMapper<T>()` method in the `Mappers` class.<br>
 As its parameters, we use a function called the deserializer, or reader as the first parameter, and a function called the serializer, or writer as the second parameter.<br>
 The reader should take a `TomlObject` as its parameter and return something of type `T`. The writer does the opposite.
