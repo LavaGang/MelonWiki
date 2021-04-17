@@ -1,6 +1,6 @@
 # Quick Start
 
-!> This tutorial assumes that you know how to write mods using the C# programming language, and that you have some basic Visual Studio knowledge.
+!> This tutorial assumes that you have a fair grasp of the C# programming language and basic knowledge of Visual Studio and Unity Engine.
 
 ### Basic mod setup
 
@@ -98,3 +98,5 @@ public override void OnUpdate()
 ```
 
 You now have a mod that prints "You just pressed T" when you, well press the T key!
+
+!> In MelonLoader 0.3.0, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and below.
