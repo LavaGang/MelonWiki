@@ -60,8 +60,7 @@ MelonMod has a few virtual methods that can be overridden:
  - `OnLateUpdate()`: Called at the end of each `Update` call
  - `OnFixedUpdate()`: Called at the end of each `Update` call
  - `OnGUI()`: Called during the GUI update
- - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.
- - `VRChat_OnUiManagerInit()`: (VRChat only) Called if the `VRCUiManager` component has been initialized this frame. This method is called at the end of the frame, before OnUpdate.
+ - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.OnUpdate.
 
 
 
@@ -77,7 +76,6 @@ In MelonLoader 0.3.0, MelonMod's overrides are a little different:
  - `OnPreferencesLoaded()`: Called when mod preferences are loaded.
  - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
  - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
- - `VRChat_OnUiManagerInit()`: (VRChat only) Called if the `VRCUiManager` component has been initialized this frame. This method is called at the end of the frame, before OnUpdate.
 
 ### Basic method calling
 

@@ -126,7 +126,7 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 
 ### Actual Example
 
-Here is an example of Xref Scanning in a mod. This is taken from loukylor's [UserInfoExtensions](https://github.com/loukylor/UserInfoExtensions/blob/main/Utilities.cs), a VRChat mod and slightly changed to match this guide's style.<br>
+Here is an example of Xref Scanning in a mod. This is taken from loukylor's mod [UserInfoExtensions](https://github.com/loukylor/UserInfoExtensions/blob/main/Utilities.cs), and slightly changed to match this guide's style.<br>
 This Xref Scan will get the method responsible to opening a UI popup.
 ```cs
 MethodBase popupV2 = typeof(VRCUiPopupManager).GetMethods()

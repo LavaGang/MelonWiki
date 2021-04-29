@@ -4,7 +4,6 @@
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
     - [Pistol Whip](games/pistolwhip.md)
-    - [VRChat](games/vrchat.md)
 - Create a new mod
     - [Quick Start](modders/quickstart.md)
     - [Mod Preferences](modders/preferences.md)

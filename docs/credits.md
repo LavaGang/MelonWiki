@@ -9,7 +9,7 @@ Here is the list of persons that have helped in any way to the creation of Melon
 - Reaxt: Owner of the Beat Saber Modding Group discord
 - Samboy: Developer of Cpp2Il
 - Sc2ad: Developer of MelonLoader
-- Slaynash: Developer of MelonLoader, writer of MelonWiki, owner of the VRChat Modding Group discord
+- Slaynash: Developer of MelonLoader, editor of MelonWiki
 - Someone Somewhere: BONEWORKS modder, developer of BONEWORKS Multiplayer
 - CircuitLord: Owner of the PISTOL WHIP community discord
 - Charlie
@@ -24,7 +24,7 @@ Here is the list of persons that have helped in any way to the creation of Melon
 - zeobviouslyfakeacc: Harmony patching for Il2Cpp
 - Sinai: Creator of CppExplorer and MonoExplorer
 - KortyBoi: Creator of XSOverlayTitleHider and GamePriority
-- loukylor: VRChat modder and editor of the wiki
+- loukylor: Modder and editor of the wiki
 
 ### Outsiders
 - Perfare: Developer of Il2CppDumper
