@@ -60,7 +60,7 @@ MelonMod has a few virtual methods that can be overridden:
  - `OnLateUpdate()`: Called at the end of each `Update` call
  - `OnFixedUpdate()`: Called at the end of each `Update` call
  - `OnGUI()`: Called during the GUI update
- - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.OnUpdate.
+ - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.
 
 
 
@@ -73,7 +73,7 @@ In MelonLoader 0.3.0, MelonMod's overrides are a little different:
  - `OnLateUpdate()`: Called at the end of each `Update` call
  - `OnFixedUpdate()`: Called at the end of each `Update` call
  - `OnGUI()`: Called during the GUI update
- - `OnPreferencesLoaded()`: Called when mod preferences are loaded.
+ - `OnPreferencesLoaded()`: Called when a mod calls `MelonLoader.MelonPreferences.Load()`, or when MelonPreferences loads external changes.
  - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
  - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
 
