@@ -73,11 +73,11 @@ Note that `TryResolve` may not always return a `MethodBase`. So, make sure to ha
 The first steps of doing this are very similar to finding methods that use a method and finding methods called within a method.
 
 First, ensure you have `UnhollowerBaseLib.dll` referenced. It can be found in the `MelonLoader/Managed` folder.<br>
-Now we can use `UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
+Now we can use `UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
 This will return an `IEnumerable<UnhollowerRuntimeLib.XrefScans.XrefInstance>`, which we can loop through.<br>
 Here's what your code should look like so far:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
+var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
 foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
 {
     
@@ -88,7 +88,7 @@ Now this is where finding strings splits.<br>
 To find the strings, we must ensure that the `UnhollowerRuntimeLib.XrefScans.XrefType` of our instance is `Global`.<br>
 This can be done like so:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
+var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
 foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
 {
     if (instance.Type == UnhollowerRuntimeLib.XrefScans.XrefType.Global)
@@ -107,7 +107,7 @@ If we did not make sure our instance type was global, `ReadAsObject()` would ret
 If we now call `ToString()` on the instance, we can get the strings used in the scanned method.<br>
 This looks like this:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
+var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
 foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
 {
     if (instance.Type == UnhollowerRuntimeLib.XrefScans.XrefType.Global)
