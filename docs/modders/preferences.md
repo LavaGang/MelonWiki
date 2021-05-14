@@ -3,7 +3,7 @@ Often times when creating a mod, it is needed to have some sort of config the us
 Luckily, in both MelonLoader 0.2.7.4 and 0.3.0, this is built-in to MelonLoader.
 
 ### Mod Preferences in MelonLoader 0.2.7.4
-> If you are modding using MelonLoader 0.3.0, please refer to [Mod Preferences in MelonLoader 0.3.0](preferences.md?id=Mod-Preferences-in-MelonLoader-0.3.0)
+> If you are modding using MelonLoader 0.3.0, please refer to [Mod Preferences in MelonLoader 0.3.0](modders/preferences?id=mod-preferences-in-melonloader-030)
 
 The built-in way MelonLoader handles preferences is by using the `MelonPrefs` class.
 MelonLoader will save these preferences in `UserData\modprefs.ini`.<br>
