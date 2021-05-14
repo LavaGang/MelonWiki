@@ -3,7 +3,11 @@
 * Officially Supported Games
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
+    - [BTD6](games/btd6.md)
+    - [H3VR](games/h3vr.md)
+    - [Job Simulator](games/jobsimulator.md)
     - [Pistol Whip](games/pistolwhip.md)
+    - [The Long Dark](games/tld.md)
 - Create a new mod
     - [Quick Start](modders/quickstart.md)
     - [Mod Preferences](modders/preferences.md)
