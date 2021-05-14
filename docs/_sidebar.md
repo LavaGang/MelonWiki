@@ -11,4 +11,5 @@
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
     - [Xref Scanning](modders/xrefscanning.md)
+    - [Attributes](modders/attributes.md)
 - [Credits](credits.md)

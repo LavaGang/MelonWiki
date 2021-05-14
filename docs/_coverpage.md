@@ -1,6 +1,7 @@
 <!-- _coverpage.md -->
 
-![logo](_media/icon.webp)
+<!-- ![logo](_media/icon.webp) -->
+<img src="_media/logo.svg" alt="logo" width="256" height="256"/>
 
 # MelonLoader
 
