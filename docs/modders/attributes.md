@@ -191,7 +191,7 @@ VerifyLoaderVersion has several overrides
 ```cs
 using MelonLoader;
 // ...
-[assembly: VerifyLoaderBuild(0, 3, 0, true)] //This'll mark your mod as v0.3.0 being the minimum version for your mod
+[assembly: VerifyLoaderVersion(0, 3, 0, true)] //This'll mark your mod as v0.3.0 being the minimum version for your mod
 ```
 
 
