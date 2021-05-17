@@ -12,4 +12,9 @@
     - [Method Patching](modders/patching.md)
     - [Xref Scanning](modders/xrefscanning.md)
     - [Attributes](modders/attributes.md)
+* Android Support WIP
+    - [General Information](android/general.md)
+    - [Installation](android/installation.md)
+    - [Mod Development](android/mod_development.md)
+    - [Support & Resources](android/support.md)
 - [Credits](credits.md)
