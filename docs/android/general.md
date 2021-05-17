@@ -13,6 +13,7 @@ For any issues please visit the [dedicated discord server](https://discord.gg/cz
 | arm64-v8a | ** | ✅ |
 | x86 | ❌ | ❌ |
 | x86_64 | ** | ** |
+
 ** Unsupported by Unity
 
 ## Extra Info
