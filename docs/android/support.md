@@ -28,6 +28,14 @@
 > 
 > **A:** The support discord for the Android port would be the best place. https://discord.gg/czfkRNTSpt
 
+> **Q:** Do mods work cross platform?
+> 
+> **A:** Yes mod can work cross platform. If the targets of the game are both il2cpp the process should be smooth. If some versions of the game is mono and some is il2cpp, It may be more difficult to make your mod cross platform. 
+
+> **Q:** Do I need anything special to compile my mod?
+> 
+> **A:** Compiling your project with `.NET framework 4.7.2` should be ok.
+
 ## Discord Guilds
 | name | link | description |
 | --- | --- | --- |
