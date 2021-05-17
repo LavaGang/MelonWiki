@@ -34,6 +34,9 @@ You can use `adb logcat` to watch the progress of your MelonLoader installation.
 
 Command: `adb logcat -v time MelonLoader:D CRASH:D Mono:D mono:D mono-rt:D Zygote:D A64_HOOK:V DEBUG:D funchook:D Unity:D Binder:D AndroidRuntime:D *:S`
 
+## Uninstalling
+All you need to do is reinstall the APK from the official source.
+
 # Scripts
 ## full_installer.py
 ### WARNING: Don't run twice on the same package

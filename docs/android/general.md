@@ -2,7 +2,9 @@
 >
 > Use it at your own risk.
 # General Information
-Android support is incomplete. For any issues please visit the [dedicated discord server](https://discord.gg/czfkRNTSpt).
+Android support is incomplete. At this time, general mod development is _not_ recommended.
+
+For any issues please visit the [dedicated discord server](https://discord.gg/czfkRNTSpt).
 
 ## Support Matrix
 | abi | mono | il2cpp | 
@@ -12,6 +14,7 @@ Android support is incomplete. For any issues please visit the [dedicated discor
 | x86 | ❌ | ❌ |
 | x86_64 | ** | ** |
 ** Unsupported by Unity
+
 ## Extra Info
 | | |
 | --- | --- |
