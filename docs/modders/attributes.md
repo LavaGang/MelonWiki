@@ -44,7 +44,7 @@ MelonOptionalDependencies has a variable number of arguments all of which must b
 ```cs
 using MelonLoader;
 // ...
-[assembly: MelonOptionalDependencies("OtherMod", "AnotherMod")]
+[assembly: MelonOptionalDependencies(new string[] { "OtherMod", "AnotherMod" })]
 ```
 
 ## Attributes introduced in ML v0.3.0
@@ -70,7 +70,7 @@ MelonIncompatibleAssemblies has a variable number of arguments all of which must
 ```cs
 using MelonLoader;
 // ...
-[assembly: MelonIncompatibleAssemblies("OtherMod", "AnotherMod")]
+[assembly: MelonIncompatibleAssemblies(new string[] { "OtherMod", "AnotherMod" })]
 ```
 
 ### MelonPriority
@@ -108,7 +108,7 @@ MelonAdditionalDependencies has a variable number of arguments all of which must
 ```cs
 using MelonLoader;
 // ...
-[assembly: MelonAdditionalDependencies("OtherMod", "AnotherMod")]
+[assembly: MelonAdditionalDependencies(new string[] { "OtherMod", "AnotherMod" })]
 ```
 
 
