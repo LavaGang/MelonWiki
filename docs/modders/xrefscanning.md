@@ -58,7 +58,7 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 With this set up, we can now call `TryResolve()` on the `XrefInstance` to get the `MethodBase` representing a method that used the scanned method.<br>
 The final code should look like this:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
+var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
 foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
 {
     MethodBase calledMethod = instance.TryResolve();
