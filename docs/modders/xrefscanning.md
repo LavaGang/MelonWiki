@@ -103,7 +103,7 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 ```
 
 Now, we can call `ReadAsObject()` to get an `Il2CppSystem.Object` representing the scanned method. 
-If we did not make sure our instance type was global, `ReadAsObject()` would return false.<br>
+If we did not make sure our instance type was global, `ReadAsObject()` would return null.<br>
 If we now call `ToString()` on the instance, we can get the strings used in the scanned method.<br>
 This looks like this:
 ```cs
@@ -124,12 +124,21 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 }
 ```
 
-### Actual Example
+### Example
 
-Here is an example of Xref Scanning in a mod. This is taken from loukylor's mod [UserInfoExtensions](https://github.com/loukylor/UserInfoExtensions/blob/main/Utilities.cs), and slightly changed to match this guide's style.<br>
-This Xref Scan will get the method responsible to opening a UI popup.
+For an example, let's use the method `foo` in the `Example` class, which gets called by `bar`.
+Let's also assume that the `foo` method has the literal "Example Xref" in it.
+
+If we were to use the literal to xref for the `foo` method, it would look something like this:
 ```cs
-MethodBase popupV2 = typeof(VRCUiPopupManager).GetMethods()
-    .Where(mb => mb.Name.StartsWith("Method_Public_Void_String_String_String_Action_Action_1_VRCUiPopup_") && !mb.Name.Contains("PDM") && UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(mb) // Filter out certain methods using basic reflection and start the Xref Scan
-    .Where(instance => instance.Type == UnhollowerRuntimeLib.XrefScans.XrefType.Global && instance.ReadAsObject().ToString() == "UserInterface/MenuContent/Popups/StandardPopupV2").Any()).First() // Check for the string "UserInterface/MenuContent/Popups/StandardPopupV2" in the method using Xref Scanning
-```            
+MethodInfo fooMethod = typeof(Example).GetMethods() // Get the methods in the Example class
+    .First(mi => XrefScanner.XrefScan(mi) // Scan each method
+        .Any(instance => instance.Type == XrefType.Global && instance.ReadAsObject() != null && instance.ReadAsObject().ToString() == "Example Xref")); // Determine if the method has the literal
+```
+
+Now, if we were to scan for the fact that `foo` gets called by `bar`, it would look like this:
+```cs
+MethodInfo fooMethod = typeof(Example).GetMethods() // Get the methods in the Example class
+    .First(mi => XrefScanner.UsedBy(mi) // Scan each method
+        .Any(instance => instance.Type == XrefType.Method && instance.TryResolve() != null && instance.TryResolve().Name == "bar")); // Determine if the method gets called by bar
+```
