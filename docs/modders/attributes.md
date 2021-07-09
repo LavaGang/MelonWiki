@@ -85,7 +85,7 @@ using MelonLoader;
 [assembly: MelonPriority(MelonBase.MelonPriority.LOW)]
 ```
 
-!> This attribute was changed in how it works in ML v0.3.1
+!> This attribute was changed in how it works in ML v0.4.0
 
 MelonPriority now has 1 parameter which is an int
 - `priority`
@@ -96,7 +96,7 @@ using MelonLoader;
 [assembly: MelonPriority(100)]
 ```
 
-## Attributes introduced in ML v0.3.1
+## Attributes introduced in ML v0.4.0
 
 
 ### MelonAdditionalDependencies
