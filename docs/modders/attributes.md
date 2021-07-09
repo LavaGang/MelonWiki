@@ -47,7 +47,7 @@ using MelonLoader;
 [assembly: MelonOptionalDependencies("OtherMod", "AnotherMod")]
 ```
 
-## Attributes introduced in ML v0.3.0
+## Attributes Introduced in ML v0.3.0
 
 ### MelonColor
 This optional assembly attributes sets the color of the melon in the console
@@ -96,7 +96,7 @@ using MelonLoader;
 [assembly: MelonPriority(100)]
 ```
 
-## Attributes introduced in ML v0.4.0
+## Attributes Introduced in ML v0.4.0
 
 
 ### MelonAdditionalDependencies
@@ -138,7 +138,7 @@ using MelonLoader;
 ```
 
 ### RegisterTypeInIl2Cpp
-If you read the section on this Wiki about Custom Components and IlCpp Type Inheritance [here](modders/melonloaderdifferences?id=custom-components-il2cpp-type-inheritance) you might've noticed that you need to register the class before using it using `ClassInjector.RegisterTypeInIl2Cpp<T>()`. This attribute will let MelonLoader know to register it automatically so that you won't have to
+If you read the section on this Wiki about Custom Components and IlCpp Type Inheritance [here](modders/il2cppdifferences?id=custom-components-il2cpp-type-inheritance) you might've noticed that you need to register the class before using it using `ClassInjector.RegisterTypeInIl2Cpp<T>()`. This attribute will let MelonLoader know to register it automatically so that you won't have to
 
 
 ```cs

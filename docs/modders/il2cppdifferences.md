@@ -1,4 +1,4 @@
-# MelonLoader Differences
+# Il2Cpp Differences
 
 MelonLoader have some "small" things that doesn't work the exact same as if you were modding a Mono game.
 
