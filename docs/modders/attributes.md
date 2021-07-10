@@ -147,7 +147,7 @@ class MyCustomComponent : MonoBehaviour
 {
     public MyCustomComponent(IntPtr ptr) : base(ptr) {}
 
-    // Optional, only used in case you want to instantiate this class in the mono-side
+    // Optional, only used in cases where you want to instantiate this class in the mono-side
     // Don't use this on MonoBehaviours / Components!
     public MyCustomComponent() : base(ClassInjector.DerivedConstructorPointer<MyCustomComponent>()) => ClassInjector.DerivedConstructorBody(this);
 
@@ -171,22 +171,10 @@ using MelonLoader;
 This optional assembly attribute verifies the version of MelonLoader that you specify in your mod
 
 VerifyLoaderVersion has several overrides
-1) - `major`
-   - `minor`
-   - `patch`
-2) - `major`
-   - `minor`
-   - `patch`
-   - `isminimum` 
-3) - `major`
-   - `minor`
-   - `patch`
-   - `revision`
-4) - `major`
-   - `minor`
-   - `patch`   
-   - `revision`
-   - `isminimum`    
+1) - `major`, `minor`, `patch`
+2) - `major`, `minor`, `patch`, `isminimum` 
+3) - `major`, `minor`, `patch`, `revision`
+4) - `major`, `minor`, `patch`, `revision`, `isminimum`    
 
 ```cs
 using MelonLoader;
