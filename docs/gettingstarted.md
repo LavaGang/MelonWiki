@@ -13,12 +13,17 @@
 5. Select which Version of MelonLoader to install using the Drop-Down List.  (Or leave it as-is for the Latest Version.)
 6. Click the INSTALL or RE-INSTALL button.
 
-?> If you would like to install MelonLoader 0.3.0 (required for 32bit games and practically required for obfuscated games modding) turn on `Show ALPHA Pre-Releases` in the installer settings
+?> Make sure the version of MelonLoader you select is the one that your game uses. You can check by asking in the respective community. A list of them can be found in the `Officially Supported Games` tab.
 
 # Manual Installation
 
-1. - If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) 
+> It's **highly** recommended to use the automated installation when you can.
+
+1. - If your game is 32bit download either: <br>
+   - - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.0/MelonLoader.x64.zip) for MelonLoader 0.4.0 <br>
+     - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) for MelonLoader 0.3.0
    - If your game is 64bit download either: <br> 
+   - - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.0/MelonLoader.x64.zip) for MelonLoader 0.4.0 <br>
      - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip) for Melonloader 0.3.0 <br>
      - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.2.7.4/MelonLoader.x64.zip) for Melonloader 0.2.7.4
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
@@ -27,7 +32,11 @@
 ?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
 
 # Contact
-?> If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!
+
+If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!<br>
+When contacting, please include the specific issue you're having, as well as a log file. Include as much information as possible, it just makes everyone' lives easier.
+
+Or, if you see any issues with the wiki, please contact one of the editors in the [credits](credits.md) in the MelonLoader Discord
 
 
 # Launch commands
@@ -54,7 +63,7 @@ MelonLoader has some launch arguments, listed here:
 | --melonloader.consoleontop | Forces the Console over all other Applications |
 
 
-MelonLoader 0.3.0 has slightly different launch arguments, listed here:
+MelonLoader 0.3.0 and up has slightly different launch arguments, listed here:
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
