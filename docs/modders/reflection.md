@@ -1,7 +1,5 @@
 # Reflection
 
-!> If you are modding an Il2Cpp game then all methods and classes will be made public by unhollower, so unless a game is obfuscated, you won't need to use reflection.
-
 Reflection isn't exactly specific to MelonLoader, it's built into C#.<br>
 However, it is extremely useful in modding obfuscated games, and even has some uses in unobfuscated games.
 
@@ -12,7 +10,7 @@ Here is a just a list of it's uses:
  - In all games it's important to make optional dependencies.
  - In all games it's also important for method patching.
 
-### Usage
+## Usage
 Using reflection is pretty simple. A bit tedious at times though.
 
 Let's define an example class:
@@ -129,7 +127,7 @@ private static void PrivateMethod(int param1)
 }
 ```
 We obviously couldn't just get the method from the name, because there are 2 methods with the same name.<br>
-So, when we call `GetMethod` we have to pass in an array of `Type`s that matcht the parameters of the method.<br>
+So, when we call `GetMethod` we have to pass in an array of `Type`s that match the parameters of the method.<br>
 If we wanted the overload that takes an `int` as its first parameter, the code would look like this:
 ```cs
 MethodInfo privateMethod = exampleType.GetMethod("PrivateMethod", new Type[] { typeof(int) });
