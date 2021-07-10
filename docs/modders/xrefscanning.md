@@ -10,7 +10,7 @@ Since the information Xref Scans gather is much more static than method names, m
 
 Note that on Il2Cpp games Xref Scanning cannot find virtual method calls, delegate creation, and inline method calls.
 
-!> The following guides assume you have basic knowledge of modding with MelonLoader. For a guide on modding with MelonLoader refer to the [Quick Start](https://melonwiki.xyz/#/modders/quickstart)
+!> The following guides assume you have basic knowledge of modding with MelonLoader. For a guide on modding with MelonLoader refer to the [Quick Start](/modders/quickstart)
 
 ### Finding Methods Calls Within a Method
 

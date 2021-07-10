@@ -6,7 +6,7 @@ However, it is extremely useful in modding obfuscated games, and even has some u
 The reason it's useful in mods is because it allows you to dynamically call methods, without making direct references to them, and being able to change them during runtime.
 Here is a just a list of it's uses:
  - In mono games, it let's you use non-public things. 
- - In obfuscated games, it let's you use [xref scanning](xrefscanning.md) to future proof mods.
+ - In obfuscated games, it let's you use [xref scanning](modders/xrefscanning) to future proof mods.
  - In all games it's important to make optional dependencies.
  - In all games it's also important for method patching.
 
