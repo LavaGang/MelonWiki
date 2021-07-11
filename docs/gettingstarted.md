@@ -20,7 +20,7 @@
 > It's **highly** recommended to use the automated installation when you can.
 
 1. - If your game is 32bit download either: <br>
-   - - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.0/MelonLoader.x64.zip) for MelonLoader 0.4.0 <br>
+   - - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.0/MelonLoader.x86.zip) for MelonLoader 0.4.0 <br>
      - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) for MelonLoader 0.3.0
    - If your game is 64bit download either: <br> 
    - - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.0/MelonLoader.x64.zip) for MelonLoader 0.4.0 <br>
