@@ -61,7 +61,7 @@ Lastly, our third argument will be an array of types representing the methods ar
 In all, our code will look something like this:
 ```cs
 using Harmony; // If you're using 0.3.0 and lower
-using HarmonyLib; // If you're using 0.4.0
+using HarmonyLib; // If you're using 0.4.0 and later
 
 [HarmonyPatch(typeof(Example), "PrivateMethod", new Type[] { typeof(int) })]
 class Patch
@@ -80,7 +80,7 @@ After this, our code could look something like this:
 
 ```cs
 using Harmony; // If you're using 0.3.0 and lower
-using HarmonyLib; // If you're using 0.4.0
+using HarmonyLib; // If you're using 0.4.0 and later
 
 [HarmonyPatch(typeof(Example), "PrivateMethod", new Type[] { typeof(int) })]
 class Patch
@@ -104,7 +104,7 @@ Let's start off by using the namespace `Harmony` if you're using MelonLoader 0.3
 Now, we need to call the `Patch` method in our `HarmonyInstance`. The `HarmonyInstance` can be found as a property in an instance of your mod's main class. Depending on your MelonLoader version, the property will have different names:
  - In MelonLoader 0.2.7.4, it will be named `harmonyInstance`
  - In MelonLoader 0.3.0, it will be named `Harmony`
- - In MelonLoader 0.4.0, it will be named `HarmonyInstance`
+ - In MelonLoader 0.4.0 and later, it will be named `HarmonyInstance`
 
 Then, as the first argument, we need to get the MethodInfo of the method we are patching. This is why patching manually is better for future proofing, as you can determine what method you're patching at runtime, rather than putting it in an attribute.<br>
 Then, the second argument would be the prefix, the third argument would be the postfix, and the fourth would be the finalizer, which I will not cover. Reading about the finalizer can be found [here](https://harmony.pardeike.net/articles/patching-finalizer.html). For all 3 arguments, they are optional, however one must be non-null.<br>
@@ -116,13 +116,13 @@ Here is some example code:
 
 ```cs
 using Harmony; // If you're using 0.3.0 and lower
-using HarmonyLib; // If you're using 0.4.0
+using HarmonyLib; // If you're using 0.4.0 and later
 
 // In a method, preferabally one that runs on application start
 
 HarmonyInstance harmony = this.harmonyInstance; // If you're using MelonLoader 0.2.7.4
 HarmonyInstance harmony = this.Harmony; // If you're using MelonLoader 0.3.0
-HarmonyInstance harmony = this.HarmonyInstance; // If you're using MelonLoader 0.4.0
+HarmonyInstance harmony = this.HarmonyInstance; // If you're using MelonLoader 0.4.0 and later
 
 MethodInfo privateMethod = typeof(Example).GetMethod("PrivateMethod", new Type [] { typeof(int) });
 
