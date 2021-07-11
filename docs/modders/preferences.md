@@ -34,8 +34,8 @@ Keep in mind that the override `OnModSettingsApplied()` is run when mod preferen
 There are a few differences between preferences in MelonLoader 0.2.7.4 and MelonLoader 0.3.0, most notably, the ability to define deserializers and serializers for custom classes.<br>
 A few other differences are:
 - Preferences are now saved in the TOML, instead of ini, format.
-- The TOML serializer supports more classes. Specifically, `string`, `bool`, `long`, `int`, `byte`, `short`, `double`, and `float`.
-- Some Unity classes are already mapped using custom serializers. Specifically, `UnityEngine.Vector4`, `UnityEngine.Vector3`, `UnityEngine.Vector2`, `UnityEngine.Quaternion`, `UnityEngine.Color` and `UnityEngine.Color32`.
+- The TOML serializer supports more types. Specifically, `string`, `bool`, `long`, `int`, `byte`, `short`, `double`, and `float`.
+- Some Unity types are already mapped using custom serializers. Specifically, `UnityEngine.Vector4`, `UnityEngine.Vector3`, `UnityEngine.Vector2`, `UnityEngine.Quaternion`, `UnityEngine.Color` and `UnityEngine.Color32`.
 - Preferences are now stored in `UserData\MelonPreferences.cfg`.
 - And of course, the methods used to do this are different.
 
@@ -67,51 +67,8 @@ Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, myColorId);
 
 ?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
 
-### Adding Custom Serializers
+### Mod Preferences in MelonLoader 0.4.0 and later
 
-To add your own serializer/deserializer to the mapper we use the `RegisterMapper<T>()` method in the `Mappers` class.<br>
-As its parameters, we use a function called the deserializer, or reader as the first parameter, and a function called the serializer, or writer as the second parameter.<br>
-The reader should take a `TomlObject` as its parameter and return something of type `T`. The writer does the opposite.
-
-The custom class that will be stored in this example is defined like so:
-```cs
-public class MyObject
-{
-    string myString;
-    int myInt;
-}
-```
-First, in our reader, we will use the `ReadArray()` method in the `Mappers` class to parse the `TomlObject` parameter.
-```cs
-public static MyObject MyObjectReader(TomlObject value)
-{
-    string[] strings = MelonPreferences.Mappers.ReadArray<string>(value);
-    if (strings == null || strings.Length != 2) \\ Check if the data was corrupted somehow
-        return default;
-    return new MyObject() { myString = strings[0], myInt = float.Parse(strings[1]) };
-}
-```
-
-Then, in the writer, we will use the `WriteArray<T>()` method in the `Mappers` class.
-```cs
-public static TomlObject MyObjectWriter(MyObject value) 
-{
-    string[] strings = new string[] { value.myString, value.myInt.ToString() };
-    return MelonPreferences.Mappers.WriteArray<string>(strings);
-}
-```
-
-Lastly, we need to register the reader and writer. We can simply do this by using the `RegisterMapper<T>()` method in the `Mappers` class.
-```cs
-// Run this as early as possible, before you register preferences
-MelonPreferences.Mappers.RegisterMapper(MyObjectReader, MyObjectWriter);
-```
-
-And that is it. Now it is possible to store something of type `MyObject` using `MelonPreferences`.
-
-?> Make sure the type `T` in `Mappers.WriteArray<T>()` is the same as type `T` in `Mappers.ReadArray<T>()` or else issues will occur while serializing/deserializing.
-
-### Mod Preferences in MelonLoader 0.4.0
 The two largest differences between preferences in MelonLoader 0.4.0 and 0.3.0 is the use of the `Tomlet` lib instead of `Tomlyn` as our Toml lib,
 and the use of object oriented conventions while saving and using preferences.
 
