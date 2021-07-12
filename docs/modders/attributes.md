@@ -90,11 +90,15 @@ using MelonLoader;
 MelonPriority now has 1 parameter which is an int
 - `priority`
 
+Lower number = higher priority. Mods by default have a priority of 0 so if we had...
+
 ```cs
 using MelonLoader;
 // ...
 [assembly: MelonPriority(100)]
 ```
+
+Our mod would be loaded later than most mods
 
 ## Attributes Introduced in ML v0.4.0 
 
@@ -180,6 +184,16 @@ VerifyLoaderVersion has several overrides
 using MelonLoader;
 // ...
 [assembly: VerifyLoaderVersion(0, 3, 0, true)] //This'll mark your mod as v0.3.0 being the minimum version for your mod
+```
+
+### HarmonyDontPatchAll
+This optional assembly attribute tells MelonLoader to not call `PatchAll()` for your mod's harmony instance
+  
+
+```cs
+using MelonLoader;
+// ...
+[assembly: HarmonyDontPatchAll] 
 ```
 
 
