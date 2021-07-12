@@ -98,7 +98,7 @@ using MelonLoader;
 [assembly: MelonPriority(100)]
 ```
 
-Our mod would be loaded later than most mods
+...our mod would be loaded later than most mods
 
 ## Attributes Introduced in ML v0.4.0 
 

@@ -92,7 +92,7 @@ class Patch
 }
 ```
 
-!> Note that you don't need to call `HarmonyInstance.PatchAll();` for your mod's harmony instance as MelonLoader will do it for you automatically (epic!). If you don't that however you can always use the [HarmonyDontPatchAll](modders/attributes?id=harmonydontpatchall) Attribute
+!> Note that you don't need to call `HarmonyInstance.PatchAll();` for your mod's harmony instance as MelonLoader will do it for you automatically (epic!). If you don't want that however you can always use the [HarmonyDontPatchAll](modders/attributes?id=harmonydontpatchall) attribute
 
 If you would like to learn more (I realize I'm starting to sound like a broken record), please read the [Harmony docs](https://harmony.pardeike.net/articles/patching.html).
 
