@@ -41,7 +41,7 @@ public class Example
 }
 ```
 
-!> In Il2Cpp games, transpilers DO NOT function (as there is not IL code to replace)
+!> In Il2Cpp games, transpilers DO NOT function (as there is no IL code to replace)
 
 ### Using Attributes
 
@@ -91,6 +91,8 @@ class Patch
     }
 }
 ```
+
+If you've used Harmony before outside of MelonLoader mods you might know that for using attributes when patching that you'd need to use `PatchAll();` on your Harmony instance. What it essentially does is scan the current assembly for Harmony attributes and creates patches using them. However, you don't need to call `PatchAll();` for your mod's Harmony instance as MelonLoader will do it for you automatically (epic!). If you don't want that however you can always use the [HarmonyDontPatchAll](modders/attributes?id=harmonydontpatchall) attribute
 
 If you would like to learn more (I realize I'm starting to sound like a broken record), please read the [Harmony docs](https://harmony.pardeike.net/articles/patching.html).
 
