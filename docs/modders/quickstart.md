@@ -79,7 +79,7 @@ Most recently in MelonLoader 0.4.0 and later, the following methods were added:
 
 ### Basic method calling
 
-!> In MelonLoader 0.3.0 and up, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and below.
+!> In MelonLoader 0.3.0 and up, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and earlier.
 
 Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
