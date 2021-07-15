@@ -52,24 +52,30 @@ namespace MyProject
 ```
 
 MelonMod has a few virtual methods that can be overridden:
- - `OnApplicationStart()`: Called after every mod is loaded and right when the game starts
- - `OnApplicationQuit()`: Called when the application is closing
- - `OnLevelWasInitialized(int level)`: Called when a scene is initialized
- - `OnLevelWasLoaded(int level)`: Called when a scene is loaded
- - `OnUpdate()`: Called at the end of each `Update` call
- - `OnLateUpdate()`: Called at the end of each `Update` call
- - `OnFixedUpdate()`: Called at the end of each `Update` call
- - `OnGUI()`: Called during the GUI update
+ - `OnApplicationStart()`: Called after every mod is loaded and right when the game starts.
+ - `OnApplicationQuit()`: Called when the application is closing.
+ - `OnLevelWasInitialized(int level)`: Called when a scene is initialized.
+ - `OnLevelWasLoaded(int level)`: Called when a scene is loaded.
+ - `OnUpdate()`: Called at the end of each `Update` call.
+ - `OnLateUpdate()`: Called at the end of each `Update` call.
+ - `OnFixedUpdate()`: Called at the end of each `Update` call.
+ - `OnGUI()`: Called during the GUI update.
  - `OnModSettingsApplied()`: Called when a mod saves the preferences, or when the application quits.
 
 
-In MelonLoader 0.3.0 and up, a few methods were added:
- - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized
- - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded
- - `OnGUI()`: Called during the GUI update
+In MelonLoader 0.3.0, a few methods were added:
+ - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized.
+ - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded.
+ - `OnGUI()`: Called during the GUI update.
  - `OnPreferencesLoaded()`: Called when a mod calls `MelonLoader.MelonPreferences.Load()`, or when MelonPreferences loads external changes.
  - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
  - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
+
+And also in MelonLoader 0.3.0 later, `OnLevelWasInitialized`, `OnLevelWasLoaded` and `OnModSettingsApplied()` are all obsolete.
+
+Most recently in MelonLoader 0.4.0 and later, the following methods were added:
+ - `OnSceneWasUnloaded(int buildIndex, string sceneName)`: Called when a scene is unloaded.
+ - `OnApplicationLateStart()`: Called after `OnApplicationStart`.
 
 ### Basic method calling
 
