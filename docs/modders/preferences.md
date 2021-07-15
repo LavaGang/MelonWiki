@@ -29,71 +29,29 @@ Keep in mind that the override `OnModSettingsApplied()` is run when mod preferen
 
 ?> Multiple categories or preferences with the same name will cause errors!
 
-### Mod Preferences in MelonLoader 0.3.0
+### Mod Preferences in MelonLoader 0.3.0 
 
-There are a few differences between preferences in MelonLoader 0.2.7.4 and MelonLoader 0.3.0, most notably, the ability to define deserializers and serializers for custom classes.<br>
-A few other differences are:
-- Preferences are now saved in the TOML, instead of ini, format.
-- The TOML serializer supports more types. Specifically, `string`, `bool`, `long`, `int`, `byte`, `short`, `double`, and `float`.
-- Some Unity types are already mapped using custom serializers. Specifically, `UnityEngine.Vector4`, `UnityEngine.Vector3`, `UnityEngine.Vector2`, `UnityEngine.Quaternion`, `UnityEngine.Color` and `UnityEngine.Color32`.
-- Preferences are now stored in `UserData\MelonPreferences.cfg`.
-- And of course, the methods used to do this are different.
+There is a huge difference between preferences in MelonLoader 0.3.0 and 0.2.7.4. In fact, the 2 systems are barely comparable.<br>
+MelonLoader 0.2.7.4 uses the `.ini` format, while MelonLoader 0.3.0 uses `.toml`. Also that, preferences are now object oriented. Which present a whole slew of advantages that will be explained during the guide.
 
-First let's walk through storing a `Color` in a preference.<br>
-Like MelonLoader 0.2.7.4, we need to create a category first. We do this using `CreateCategory()` in the `MelonPreferences` class.
-```cs
-// Like MelonLoader 0.2.7.4, this code should run as early as possible
-string myCategory = "MyMod"; // This will serve as a sort of ID for your category
-
-MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
-```
-
-Now, all that needs to be done is to call `CreateEntry<T>()` to create the entry.
-```cs
-// Like MelonLoader 0.2.7.4, this code should run as early as possible
-string myCategory = "MyMod"; // This will serve as a sort of ID for your category
-
-MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
-
-Color myColor = Color.white; // The default color value
-string myColorId = "colorPreference"; // The preference's ID
-MelonPreferences.CreateEntry(myCategory, myColorId, myColor, "My Color Preference.");
-```
-
-Now to access this preference, use `GetEntryValue<T>()`.
-```cs
-Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, myColorId);
-```
-
-?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
-
-### Mod Preferences in MelonLoader 0.4.0 and later
-
-The two largest differences between preferences in MelonLoader 0.4.0 and 0.3.0 is the use of the `Tomlet` lib instead of `Tomlyn` as our Toml lib,
-and the use of object oriented conventions while saving and using preferences.
-
-The main difference between the two libs, is that custom serializers are almost never needed, as Tomlet will handle most of that for you.
-In fact, Tomlet is good enough at this, that serializers for many Unity classes that specifically had to be included in MelonLoader, are not needed anymore.
-
-Let's now walk through the syntax.<br>
+So let's start off the guide.<br>
 Starting off as always, we will create a new category. Let's call it `MyCategory`.
 ```cs
 MelonPreferences_Category myCategory = MelonPreferences.CreateCategory("MyCategory", "MyCategory");
 ```
 
-Notice here, that now the preferences are a lot more object oriented.<br>
-This system did exist in MelonLoader 0.3.0, however it is now heavily recommended to use it for both convenience and performance reasons.
+As I mentioned before, this is now object oriented, making creating and getting entries in a category easier.
 
-Next, let's make a bool category called `MyBoolCategory`.
+Next, let's make a bool entry called `MyBoolEntry`.
 ```cs
-MelonPreferences_Entry<bool> myBoolCategory = myCategory.CreateEntry("MyBoolCategory", true) // Store this in a field or property for later use
+MelonPreferences_Entry<bool> myBoolEntry = myCategory.CreateEntry("MyBoolEntry", false) // Store this in a field or property for later use
 ```
 An advantage to the object oriented conevention being used now, is that to access the value or assign it a new value, simply use the `value` property.
 ```cs
-myBoolCategory.value = true;
-MelonLogger.Msg(myBoolCategory.value); // true
+myBoolEntry.value = true;
+MelonLogger.Msg(myBoolEntry.value); // true
 ```
- > Keep in mind that changes to the entry's value will not be saved until `MelonPreferences.Save()` is called.
+ > Keep in mind that changes to the entry's value will not be saved in the preferences file until `MelonPreferences.Save()` is called.
 
 Another advantage to object oriented conventions is the ability to add events for when the value of a pref changes.
 
@@ -103,7 +61,16 @@ The second, `OnValueChanged` has two parameters, `oldValue` and `newValue`.
 
  > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
-As mentioned before, Tomlet is good at saving custom types. For example, say we had this type:
+### Mod Preferences in MelonLoader 0.4.0 and later
+
+In MelonLoader 0.4.0, there is no change in syntax while creating and using prefs. However, there are many improvements with the system as a whole.
+
+The two largest differences between preferences in MelonLoader 0.4.0 and 0.3.0 is the use of the `Tomlet` lib instead of `Tomlyn` as our Toml lib,
+and the use of object oriented conventions while saving and using preferences.
+
+The main difference between the two libs, is that custom serializers are almost never needed, as Tomlet will handle most of that for you.
+In fact, Tomlet will handle deserializing and serializing most Unity types for you.
+To demonstrate this, let's say we had this type:
 ```cs
 public class MyCustomType
 {
