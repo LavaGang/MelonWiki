@@ -4,6 +4,7 @@
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
     - [BTD6](games/btd6.md)
+    - [Demeo](games/demeo.md)
     - [H3VR](games/h3vr.md)
     - [Job Simulator](games/jobsimulator.md)
     - [Pistol Whip](games/pistolwhip.md)
