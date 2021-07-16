@@ -29,84 +29,72 @@ Keep in mind that the override `OnModSettingsApplied()` is run when mod preferen
 
 ?> Multiple categories or preferences with the same name will cause errors!
 
-### Mod Preferences in MelonLoader 0.3.0
+### Mod Preferences in MelonLoader 0.3.0 
 
-There are a few differences between preferences in MelonLoader 0.2.7.4 and MelonLoader 0.3.0, most notably, the ability to define deserializers and serializers for custom classes.<br>
-A few other differences are:
-- Preferences are now saved in the TOML, instead of ini, format.
-- The TOML serializer supports more classes. Specifically, `string`, `bool`, `long`, `int`, `byte`, `short`, `double`, and `float`.
-- Some Unity classes are already mapped using custom serializers. Specifically, `UnityEngine.Vector4`, `UnityEngine.Vector3`, `UnityEngine.Vector2`, `UnityEngine.Quaternion`, `UnityEngine.Color` and `UnityEngine.Color32`.
-- Preferences are now stored in `UserData\MelonPreferences.cfg`.
-- And of course, the methods used to do this are different.
+There is a huge difference between preferences in MelonLoader 0.3.0 and 0.2.7.4. In fact, the 2 systems are barely comparable.<br>
+MelonLoader 0.2.7.4 uses the `.ini` format, while MelonLoader 0.3.0 uses `.toml`. Also that, preferences are now object oriented. Which present a whole slew of advantages that will be explained during the guide.
 
-First let's walk through storing a `Color` in a preference.<br>
-Like MelonLoader 0.2.7.4, we need to create a category first. We do this using `CreateCategory()` in the `MelonPreferences` class.
+So let's start off the guide.<br>
+Starting off as always, we will create a new category. Let's call it `MyCategory`.
 ```cs
-// Like MelonLoader 0.2.7.4, this code should run as early as possible
-string myCategory = "MyMod"; // This will serve as a sort of ID for your category
-
-MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
+MelonPreferences_Category myCategory = MelonPreferences.CreateCategory("MyCategory", "MyCategory");
 ```
 
-Now, all that needs to be done is to call `CreateEntry<T>()` to create the entry.
+As I mentioned before, this is now object oriented, making creating and getting entries in a category easier.
+
+Next, let's make a bool entry called `MyBoolEntry`.
 ```cs
-// Like MelonLoader 0.2.7.4, this code should run as early as possible
-string myCategory = "MyMod"; // This will serve as a sort of ID for your category
-
-MelonPreferences.CreateCategory(myCategory, "MyMod Settings");
-
-Color myColor = Color.white; // The default color value
-string myColorId = "colorPreference"; // The preference's ID
-MelonPreferences.CreateEntry(myCategory, myColorId, myColor, "My Color Preference.");
+MelonPreferences_Entry<bool> myBoolEntry = myCategory.CreateEntry("MyBoolEntry", false) // Store this in a field or property for later use
 ```
-
-Now to access this preference, use `GetEntryValue<T>()`.
+An advantage to the object oriented conevention being used now, is that to access the value or assign it a new value, simply use the `value` property.
 ```cs
-Color myColor = MelonPreferences.GetEntryValue<Color>(myCategory, myColorId);
+myBoolEntry.value = true;
+MelonLogger.Msg(myBoolEntry.value); // true
 ```
+ > Keep in mind that changes to the entry's value will not be saved in the preferences file until `MelonPreferences.Save()` is called.
 
-?> Like MelonLoader 0.2.7.4, Multiple categories or preferences with the same name will cause errors!
+Another advantage to object oriented conventions is the ability to add events for when the value of a pref changes.
 
-### Adding Custom Serializers
+Within the `MelonPreferences_Entry<T>` class, there are 2 events that are called when the value is changed.<br>
+The first, `OnValueChangedUntyped` is non-generic and has no parameters.
+The second, `OnValueChanged` has two parameters, `oldValue` and `newValue`.
 
-To add your own serializer/deserializer to the mapper we use the `RegisterMapper<T>()` method in the `Mappers` class.<br>
-As its parameters, we use a function called the deserializer, or reader as the first parameter, and a function called the serializer, or writer as the second parameter.<br>
-The reader should take a `TomlObject` as its parameter and return something of type `T`. The writer does the opposite.
+ > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
-The custom class that will be stored in this example is defined like so:
+### Mod Preferences in MelonLoader 0.4.0 and later
+
+In MelonLoader 0.4.0, there is no change in syntax while creating and using prefs. However, there are many improvements with the system as a whole.
+
+The two largest differences between preferences in MelonLoader 0.4.0 and 0.3.0 is the use of the `Tomlet` lib instead of `Tomlyn` as our Toml lib,
+and the use of object oriented conventions while saving and using preferences.
+
+The main difference between the two libs, is that custom serializers are almost never needed, as Tomlet will handle most of that for you.
+In fact, Tomlet will handle deserializing and serializing most Unity types for you.
+To demonstrate this, let's say we had this type:
 ```cs
-public class MyObject
+public class MyCustomType
 {
-    string myString;
-    int myInt;
+    public Vector3 myVector;
+    public List<int> myList;
 }
 ```
-First, in our reader, we will use the `ReadArray()` method in the `Mappers` class to parse the `TomlObject` parameter.
+We could simply make the entry's type `MyCustomType` while creating it, and Tomlet would save the entry fine.
+
+Another addition to MelonLoader 0.4.0 is the ability to save categories to specific files instead of the main `MelonPreferences.cfg` file.<br>
+To do this, we simply call the `SetFilePath` method after creating the category and when we want to save, we call the `SaveToFile` method.<br>
+This would look something like this:
 ```cs
-public static MyObject MyObjectReader(TomlObject value)
-{
-    string[] strings = MelonPreferences.Mappers.ReadArray<string>(value);
-    if (strings == null || strings.Length != 2) \\ Check if the data was corrupted somehow
-        return default;
-    return new MyObject() { myString = strings[0], myInt = float.Parse(strings[1]) };
-}
-```
+myCategory.SetFilePath("Foo/Bar.cfg");
 
-Then, in the writer, we will use the `WriteArray<T>()` method in the `Mappers` class.
+// Some code here
+
+myCategory.SaveToFile();
+```
+If we wanted to set the category's file path, but not load the preferences from the file yet, simply set the `autoload` param in `SetFilePath` to false, and manually call `LoadFromFile`.
 ```cs
-public static TomlObject MyObjectWriter(MyObject value) 
-{
-    string[] strings = new string[] { value.myString, value.myInt.ToString() };
-    return MelonPreferences.Mappers.WriteArray<string>(strings);
-}
+myCategory.SetFilePath("Foo/Bar.cfg", autoload: false);
+
+// When you want to load the prefs from the file
+
+myCategory.LoadFromFile();
 ```
-
-Lastly, we need to register the reader and writer. We can simply do this by using the `RegisterMapper<T>()` method in the `Mappers` class.
-```cs
-// Run this as early as possible, before you register preferences
-MelonPreferences.Mappers.RegisterMapper(MyObjectReader, MyObjectWriter);
-```
-
-And that is it. Now it is possible to store something of type `MyObject` using `MelonPreferences`.
-
-?> Make sure the type `T` in `Mappers.WriteArray<T>()` is the same as type `T` in `Mappers.ReadArray<T>()` or else issues will occur while serializing/deserializing.

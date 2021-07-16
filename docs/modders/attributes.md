@@ -47,7 +47,7 @@ using MelonLoader;
 [assembly: MelonOptionalDependencies("OtherMod", "AnotherMod")]
 ```
 
-## Attributes introduced in ML v0.3.0
+## Attributes Introduced in ML v0.3.0
 
 ### MelonColor
 This optional assembly attributes sets the color of the melon in the console
@@ -85,10 +85,12 @@ using MelonLoader;
 [assembly: MelonPriority(MelonBase.MelonPriority.LOW)]
 ```
 
-!> This attribute was changed in how it works in ML v0.3.1
+!> This attribute was changed in ML v0.4.0
 
 MelonPriority now has 1 parameter which is an int
 - `priority`
+
+Lower number = higher priority. Mods by default have a priority of 0 so if we had...
 
 ```cs
 using MelonLoader;
@@ -96,7 +98,9 @@ using MelonLoader;
 [assembly: MelonPriority(100)]
 ```
 
-## Attributes introduced in ML v0.3.1
+...our mod would be loaded later than most mods
+
+## Attributes Introduced in ML v0.4.0 
 
 
 ### MelonAdditionalDependencies
@@ -138,7 +142,7 @@ using MelonLoader;
 ```
 
 ### RegisterTypeInIl2Cpp
-If you read the section on this Wiki about Custom Components and IlCpp Type Inheritance [here](modders/melonloaderdifferences?id=custom-components-il2cpp-type-inheritance) you might've noticed that you need to register the class before using it using `ClassInjector.RegisterTypeInIl2Cpp<T>()`. This attribute will let MelonLoader know to register it automatically so that you won't have to
+If you read the section on this Wiki about Custom Components and IlCpp Type Inheritance [here](modders/il2cppdifferences?id=custom-components-il2cpp-type-inheritance) you might've noticed that you need to register the class before using it using `ClassInjector.RegisterTypeInIl2Cpp<T>()`. This attribute will let MelonLoader know to register it automatically so that you won't have to
 
 
 ```cs
@@ -147,7 +151,7 @@ class MyCustomComponent : MonoBehaviour
 {
     public MyCustomComponent(IntPtr ptr) : base(ptr) {}
 
-    // Optional, only used in case you want to instantiate this class in the mono-side
+    // Optional, only used in cases where you want to instantiate this class in the mono-side
     // Don't use this on MonoBehaviours / Components!
     public MyCustomComponent() : base(ClassInjector.DerivedConstructorPointer<MyCustomComponent>()) => ClassInjector.DerivedConstructorBody(this);
 
@@ -171,27 +175,25 @@ using MelonLoader;
 This optional assembly attribute verifies the version of MelonLoader that you specify in your mod
 
 VerifyLoaderVersion has several overrides
-1) - `major`
-   - `minor`
-   - `patch`
-2) - `major`
-   - `minor`
-   - `patch`
-   - `isminimum` 
-3) - `major`
-   - `minor`
-   - `patch`
-   - `revision`
-4) - `major`
-   - `minor`
-   - `patch`   
-   - `revision`
-   - `isminimum`    
+1) - `major`, `minor`, `patch`
+2) - `major`, `minor`, `patch`, `isminimum` 
+3) - `major`, `minor`, `patch`, `revision`
+4) - `major`, `minor`, `patch`, `revision`, `isminimum`    
 
 ```cs
 using MelonLoader;
 // ...
 [assembly: VerifyLoaderVersion(0, 3, 0, true)] //This'll mark your mod as v0.3.0 being the minimum version for your mod
+```
+
+### HarmonyDontPatchAll
+This optional assembly attribute tells MelonLoader to not call `PatchAll()` for your mod's harmony instance
+  
+
+```cs
+using MelonLoader;
+// ...
+[assembly: HarmonyDontPatchAll] 
 ```
 
 

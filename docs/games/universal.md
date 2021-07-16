@@ -1,6 +1,6 @@
 # Universal Mods
 
-## What is an universal mod?
+## What is a universal mod?
 
 A universal mod is a mod which is supposed to work on all games. This means you can download it, install it on any game, and it should do what it is meant to do.
 

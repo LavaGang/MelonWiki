@@ -11,7 +11,7 @@ Doing so will create a new empty cs file, called `Class1`. This will be our mod 
 I'll rename it `MyMod`. You can change it to whatever you would like though.
 
 You will now need to reference the main MelonLoader assembly. Right click the `Reference` directory, `Add a reference...`, and click `Browse`.<br/>
-Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.ModHandler.dll`, or if you are using MelonLoader 0.3.0: `MelonLoader/MelonLoader.dll`.
+Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.ModHandler.dll`, or if you are using MelonLoader 0.3.0 and up: `MelonLoader/MelonLoader.dll`.
 
 MelonLoader relies on assembly info to get your mod description. We will have to setup them up.<br>
 To do that, go to the `Properties` directory, and add these three lines to `AssemblyInfo.cs`:
@@ -21,7 +21,7 @@ using MelonLoader;
 [assembly: MelonInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
 [assembly: MelonGame("GameStudio", "GameName")]
 ```
-MelonInfo contains 4 required parameters and 1 optional one:
+MelonInfo contains 4 required parameters and an optional one:
 - `MyMod`: The main class of your mod. We will talk about it later
 - `My Mod Name`: The name of your mod
 - `version`: The version of the mod. It should respect the [semver format](https://semver.org/) (example: `1.0.0`)
@@ -34,7 +34,7 @@ MelonGame contains 2 parameters:
 
 ?> You can get the value of `GameName` and `GameStudio` of the game you are modding at the top of one of its Log file.<br/>You can also set these two parameters to `null` if you want you mod to be Universal.
 
-We are almost ready. Let's go back to our `MyMod` class, add a `using MelonLoader;` to the import MelonLoader, and make our `MyMod` class inherit from `MelonMod`.
+We are almost ready. Let's go back to our `MyMod` class, add a `using MelonLoader;`, and make our `MyMod` class inherit from `MelonMod`.
 
 ### The MelonMod class
 
@@ -52,34 +52,34 @@ namespace MyProject
 ```
 
 MelonMod has a few virtual methods that can be overridden:
- - `OnApplicationStart()`: Called after every mod is loaded into the current Mono Domain
- - `OnApplicationQuit()`: Called when the application is closing
- - `OnLevelWasInitialized(int level)`: Called when a scene is initialized
- - `OnLevelWasLoaded(int level)`: Called when a scene is loaded
- - `OnUpdate()`: Called at the end of each `Update` call
- - `OnLateUpdate()`: Called at the end of each `Update` call
- - `OnFixedUpdate()`: Called at the end of each `Update` call
- - `OnGUI()`: Called during the GUI update
- - `OnModSettingsApplied()`: Called when a mod calls `MelonLoader.ModPrefs.SaveConfig()`, or when the application quits.
+ - `OnApplicationStart()`: Called after every mod is loaded and right when the game starts.
+ - `OnApplicationQuit()`: Called when the application is closing.
+ - `OnLevelWasInitialized(int level)`: Called when a scene is initialized.
+ - `OnLevelWasLoaded(int level)`: Called when a scene is loaded.
+ - `OnUpdate()`: Called at the end of each `Update` call.
+ - `OnLateUpdate()`: Called at the end of each `Update` call.
+ - `OnFixedUpdate()`: Called at the end of each `Update` call.
+ - `OnGUI()`: Called during the GUI update.
+ - `OnModSettingsApplied()`: Called when a mod saves the preferences, or when the application quits.
 
 
-
-In MelonLoader 0.3.0, MelonMod's overrides are a little different:
- - `OnApplicationStart()`: Called after every mod is loaded into the current Mono Domain
- - `OnApplicationQuit()`: Called when the application is closing
- - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized
- - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded
- - `OnUpdate()`: Called at the end of each `Update` call
- - `OnLateUpdate()`: Called at the end of each `Update` call
- - `OnFixedUpdate()`: Called at the end of each `Update` call
- - `OnGUI()`: Called during the GUI update
+In MelonLoader 0.3.0, a few methods were added:
+ - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized.
+ - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded.
+ - `OnGUI()`: Called during the GUI update.
  - `OnPreferencesLoaded()`: Called when a mod calls `MelonLoader.MelonPreferences.Load()`, or when MelonPreferences loads external changes.
  - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
  - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
 
+And also in MelonLoader 0.3.0 later, `OnLevelWasInitialized`, `OnLevelWasLoaded` and `OnModSettingsApplied()` are all obsolete.
+
+Most recently in MelonLoader 0.4.0 and later, the following methods were added:
+ - `OnSceneWasUnloaded(int buildIndex, string sceneName)`: Called when a scene is unloaded.
+ - `OnApplicationLateStart()`: Called after `OnApplicationStart`.
+
 ### Basic method calling
 
-Thanks to Il2CppAssemblyUnhollower, we have a fair pack of generated proxy assemblies. These can be used as reference to call, get, and set the methods, properties, and fields.
+!> In MelonLoader 0.3.0 and up, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and earlier.
 
 Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
@@ -96,5 +96,3 @@ public override void OnUpdate()
 ```
 
 You now have a mod that prints "You just pressed T" when you, well press the T key!
-
-!> In MelonLoader 0.3.0, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and below.
