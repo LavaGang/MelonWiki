@@ -32,7 +32,7 @@ MelonGame contains 2 parameters:
 - `GameStudio`: The name of the developer(s) of the game, as defined in the Unity settings.
 - `GameName`: The name of the game, as defined in the Unity settings.
 
-?> You can get the value of `GameName` and `GameStudio` of the game you are modding at the top of one of its Log file.<br/>You can also set these two parameters to `null` if you want you mod to be Universal.
+?> You can get the value of `GameName` and `GameStudio` of the game you are modding at the top of one of its Log file.<br/>You can also set these two parameters to `null` if you want your mod to be Universal.
 
 We are almost ready. Let's go back to our `MyMod` class, add a `using MelonLoader;`, and make our `MyMod` class inherit from `MelonMod`.
 
