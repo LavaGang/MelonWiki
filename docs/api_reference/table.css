@@ -1,0 +1,25 @@
+.markdown-section table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    display: table;
+    width: 90%;
+}
+
+.markdown-section tr {
+    background-color: var(--codeBackgroudColor) !important;
+}
+
+.markdown-section td {
+    border-color: #ccc;
+    border-width: 0 0 1px 0;
+    word-wrap: break-word;
+    padding: 1em
+}
+
+.name {
+    width: 20%;
+}
+
+.description {
+    width: 80%;
+}
