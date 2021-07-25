@@ -1,4 +1,4 @@
-# {class}.{methodname}
+## {methodname}
 
 {methoddescription}
 
@@ -6,13 +6,13 @@
 {methoddeclaration}
 ```
 
-## Type Parameters
+### Type Parameters
 {typeparameters}
-## Parameters
+### Parameters
 {parameters}
-## Returns
+### Returns
 {returns}
-## Exceptions
+### Exceptions
 {exceptions}
-## Applies to
+### Applies to
 {appliesto}

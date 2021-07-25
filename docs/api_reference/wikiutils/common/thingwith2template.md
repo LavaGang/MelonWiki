@@ -1,2 +1,2 @@
-{header} {header2}
-{description}
+{header} {header2}<br>
+{description}<br>

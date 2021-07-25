@@ -90,18 +90,19 @@ class ArgParser:
 
     @classmethod
     def parse_args(cls, args: list[str], desired_args: list[ArgWrapper]) -> Union[list[ArgWrapper], None]:
-        i = 0
         split_params = []
+        current_arg = None
         for arg in args:
             parsed_arg = ArgWrapper.get_arg_from_list(desired_args, arg)
             if parsed_arg:
+                if current_arg and split_params != []:
+                    current_arg.populate(split_params)
                 current_arg = parsed_arg
-                split_params.append([])
+                split_params.clear()
             elif current_arg:
-                split_params[-1].append(arg)
-            i += 1
-        for param, split_args in zip(desired_args, split_params):
-            param.populate(split_args)
+                split_params.append(arg)
+        if current_arg and split_params != []:
+            current_arg.populate(split_params)
         return desired_args
                 
 

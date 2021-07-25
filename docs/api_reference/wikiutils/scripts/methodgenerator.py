@@ -1,79 +1,199 @@
+import json
 import os
 from os import path
 import sys
 from typing import Union
-from argparser import ArgParser, ArgWrapper
-from commontemplateutils import create_thing_from_template
+from argparser import ArgParser, ArgParentWrapper, ArgWrapper
 from constants import api_reference_path, common_path, methods_path
+from htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
+from templateutils import replace_thing_with_thing_from_template
 
-command_line_args = ["-m", "Test", "TestMethod", "This is a test description", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
-                     "-r", "`int`", "some test thingy that returns int",
-                     "-tp", 
-                        "T", "type param 1",
-                        "T1", "type param 2, i know its confusing",
-                     "-p",
-                        "string", "thingy", "this is a string parameter, \"i dunno what to say\"",
-                        "object", "thing2", "this is an object parameter. yes this naming is confused",
-                     "-e",
-                        "ArgumentNullException", "throws then either of the arguments are null",
-                        "ArgumentException", "throws when the method feels like it"
-                    ]
+# Method with no overloads
+command_line_args = ["-mg", "Test", "TestMethod<T, T1>(string, object)", "This is a test description", 
+                     "-m", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
+                        "-r", "`int`", "some test thingy that returns int",
+                        "-tp", 
+                            "T", "type param 1",
+                        "-tp",
+                            "T1", "type paramasfasdfasdfasdfas 2, i know its confusing",
+                        "-p",
+                            "string", "thingy", "this is a string parameter, \"i dunno what to say\"",
+                        "-p",
+                            "object", "thing2", "this is an object parameter. yes this naming is confused",
+                        "-e",
+                            "ArgumentNullException", "throws then either of the arguments are null",
+                        "-e",
+                            "ArgumentException", "throws when the method feels like it"
+]
+
+# Method with overloads
+command_line_args = ["-mg", "Test", "TestMethod", "This is a test description", 
+                     "-mo", "TestMethod<T, T1>(string, object)", "this is a test description of the first overload", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
+                        "-r", "`int`", "some test thingy that returns int",
+                        "-tp", 
+                            "`T`", "type param 1",
+                        "-tp",
+                            "`T1`", "type paramasfasdfasdfasdfas 2, i know its confusing",
+                        "-p",
+                            "`string`", "thingy", "this is a string parameter, \"i dunno what to say\"",
+                        "-p",
+                            "`object`", "thing2", "this is an object parameter. yes this naming is confused",
+                        "-e",
+                            "ArgumentNullException", "throws then either of the arguments are null",
+                        "-e",
+                            "ArgumentException", "throws when the method feels like it",
+                     "-mo", "TestMethod<T>(string, object)", "This is a test description of the second overload", "public static int TestMethod<T>(string thingy, object thingy2)", "doesn't apply to anything",
+                        "-r", "`int`", "some test thingy that returns int",
+                        "-tp", 
+                            "`T`", "type param 1",
+                        "-p",
+                            "`string`", "thingy", "this is a string parameter, \"i dunno what to say\"",
+                        "-p",
+                            "`object`", "thing2", "this is an object parameter. yes this naming is confused",
+                        "-e",
+                            "ArgumentNullException", "throws then either of the arguments are null",
+                        "-e",
+                            "ArgumentException", "throws when the method feels like it"
+]
+
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-m", ["class", "name", "description", "declaration", "applies_to"]), 
-                ArgWrapper("-r", ["type", "description"]), 
-                ArgWrapper("-tp", ["name", "description"], True),
-                ArgWrapper("-p", ["type", "name", "description"], True),
-                ArgWrapper("-e", ["type", "description"], True)]
+        args = [ArgWrapper("-mg", ["class", "name", "description"]),
+                ArgParentWrapper("-m", ["declaration", "applies_to", 
+                                        ArgWrapper("-r", ["type", "description"]), 
+                                        ArgWrapper("-tp", ["name", "description"], True),
+                                        ArgWrapper("-p", ["type", "name", "description"], True),
+                                        ArgWrapper("-e", ["type", "description"], True)],
+                                 False),
+                ArgParentWrapper("-mo", ["name", "description", "declaration", "applies_to", 
+                                         ArgWrapper("-r", ["type", "description"]), 
+                                         ArgWrapper("-tp", ["name", "description"], True),
+                                         ArgWrapper("-p", ["type", "name", "description"], True),
+                                         ArgWrapper("-e", ["type", "description"], True)], 
+                                 True)
+        ]
 
         arg_parser = ArgParser(cl_args, args)
-    except:
+    except Exception as err:
+        print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nmethodgenerator.py -m method_dir method_name method_description method_declaration applies_to [-r return_type return_description] [-tp [type_parameter_name description ...]] [-p [parameter_type parameter_name description ...]] [-e [exception_type description ...]]")
+        "\nmethodgenerator.py -mg class method_name method_description {[m method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]]"
+        " | [-mo overload_name overload_declaration overload_applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] ...]}")
         input("Press any key to exit")
+        exit()
 
     print(f"Page generated successfully at path: " + create_method_page(arg_parser))
-        
 
 def create_method_page(args: ArgParser):
     page = ""
-    with open(path.join(methods_path, "methodtemplate.md"), "r", encoding="utf-8") as file_template_file:
-        page = file_template_file.read();    
+    
+    if args.parsed_args[1].exists:
+        with open(path.join(methods_path, "methodtemplate.md"), "r", encoding="utf-8") as file_template_file:
+            page = file_template_file.read();    
+    else:
+        with open(path.join(methods_path, "methodtemplatewithoverload.md"), "r", encoding="utf-8") as file_template_file:
+            page = file_template_file.read();  
 
     base_method_args = args.parsed_args[0].params
     page = page.replace("{class}", base_method_args["class"])
-    page = page.replace("{methodname}", base_method_args["name"])
+    page = page.replace("{methodname}", convert_string_to_work_in_html(base_method_args["name"]))
     page = page.replace("{methoddescription}", base_method_args["description"])
-    page = page.replace("{methoddeclaration}", base_method_args["declaration"])
-    page = page.replace("{appliesto}", base_method_args["applies_to"])
 
+    data = {"names": [], "descriptions": []}
     if args.parsed_args[1].exists:
-        return_args = args.parsed_args[1].params
-        page = page.replace("{returntype}", return_args["type"])
-        page = page.replace("{returndescription}", return_args["description"])
+        page = create_method_page_no_overloads(args, data, page)
     else:
-        page = page.replace("## Returns\n{returntype}\n{returndescription}\n\n", "")
+        page = create_method_page_with_overloads(args, data, page)
 
-    if args.parsed_args[2].exists:
-        page = page.replace("{typeparameters}", create_thing_from_template(args.parsed_args[2]))
-    else:
-        page = page.replace("## Type Parameters\n{typeparameters}\n", "")
-
-    if args.parsed_args[3].exists:
-        page = page.replace("{parameters}", create_thing_from_template(args.parsed_args[3]))
-    else:
-        page = page.replace("## Parameters\n{parameters}\n", "")
-
-    if args.parsed_args[4].exists:
-        page = page.replace("{exceptions}", create_thing_from_template(args.parsed_args[4]))
-    else:
-        page = page.replace("## Exceptions\n{exceptions}\n", "")
-
-    final_path = path.join(api_reference_path, base_method_args["class"].lower(), "methods", base_method_args["name"].lower() + ".md")
-    with open (final_path, "w", encoding="utf-8") as page_file:
+    final_path_folder = path.join(api_reference_path, base_method_args["class"].lower(), "methods")
+    update_json(final_path_folder, data)
+    final_path = path.join(final_path_folder, base_method_args["name"].lower() + ".md")
+    with open(final_path, "w", encoding="utf-8") as page_file:
         page_file.write(page)
+    with open(final_path + ".json", "w", encoding="utf-8") as cl_arg_file:
+        json.dump(args.args, cl_arg_file)
+
     return final_path
+
+def create_method_page_no_overloads(args: ArgParser, data: dict, page: str) -> str:
+    parent_arg = args.parsed_args[1]
+
+    data["names"].append(args.parsed_args[0].params["name"])
+    data["descriptions"].append(args.parsed_args[0].params["description"])
+
+    params = parent_arg.params
+    page = page.replace("{methoddeclaration}", params["declaration"])
+    page = page.replace("{appliesto}", params["applies_to"])
+
+    page = replace_overload_things(params, page)
+    return page
+
+def create_method_page_with_overloads(args: ArgParser, global_data: dict, page: str) -> str:
+    table_row_template = ""
+    table_rows = []
+    with open(path.join(methods_path, "overloadtablerow.md"), "r", encoding="utf-8") as table_row_file:
+        table_row_template = table_row_file.read()
+
+    overloads = []
+    for data in args.parsed_args[2].params:
+        overloads.append(create_method_overload(data, overloads))
+
+        table_row = table_row_template
+        table_row = table_row.replace("{classlower}", args.parsed_args[0].params["class"].lower())
+        table_row = table_row.replace("{namelower}", args.parsed_args[0].params["name"].lower())
+        table_row = table_row.replace("{namecleaned}", convert_string_to_work_in_link(data["name"]))
+        table_row = table_row.replace("{name}", convert_string_to_work_in_html(data["name"]))
+        table_row = table_row.replace("{description}", data["description"])
+        table_rows.append(table_row)
+
+        global_data["names"].append(convert_string_to_work_in_html(data["name"]))
+        global_data["descriptions"].append(data["description"])
+
+    table = ""
+    with open(path.join(methods_path, "overloadtable.md"), "r", encoding="utf-8") as table_file:
+        table = table_file.read()
+    table = table.replace("{rows}", "\n".join(table_rows))
+    page = page.replace("{overloadtable}", table)
+
+    page = page.replace("{overloads}", "\n".join(overloads))
+    return page
+
+def create_method_overload(data: dict, page: str) -> str:
+    template = ""
+    with open(path.join(methods_path, "overloadtemplate.md"), "r", encoding="utf-8") as file_template_file:
+        template = file_template_file.read();  
+    
+    template = template.replace("{methodname}", convert_string_to_work_in_html(data["name"]))
+    template = template.replace("{methoddescription}", data["description"])
+    template = template.replace("{methoddeclaration}", data["declaration"])
+    template = template.replace("{appliesto}", data["applies_to"])
+
+    template = replace_overload_things(data, template)
+    return template
+
+def replace_overload_things(data: dict, page: str) -> str:
+    page = replace_thing_with_thing_from_template(data["-r"], page, "{returns}", "## Returns\n{returns}\n", "")
+    page = replace_thing_with_thing_from_template(data["-tp"], page, "{typeparameters}", "## Type Parameters\n{typeparameters}\n", "")
+    page = replace_thing_with_thing_from_template(data["-p"], page, "{parameters}", "## Parameters\n{parameters}\n", "")
+    page = replace_thing_with_thing_from_template(data["-e"], page, "{exceptions}", "## Exceptions\n{exceptions}\n", "")
+    return page
+
+
+def update_json(final_path_folder: str, data: dict):
+    json_path = path.join(final_path_folder, "global_method_data.json")
+    if not path.isfile(json_path):
+        with open(json_path, "w", encoding="utf-8") as global_data_file:
+            json.dump({"names": [], "descriptions": []}, global_data_file)
+
+    with open(json_path, "r", encoding="utf-8") as global_data_file:
+        global_data = json.load(global_data_file)
+
+    global_data["names"].extend(data["names"])
+    global_data["descriptions"].extend(data["descriptions"])
+    
+    with open(json_path, "w", encoding="utf-8") as global_data_file:
+        json.dump(global_data, global_data_file)
 
 if __name__ == "__main__":
     if len(command_line_args) == 1:
