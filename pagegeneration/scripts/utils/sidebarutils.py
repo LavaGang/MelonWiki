@@ -11,17 +11,20 @@ import copy
 import json
 from os import path
 from typing import Union
-from constants import api_reference_path
+from utils.pathutils import api_reference_path, page_data_path
 
 class SidebarManager:
     sample_object = {"link": "", "children": {}}
     sidebar = {}
 
-    if not path.isfile(path.join(api_reference_path, "_sidebar.json")):
-        with open(path.join(api_reference_path, "_sidebar.json"), "w", encoding="utf-8") as sidebar_json:
+    json_path = path.join(page_data_path, "_sidebar.json")
+    md_path = path.join(api_reference_path, "_sidebar.md")
+
+    if not path.isfile(json_path):
+        with open(json_path, "w", encoding="utf-8") as sidebar_json:
             json.dump({}, sidebar_json)
 
-    with open(path.join(api_reference_path, "_sidebar.json"), "r", encoding="utf-8") as sidebar_json:
+    with open(json_path, "r", encoding="utf-8") as sidebar_json:
         sidebar = json.load(sidebar_json)  
 
     _desired_member_order = ["Constructor", "Fields", "Properties", "Methods", "Operators"]  
@@ -97,9 +100,9 @@ class SidebarManager:
     @classmethod
     def save(cls):
         cls.sort_sidebar()
-        with open(path.join(api_reference_path, "_sidebar.md"), "w", encoding="utf-8") as sidebar_json:
+        with open(cls.md_path, "w", encoding="utf-8") as sidebar_json:
             cls._write_recursive(sidebar_json, cls.sidebar)
-        with open(path.join(api_reference_path, "_sidebar.json"), "w", encoding="utf-8") as sidebar_json:
+        with open(cls.json_path, "w", encoding="utf-8") as sidebar_json:
             json.dump(cls.sidebar, sidebar_json, indent=4)
 
 

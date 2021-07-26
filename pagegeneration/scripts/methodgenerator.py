@@ -3,12 +3,13 @@ import os
 from os import path
 import sys
 from typing import Union
-from argparser import ArgParser, ArgParentWrapper, ArgWrapper
-from constants import api_reference_path, common_path, methods_path
-from globaldatautils import update_json
-from htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
-from sidebarutils import SidebarManager
-from templateutils import replace_thing_with_thing_from_template
+from utils.argparser import ArgParser, ArgParentWrapper, ArgWrapper
+from utils.htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
+from utils.pathutils import convert_to_api_reference_path, convert_to_pagedata_path, join_and_verify, methods_path
+from utils.sidebarutils import SidebarManager
+from utils.templateutils import replace_thing_with_thing_from_template
+from utils.typedatautils import update_json
+
 
 # Method with no overloads
 command_line_args = ["-mg", "Test", "TestMethod<T, T1>(string, object)", "This is a test description", 
@@ -64,6 +65,11 @@ command_line_args = ["-mg", "Test", "TestMethod", "This is a test description",
                             "this is a remark yes yes",
 ]
 
+with open(path.join(methods_path, "methodtemplate.md"), "r", encoding="utf-8") as file_template_file:
+    method_template = file_template_file.read();   
+
+with open(path.join(methods_path, "methodtemplatewithoverload.md"), "r", encoding="utf-8") as file_template_file:
+    method_with_overload_template = file_template_file.read();  
 
 def start(cl_args: list[str] = sys.argv):
     try:
@@ -100,16 +106,21 @@ def create_method_page(args: ArgParser):
     page = ""
     
     if args.parsed_args[1].exists:
-        with open(path.join(methods_path, "methodtemplate.md"), "r", encoding="utf-8") as file_template_file:
-            page = file_template_file.read();    
+        page = method_template 
     else:
-        with open(path.join(methods_path, "methodtemplatewithoverload.md"), "r", encoding="utf-8") as file_template_file:
-            page = file_template_file.read();  
+        page = method_with_overload_template
 
     base_method_args = args.parsed_args[0].params
-    page = page.replace("{class}", base_method_args["class"])
-    page = page.replace("{methodname}", convert_string_to_work_in_html(base_method_args["name"]))
+    class_ = base_method_args["class"]
+    name = base_method_args["name"]
+
+    page = page.replace("{class}", class_)
+    page = page.replace("{methodname}", convert_string_to_work_in_html(name))
     page = page.replace("{methoddescription}", base_method_args["description"])
+
+    type_data_path = convert_to_pagedata_path(class_)
+    page_data_path = path.join(join_and_verify(type_data_path, "methods"), name.lower() + ".md.json")
+    full_path = path.join(convert_to_api_reference_path(class_, "methods"), name.lower() + ".md")
 
     data = {"names": [], "descriptions": []}
     if args.parsed_args[1].exists:
@@ -117,18 +128,16 @@ def create_method_page(args: ArgParser):
     else:
         page = create_method_page_with_overloads(args, data, page)
 
-    final_path_folder = path.join(api_reference_path, base_method_args["class"].lower(), "methods")
-    update_json(final_path_folder, "methods", data)
+    update_json(type_data_path, "methods", data)
     
-    final_path = path.join(final_path_folder, base_method_args["name"].lower() + ".md")
-    with open(final_path, "w", encoding="utf-8") as page_file:
+    with open(full_path, "w", encoding="utf-8") as page_file:
         page_file.write(page)
-    with open(final_path + ".json", "w", encoding="utf-8") as cl_arg_file:
+    with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file)
 
-    SidebarManager.add_method(base_method_args["class"], base_method_args["name"])
+    SidebarManager.add_method(class_, name)
     
-    return final_path
+    return full_path
 
 def create_method_page_no_overloads(args: ArgParser, data: dict, page: str) -> str:
     parent_arg = args.parsed_args[1]

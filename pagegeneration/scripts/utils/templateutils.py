@@ -1,6 +1,12 @@
 from os import path
-from argparser import ArgWrapper
-from constants import common_path
+from utils.argparser import ArgWrapper
+from utils.pathutils import common_path
+
+with open(path.join(common_path, "thingtemplate.md"), "r", encoding="utf-8") as template_file:
+    thing_template = template_file.read()
+
+with open(path.join(common_path, "thingwith2template.md"), "r", encoding="utf-8") as template_file:
+    thing2_template = template_file.read()
 
 def create_thing_from_template(data: ArgWrapper) -> str:
     thing_string = ""
@@ -20,13 +26,11 @@ def create_thing_from_template_single(data: dict, data_keys: list[str]) -> str:
     if len(data) == 1:
         thing_string = data[data_keys[0]]
     elif len(data) == 2:
-        with open(path.join(common_path, "thingtemplate.md"), "r", encoding="utf-8") as template_file:
-            thing_string = template_file.read()
+        thing_string = thing_template
         thing_string = thing_string.replace("{header}", data[data_keys[0]])
         thing_string = thing_string.replace("{description}", data[data_keys[1]])
     elif len(data) == 3:
-        with open(path.join(common_path, "thingwith2template.md"), "r", encoding="utf-8") as template_file:
-            thing_string = template_file.read()
+        thing_string = thing2_template
         thing_string = thing_string.replace("{header}", data[data_keys[0]])
         thing_string = thing_string.replace("{header2}", data[data_keys[1]])
         thing_string = thing_string.replace("{description}", data[data_keys[2]])
