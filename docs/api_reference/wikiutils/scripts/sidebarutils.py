@@ -48,23 +48,23 @@ class SidebarManager:
 
     @classmethod 
     def add_constructor(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "constructors", name, should_save)
+        cls._add_internal(class_, "Constructors", name, should_save)
     
     @classmethod 
     def add_property(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "properties", name, should_save)
+        cls._add_internal(class_, "Properties", name, should_save)
             
     @classmethod 
     def add_method(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "methods", name, should_save)
+        cls._add_internal(class_, "Methods", name, should_save)
             
     @classmethod 
     def add_field(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "fields", name, should_save)
+        cls._add_internal(class_, "Fields", name, should_save)
 
     @classmethod 
     def add_operator(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "operators", name, should_save)
+        cls._add_internal(class_, "Operators", name, should_save)
 
     @classmethod
     def _add_internal(cls, class_: str, type_: str, name: str, should_save: bool = True):
