@@ -6,7 +6,7 @@ def create_thing_from_template(data: ArgWrapper) -> str:
     thing_string = ""
     if not data.exists:
         return ""
-        
+
     if isinstance(data.params, list):
         for param in data.params:
             thing_string += create_thing_from_template_single(param, data.template_keys)
@@ -17,7 +17,9 @@ def create_thing_from_template(data: ArgWrapper) -> str:
 
 def create_thing_from_template_single(data: dict, data_keys: list[str]) -> str:
     thing_string = ""
-    if len(data) == 2:
+    if len(data) == 1:
+        thing_string = data[data_keys[0]]
+    elif len(data) == 2:
         with open(path.join(common_path, "thingtemplate.md"), "r", encoding="utf-8") as template_file:
             thing_string = template_file.read()
         thing_string = thing_string.replace("{header}", data[data_keys[0]])

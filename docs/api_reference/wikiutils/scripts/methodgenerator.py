@@ -6,6 +6,7 @@ from typing import Union
 from argparser import ArgParser, ArgParentWrapper, ArgWrapper
 from constants import api_reference_path, common_path, methods_path
 from htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
+from sidebarutils import SidebarManager
 from templateutils import replace_thing_with_thing_from_template
 
 # Method with no overloads
@@ -42,6 +43,10 @@ command_line_args = ["-mg", "Test", "TestMethod", "This is a test description",
                             "ArgumentNullException", "throws then either of the arguments are null",
                         "-e",
                             "ArgumentException", "throws when the method feels like it",
+                        "-ex",
+                            "This is an example in usage, a very good one",
+                        "-re",
+                            "this is a remark yes yes",
                      "-mo", "TestMethod<T>(string, object)", "This is a test description of the second overload", "public static int TestMethod<T>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-r", "`int`", "some test thingy that returns int",
                         "-tp", 
@@ -53,7 +58,9 @@ command_line_args = ["-mg", "Test", "TestMethod", "This is a test description",
                         "-e",
                             "ArgumentNullException", "throws then either of the arguments are null",
                         "-e",
-                            "ArgumentException", "throws when the method feels like it"
+                            "ArgumentException", "throws when the method feels like it",
+                        "-re",
+                            "this is a remark yes yes",
 ]
 
 
@@ -64,13 +71,16 @@ def start(cl_args: list[str] = sys.argv):
                                         ArgWrapper("-r", ["type", "description"]), 
                                         ArgWrapper("-tp", ["name", "description"], True),
                                         ArgWrapper("-p", ["type", "name", "description"], True),
-                                        ArgWrapper("-e", ["type", "description"], True)],
-                                 False),
+                                        ArgWrapper("-e", ["type", "description"], True),
+                                        ArgWrapper("-ex", ["Example"]),
+                                        ArgWrapper("-re", ["Remarks"])]),
                 ArgParentWrapper("-mo", ["name", "description", "declaration", "applies_to", 
                                          ArgWrapper("-r", ["type", "description"]), 
                                          ArgWrapper("-tp", ["name", "description"], True),
                                          ArgWrapper("-p", ["type", "name", "description"], True),
-                                         ArgWrapper("-e", ["type", "description"], True)], 
+                                         ArgWrapper("-e", ["type", "description"], True),
+                                         ArgWrapper("-ex", ["Example"]),
+                                         ArgWrapper("-re", ["Remarks"])], 
                                  True)
         ]
 
@@ -78,8 +88,8 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nmethodgenerator.py -mg class method_name method_description {[m method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]]"
-        " | [-mo overload_name overload_declaration overload_applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] ...]}")
+        "\nmethodgenerator.py -mg class method_name method_description {[m method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
+        " | [-mo overload_name overload_declaration overload_applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description] ...]}")
         input("Press any key to exit")
         exit()
 
@@ -114,6 +124,8 @@ def create_method_page(args: ArgParser):
     with open(final_path + ".json", "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file)
 
+    SidebarManager.add_method(base_method_args["class"], base_method_args["name"])
+    
     return final_path
 
 def create_method_page_no_overloads(args: ArgParser, data: dict, page: str) -> str:
@@ -177,6 +189,8 @@ def replace_overload_things(data: dict, page: str) -> str:
     page = replace_thing_with_thing_from_template(data["-tp"], page, "{typeparameters}", "## Type Parameters\n{typeparameters}\n", "")
     page = replace_thing_with_thing_from_template(data["-p"], page, "{parameters}", "## Parameters\n{parameters}\n", "")
     page = replace_thing_with_thing_from_template(data["-e"], page, "{exceptions}", "## Exceptions\n{exceptions}\n", "")
+    page = replace_thing_with_thing_from_template(data["-ex"], page, "{examples}", "## Examples\n{examples}\n", "")
+    page = replace_thing_with_thing_from_template(data["-re"], page, "{remarks}", "## Remarks\n{remarks}\n", "")
     return page
 
 

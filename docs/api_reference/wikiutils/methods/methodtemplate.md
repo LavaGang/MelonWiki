@@ -1,4 +1,4 @@
-# {class}.{methodname}
+# {class}.{methodname} Method
 
 {methoddescription}
 
@@ -14,5 +14,9 @@
 {returns}
 ## Exceptions
 {exceptions}
+## Examples
+{examples}
+## Remarks
+{remarks}
 ## Applies to
 {appliesto}
