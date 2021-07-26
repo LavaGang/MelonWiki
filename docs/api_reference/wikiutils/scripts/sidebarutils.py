@@ -22,7 +22,9 @@ class SidebarManager:
             json.dump({}, sidebar_json)
 
     with open(path.join(api_reference_path, "_sidebar.json"), "r", encoding="utf-8") as sidebar_json:
-        sidebar = json.load(sidebar_json)    
+        sidebar = json.load(sidebar_json)  
+
+    _desired_member_order = ["Constructor", "Fields", "Properties", "Methods", "Operators"]  
 
     @classmethod
     def add_introduction(cls, class_: str, should_save: bool = True):
@@ -51,16 +53,16 @@ class SidebarManager:
         cls._add_internal(class_, "Constructors", name, should_save)
     
     @classmethod 
+    def add_field(cls, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(class_, "Fields", name, should_save)
+
+    @classmethod 
     def add_property(cls, class_: str, name: str, should_save: bool = True):
         cls._add_internal(class_, "Properties", name, should_save)
             
     @classmethod 
     def add_method(cls, class_: str, name: str, should_save: bool = True):
         cls._add_internal(class_, "Methods", name, should_save)
-            
-    @classmethod 
-    def add_field(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Fields", name, should_save)
 
     @classmethod 
     def add_operator(cls, class_: str, name: str, should_save: bool = True):
@@ -94,12 +96,34 @@ class SidebarManager:
 
     @classmethod
     def save(cls):
+        cls.sort_sidebar()
         with open(path.join(api_reference_path, "_sidebar.md"), "w", encoding="utf-8") as sidebar_json:
             cls._write_recursive(sidebar_json, cls.sidebar)
         with open(path.join(api_reference_path, "_sidebar.json"), "w", encoding="utf-8") as sidebar_json:
             json.dump(cls.sidebar, sidebar_json, indent=4)
-                
+
+
+    @classmethod
+    def sort_sidebar(cls):
+        cls.sidebar = {k: cls._sort_member_types(v) if isinstance(v, dict) else v
+                       for k, v in sorted(cls.sidebar.items())}
+
+    @classmethod
+    def _sort_member_types(cls, member: dict) -> dict:
+        ordered = {}
+        member_children = member["children"]
+        for member_order in cls._desired_member_order:
+            if member_order in member_children:
+                ordered[member_order] = dict(sorted(cls._sort_members(member_children.pop(member_order)).items()))
+        member_children.update(ordered)
+        return member
     
+    @classmethod
+    def _sort_members(cls, member: dict) -> dict:
+        member["children"] = dict(sorted(member["children"].items()))
+        return member
+
+
     @classmethod
     def _write_recursive(cls, fp, children: dict, layer: int = 0):
         for key, value in children.items():
