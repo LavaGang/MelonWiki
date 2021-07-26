@@ -9,9 +9,9 @@ def create_thing_from_template(data: ArgWrapper) -> str:
 
     if isinstance(data.params, list):
         for param in data.params:
-            thing_string += create_thing_from_template_single(param, data.template_keys)
+            thing_string += create_thing_from_template_single(param, data.template_keys) + "\n"
     else:
-        thing_string += create_thing_from_template_single(data.params, data.template_keys)
+        thing_string += create_thing_from_template_single(data.params, data.template_keys) + "\n"
 
     return thing_string
 

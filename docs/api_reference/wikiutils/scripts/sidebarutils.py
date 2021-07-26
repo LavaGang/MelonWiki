@@ -16,6 +16,11 @@ from constants import api_reference_path
 class SidebarManager:
     sample_object = {"link": "", "children": {}}
     sidebar = {}
+
+    if not path.isfile(path.join(api_reference_path, "_sidebar.json")):
+        with open(path.join(api_reference_path, "_sidebar.json"), "w", encoding="utf-8") as sidebar_json:
+            json.dump({}, sidebar_json)
+
     with open(path.join(api_reference_path, "_sidebar.json"), "r", encoding="utf-8") as sidebar_json:
         sidebar = json.load(sidebar_json)    
 
@@ -63,30 +68,26 @@ class SidebarManager:
 
     @classmethod
     def _add_internal(cls, class_: str, type_: str, name: str, should_save: bool = True):
-        class_ = class_.lower()
-        type_ = type_.lower()
-        name = name.lower()
-
         if class_ not in cls.sidebar:
             cls.sidebar[class_] = copy.deepcopy(cls.sample_object)
-            class_child = cls.sidebar[class_]
+            class_child = cls.sidebar[class_]["children"]
         else:
-            class_child = cls.sidebar[class_]
+            class_child = cls.sidebar[class_]["children"]
 
         if type_ not in class_child:
             type_child = copy.deepcopy(cls.sample_object)
-            class_child["children"][type_] = type_child
+            class_child[type_] = type_child
         else:
             type_child = class_child[type_]
 
-        if name not in type_child:
+        if name not in type_child["children"]:
             name_child = copy.deepcopy(cls.sample_object)
             type_child["children"][name] = name_child
         else:
-            name_child = type_child[name]
+            name_child = type_child["children"][name]
 
         if name_child["link"] == "":
-            name_child["link"] = "/".join([class_, type_, name + ".md"])
+            name_child["link"] = "/".join([class_.lower(), type_.lower(), name.lower() + ".md"])
         
         if should_save:
             cls.save()

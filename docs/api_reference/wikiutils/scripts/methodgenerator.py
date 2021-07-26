@@ -5,6 +5,7 @@ import sys
 from typing import Union
 from argparser import ArgParser, ArgParentWrapper, ArgWrapper
 from constants import api_reference_path, common_path, methods_path
+from globaldatautils import update_json
 from htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
 from sidebarutils import SidebarManager
 from templateutils import replace_thing_with_thing_from_template
@@ -88,7 +89,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nmethodgenerator.py -mg class method_name method_description {[m method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
+        "\nmethodgenerator.py -mg class method_name method_description {-m method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
         " | [-mo overload_name overload_declaration overload_applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description] ...]}")
         input("Press any key to exit")
         exit()
@@ -117,7 +118,8 @@ def create_method_page(args: ArgParser):
         page = create_method_page_with_overloads(args, data, page)
 
     final_path_folder = path.join(api_reference_path, base_method_args["class"].lower(), "methods")
-    update_json(final_path_folder, data)
+    update_json(final_path_folder, "methods", data)
+    
     final_path = path.join(final_path_folder, base_method_args["name"].lower() + ".md")
     with open(final_path, "w", encoding="utf-8") as page_file:
         page_file.write(page)
@@ -192,22 +194,6 @@ def replace_overload_things(data: dict, page: str) -> str:
     page = replace_thing_with_thing_from_template(data["-ex"], page, "{examples}", "## Examples\n{examples}\n", "")
     page = replace_thing_with_thing_from_template(data["-re"], page, "{remarks}", "## Remarks\n{remarks}\n", "")
     return page
-
-
-def update_json(final_path_folder: str, data: dict):
-    json_path = path.join(final_path_folder, "global_method_data.json")
-    if not path.isfile(json_path):
-        with open(json_path, "w", encoding="utf-8") as global_data_file:
-            json.dump({"names": [], "descriptions": []}, global_data_file)
-
-    with open(json_path, "r", encoding="utf-8") as global_data_file:
-        global_data = json.load(global_data_file)
-
-    global_data["names"].extend(data["names"])
-    global_data["descriptions"].extend(data["descriptions"])
-    
-    with open(json_path, "w", encoding="utf-8") as global_data_file:
-        json.dump(global_data, global_data_file)
 
 if __name__ == "__main__":
     if len(command_line_args) == 1:
