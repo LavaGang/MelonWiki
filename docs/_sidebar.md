@@ -17,6 +17,7 @@
   - [Method Patching](modders/patching.md)
   - [Xref Scanning](modders/xrefscanning.md)
   - [Attributes](modders/attributes.md)
+  - <a href="api_reference/#/">API Reference</a>
 - Android Support WIP
   - [General Information](android/general.md)
   - [Installation](android/installation.md)
