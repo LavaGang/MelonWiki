@@ -6,6 +6,7 @@ from typing import Union
 from argparser import ArgParser, ArgParentWrapper, ArgWrapper
 from constants import api_reference_path, common_path, methods_path
 from htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
+from sidebarutils import SidebarManager
 from templateutils import replace_thing_with_thing_from_template
 
 # Method with no overloads
@@ -114,6 +115,8 @@ def create_method_page(args: ArgParser):
     with open(final_path + ".json", "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file)
 
+    SidebarManager.add_method(base_method_args["class"], base_method_args["name"])
+    
     return final_path
 
 def create_method_page_no_overloads(args: ArgParser, data: dict, page: str) -> str:

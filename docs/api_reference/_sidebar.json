@@ -1,0 +1,34 @@
+{
+    "MelonUtils": {
+        "link": "",
+        "children": {
+            "MelonUtils": {
+                "link": "melonutils/introduction.md",
+                "children": {}
+            },
+            "Properties": {
+                "link": "",
+                "children": {
+                    "BaseDirectory": {
+                        "link": "melonutils/properties/BaseDirectory.md",
+                        "children": {}
+                    }
+                }
+            }
+        }
+    },
+    "test": {
+        "link": "",
+        "children": {
+            "methods": {
+                "link": "",
+                "children": {
+                    "testmethod": {
+                        "link": "test\\methods\\testmethod.md",
+                        "children": {}
+                    }
+                }
+            }
+        }
+    }
+}
