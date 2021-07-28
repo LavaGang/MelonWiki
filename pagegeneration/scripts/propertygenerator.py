@@ -4,7 +4,7 @@ from os import path
 import sys
 from typing import Union
 from utils.argparser import ArgParser, ArgParentWrapper, ArgWrapper
-from utils.htmlutils import convert_string_to_work_in_html, convert_string_to_work_in_link
+from utils.htmlutils import convert_string_to_work_in_html
 from utils.pathutils import convert_to_api_reference_path, convert_to_pagedata_path, join_and_verify, properties_path
 from utils.sidebarutils import SidebarManager
 from utils.templateutils import replace_thing_with_thing_from_template
@@ -48,15 +48,16 @@ def start(cl_args: list[str] = sys.argv):
 def create_property_page(args: ArgParser):
     page = property_template
 
-    base_method_args = args.parsed_args[0].params
-    class_ = base_method_args["class"]
-    name = base_method_args["name"]
+    base_args = args.parsed_args[0].params
+    class_ = base_args["class"]
+    name = base_args["name"]
+    description = base_args["description"]
 
     page = page.replace("{class}", class_)
     page = page.replace("{propertyname}", convert_string_to_work_in_html(name))
-    page = page.replace("{propertydescription}", base_method_args["description"])
-    page = page.replace("{propertydeclaration}", base_method_args["declaration"])
-    page = page.replace("{appliesto}", base_method_args["applies_to"])
+    page = page.replace("{propertydescription}", base_args["description"])
+    page = page.replace("{propertydeclaration}", base_args["declaration"])
+    page = page.replace("{appliesto}", base_args["applies_to"])
 
     page = replace_thing_with_thing_from_template(args.parsed_args[1], page, "{propertyvalue}", "## Property Value\n{propertyvalue}\n", "")
     page = replace_thing_with_thing_from_template(args.parsed_args[2], page, "{exceptions}", "## Exceptions\n{exceptions}\n", "")
@@ -67,15 +68,13 @@ def create_property_page(args: ArgParser):
     page_data_path = path.join(join_and_verify(type_data_path, "properties"), name.lower() + ".md.json")
     full_path = path.join(convert_to_api_reference_path(class_, "properties"), name.lower() + ".md")
 
-    data = {"names": [], "descriptions": []}
-    data["names"].append(args.parsed_args[0].params["name"])
-    data["descriptions"].append(args.parsed_args[0].params["description"])
+    data = {"names": [name], "descriptions": [description]}
     update_json(type_data_path, "properties", data)
 
     with open(full_path, "w", encoding="utf-8") as page_file:
         page_file.write(page)
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
-        json.dump(args.args, cl_arg_file)
+        json.dump(args.args, cl_arg_file, indent=4)
 
     SidebarManager.add_property(class_, name)
 

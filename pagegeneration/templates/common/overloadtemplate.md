@@ -1,9 +1,9 @@
-## {methodname}
+## {name}
 
-{methoddescription}
+{description}
 
 ```cs
-{methoddeclaration}
+{declaration}
 ```
 
 ### Type Parameters

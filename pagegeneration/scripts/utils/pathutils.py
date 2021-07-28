@@ -8,6 +8,7 @@ constructors_path = Path.joinpath(templates_path, "constructors").resolve()
 fields_path = Path.joinpath(templates_path, "fields").resolve()
 properties_path = Path.joinpath(templates_path, "properties").resolve()
 methods_path = Path.joinpath(templates_path, "methods").resolve()
+events_path = Path.joinpath(templates_path, "events").resolve()
 operators_path = Path.joinpath(templates_path, "operators").resolve()
 
 # there is almost certainly a better way to do this but eh

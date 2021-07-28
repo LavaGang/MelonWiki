@@ -1,4 +1,4 @@
-# {class}.{methodname}
+# {class}.{methodname} Methods
 
 {methoddescription}
 
