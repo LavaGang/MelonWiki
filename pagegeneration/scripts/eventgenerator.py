@@ -34,7 +34,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\neventgenerator.py -e class event_name event_description event_declaration applies_to [-et event_type] [-ex example_description] [-re remark_description]")
+        "\neventgenerator.py -e namespace class event_name event_description event_declaration applies_to [-et event_type] [-ex example_description] [-re remark_description]")
         input("Press any key to exit")
         exit()
 
