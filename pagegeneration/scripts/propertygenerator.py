@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-p", "Test", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
+command_line_args = ["-p", "TestNamespace", "Test", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
                      "-pv", "`int`", "some test thingy that returns int",
                      "-e", 
                         "`shootmeexception`", "asjdfa;lksjd;lakjdf",
@@ -28,7 +28,7 @@ with open(path.join(properties_path, "propertytemplate.md"), "r", encoding="utf-
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-p", ["class", "name", "description", "declaration", "applies_to"]),
+        args = [ArgWrapper("-p", ["namespace", "class", "name", "description", "declaration", "applies_to"]),
                 ArgWrapper("-pv", ["type", "description"]), 
                 ArgWrapper("-e", ["type", "description"], True), 
                 ArgWrapper("-ex", ["Example"]),
@@ -39,7 +39,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\npropertygenerator.py -p class property_name property_description property_declaration applies_to [-pv property_value_type property_value_description] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]")
+        "\npropertygenerator.py -p namespace class property_name property_description property_declaration applies_to [-pv property_value_type property_value_description] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]")
         input("Press any key to exit")
         exit()
 
@@ -49,11 +49,13 @@ def create_property_page(args: ArgParser):
     page = property_template
 
     base_args = args.parsed_args[0].params
+    namespace = base_args["namespace"]
     class_ = base_args["class"]
     name = base_args["name"]
     description = base_args["description"]
 
     page = page.replace("{class}", class_)
+    page = page.replace("{namespace}", namespace)
     page = page.replace("{propertyname}", convert_string_to_work_in_html(name))
     page = page.replace("{propertydescription}", base_args["description"])
     page = page.replace("{propertydeclaration}", base_args["declaration"])
@@ -64,7 +66,7 @@ def create_property_page(args: ArgParser):
     page = replace_thing_with_thing_from_template(args.parsed_args[3], page, "{examples}", "## Examples\n{examples}\n", "")
     page = replace_thing_with_thing_from_template(args.parsed_args[4], page, "{remarks}", "## Remarks\n{remarks}\n", "")
 
-    type_data_path = convert_to_pagedata_path(class_)
+    type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "properties"), name.lower() + ".md.json")
     full_path = path.join(convert_to_api_reference_path(class_, "properties"), name.lower() + ".md")
 
@@ -76,7 +78,7 @@ def create_property_page(args: ArgParser):
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file, indent=4)
 
-    SidebarManager.add_property(class_, name)
+    SidebarManager.add_property(namespace, class_, name)
 
     return full_path
 

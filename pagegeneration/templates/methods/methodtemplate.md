@@ -1,4 +1,5 @@
 # {class}.{methodname} Method
+<small>Namespace: {namespace}</small>
 
 {methoddescription}
 

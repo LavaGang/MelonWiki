@@ -9,10 +9,10 @@ with open(path.join(common_path, "thingtemplate.md"), "r", encoding="utf-8") as 
 with open(path.join(common_path, "thingwith2template.md"), "r", encoding="utf-8") as template_file:
     thing2_template = template_file.read()
 
-with open(path.join(common_path, "overloadtable.md"), "r", encoding="utf-8") as table_file:
+with open(path.join(common_path, "table.md"), "r", encoding="utf-8") as table_file:
     table_template = table_file.read()
 
-with open(path.join(common_path, "overloadtablerow.md"), "r", encoding="utf-8") as table_row_file:
+with open(path.join(common_path, "tablerow.md"), "r", encoding="utf-8") as table_row_file:
     table_row_template = table_row_file.read()
 
 with open(path.join(common_path, "overloadtemplate.md"), "r", encoding="utf-8") as file_template_file:

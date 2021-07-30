@@ -1,4 +1,5 @@
 # {class} Constructor
+<small>Namespace: {namespace}</small>
 
 {constructordescription}
 

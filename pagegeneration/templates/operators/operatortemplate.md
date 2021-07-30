@@ -1,4 +1,5 @@
 # {class}.{operatorname} Operator
+<small>Namespace: {namespace}</small>
 
 {operatordescription}
 

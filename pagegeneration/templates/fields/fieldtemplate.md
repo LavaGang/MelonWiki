@@ -1,4 +1,5 @@
 # {class}.{fieldname} Field
+<small>Namespace: {namespace}</small>
 
 {fielddescription}
 

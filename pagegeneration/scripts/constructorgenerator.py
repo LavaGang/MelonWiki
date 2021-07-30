@@ -12,7 +12,7 @@ from utils.typedatautils import update_json
 
 
 # Constructor with no overloads
-command_line_args = ["-cg", "Test", "This is a test description", 
+command_line_args = ["-cg", "TestNamespace", "Test", "This is a test description", 
                      "-c", "public static Test<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-tp", 
                             "T", "type param 1",
@@ -29,7 +29,7 @@ command_line_args = ["-cg", "Test", "This is a test description",
 ]
 
 # Constructor with overloads
-command_line_args = ["-cg", "Test", "This is a test description", 
+command_line_args = ["-cg", "TestNamespace", "Test", "This is a test description", 
                      "-co", "Test<T, T1>(string, object)", "this is a test description of the first overload", "public static int Test<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-tp", 
                             "`T`", "type param 1",
@@ -70,7 +70,7 @@ with open(path.join(constructors_path, "constructortemplatewithoverload.md"), "r
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-cg", ["class", "description"]),
+        args = [ArgWrapper("-cg", ["namespace", "class", "description"]),
                 ArgParentWrapper("-c", ["declaration", "applies_to", 
                                         ArgWrapper("-tp", ["name", "description"], True),
                                         ArgWrapper("-p", ["type", "name", "description"], True),
@@ -90,7 +90,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nconstructorgenerator.py -cg class constructor_description {-c name constructor_declaration applies_to [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
+        "\nconstructorgenerator.py -cg namespace class constructor_description {-c name constructor_declaration applies_to [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
         " | [-co overload_name overload_declaration overload_applies_to [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description] ...]}")
         input("Press any key to exit")
         exit()
@@ -106,12 +106,14 @@ def create_constructor_page(args: ArgParser):
         page = constructor_with_overload_template
 
     base_args = args.parsed_args[0].params
+    namespace = base_args["namespace"]
     class_ = base_args["class"]
 
     page = page.replace("{class}", class_)
+    page = page.replace("{namespace}", namespace)
     page = page.replace("{constructordescription}", base_args["description"])
 
-    type_data_path = convert_to_pagedata_path(class_)
+    type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path), "constructors.md.json")
     full_path = path.join(convert_to_api_reference_path(class_), "constructors.md")
 
@@ -128,7 +130,7 @@ def create_constructor_page(args: ArgParser):
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file, indent=4)
 
-    SidebarManager.add_constructor(class_)
+    SidebarManager.add_constructor(namespace, class_)
     
     return full_path
 

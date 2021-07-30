@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-f", "Test", "TestField", "This is a test description", "public static const int TestConstant = 1;", "doesn't apply to anything",
+command_line_args = ["-f", "TestNamespace", "Test", "TestField", "This is a test description", "public static const int TestConstant = 1;", "doesn't apply to anything",
                      "-fv", "`int`",
                      "-ex",
                          "This is an example in usage, a very good one",
@@ -24,7 +24,7 @@ with open(path.join(fields_path, "fieldtemplate.md"), "r", encoding="utf-8") as 
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-f", ["class", "name", "description", "declaration", "applies_to"]),
+        args = [ArgWrapper("-f", ["namespace", "class", "name", "description", "declaration", "applies_to"]),
                 ArgWrapper("-fv", ["type"]), 
                 ArgWrapper("-ex", ["Example"]),
                 ArgWrapper("-re", ["Remarks"])
@@ -34,7 +34,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nfieldgenerator.py -f class field_name field_description field_declaration applies_to [-fv field_type] [-ex example_description] [-re remark_description]")
+        "\nfieldgenerator.py -f namespace class field_name field_description field_declaration applies_to [-fv field_type] [-ex example_description] [-re remark_description]")
         input("Press any key to exit")
         exit()
 
@@ -44,11 +44,13 @@ def create_field_page(args: ArgParser):
     page = field_template
 
     base_args = args.parsed_args[0].params
+    namespace = base_args["namespace"]
     class_ = base_args["class"]
     name = base_args["name"]
     description = base_args["description"]
 
     page = page.replace("{class}", class_)
+    page = page.replace("{namespace}", namespace)
     page = page.replace("{fieldname}", convert_string_to_work_in_html(name))
     page = page.replace("{fielddescription}", description)
     page = page.replace("{fielddeclaration}", base_args["declaration"])
@@ -58,7 +60,7 @@ def create_field_page(args: ArgParser):
     page = replace_thing_with_thing_from_template(args.parsed_args[2], page, "{examples}", "## Examples\n{examples}\n", "")
     page = replace_thing_with_thing_from_template(args.parsed_args[3], page, "{remarks}", "## Remarks\n{remarks}\n", "")
 
-    type_data_path = convert_to_pagedata_path(class_)
+    type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "fields"), name.lower() + ".md.json")
     full_path = path.join(convert_to_api_reference_path(class_, "fields"), name.lower() + ".md")
 
@@ -70,7 +72,7 @@ def create_field_page(args: ArgParser):
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file, indent=4)
 
-    SidebarManager.add_field(class_, name)
+    SidebarManager.add_field(namespace, class_, name)
 
     return full_path
 

@@ -4,6 +4,7 @@ page_data_path = Path.joinpath(Path(__file__).parent.parent.parent, "pagedata").
 api_reference_path = Path.joinpath(Path(__file__).parent.parent.parent.parent, "docs", "api_reference").resolve()
 templates_path = Path.joinpath(Path(__file__).parent.parent.parent, "templates").resolve()
 common_path = Path.joinpath(templates_path, "common").resolve()
+types_path = Path.joinpath(templates_path, "types").resolve()
 constructors_path = Path.joinpath(templates_path, "constructors").resolve()
 fields_path = Path.joinpath(templates_path, "fields").resolve()
 properties_path = Path.joinpath(templates_path, "properties").resolve()

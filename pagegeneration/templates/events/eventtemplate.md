@@ -1,4 +1,5 @@
 # {class}.{eventname} Event
+<small>Namespace: {namespace}</small>
 
 {eventdescription}
 

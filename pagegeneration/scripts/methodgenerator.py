@@ -12,7 +12,7 @@ from utils.typedatautils import update_json
 
 
 # Method with no overloads
-command_line_args = ["-mg", "Test", "TestMethod", "This is a test description", 
+command_line_args = ["-mg", "TestNamespace", "Test", "TestMethod", "This is a test description", 
                      "-m", "TestMethod<T, T1>(string, object)", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-r", "`int`", "some test thingy that returns int",
                         "-tp", 
@@ -30,7 +30,7 @@ command_line_args = ["-mg", "Test", "TestMethod", "This is a test description",
 ]
 
 # Method with overloads
-command_line_args = ["-mg", "Test", "Die", "This is a test description", 
+command_line_args = ["-mg", "TestNamespace", "Test", "Die", "This is a test description", 
                      "-mo", "Die<T, T1>(string, object)", "this is a test description of the first overload", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-r", "`int`", "some test thingy that returns int",
                         "-tp", 
@@ -73,7 +73,7 @@ with open(path.join(methods_path, "methodtemplatewithoverload.md"), "r", encodin
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-mg", ["class", "name", "description"]),
+        args = [ArgWrapper("-mg", ["namespace", "class", "name", "description"]),
                 ArgParentWrapper("-m", ["name", "declaration", "applies_to", 
                                         ArgWrapper("-r", ["type", "description"]), 
                                         ArgWrapper("-tp", ["name", "description"], True),
@@ -95,7 +95,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\nmethodgenerator.py -mg class method_name method_description {-m name method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
+        "\nmethodgenerator.py -mg namespace class method_name method_description {-m name method_declaration applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]"
         " | [-mo overload_name overload_declaration overload_applies_to [-r return_type return_description] [[-tp type_parameter_name description ...]] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description] ...]}")
         input("Press any key to exit")
         exit()
@@ -111,13 +111,15 @@ def create_method_page(args: ArgParser):
         page = method_with_overload_template
 
     base_args = args.parsed_args[0].params
+    namespace = base_args["namespace"]
     class_ = base_args["class"]
     name = base_args["name"]
 
     page = page.replace("{class}", class_)
+    page = page.replace("{namespace}", namespace)
     page = page.replace("{methoddescription}", base_args["description"])
 
-    type_data_path = convert_to_pagedata_path(class_)
+    type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "methods"), name.lower() + ".md.json")
     full_path = path.join(convert_to_api_reference_path(class_, "methods"), name.lower() + ".md")
 
@@ -134,7 +136,7 @@ def create_method_page(args: ArgParser):
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file, indent=4)
 
-    SidebarManager.add_method(class_, name)
+    SidebarManager.add_method(namespace, class_, name)
     
     return full_path
 

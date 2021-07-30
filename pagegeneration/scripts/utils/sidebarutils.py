@@ -31,46 +31,52 @@ class SidebarManager:
     _desired_member_order = ["Constructor", "Fields", "Properties", "Methods", "Events", "Operators"]  
 
     @classmethod
-    def add_introduction(cls, class_: str, should_save: bool = True):
-        cls._add_internal_no_name(class_, class_, should_save)
+    def add_type(cls, namespace: str, class_: str, should_save: bool = True):
+        cls._add_internal_no_name(namespace, class_, class_, should_save)
 
     @classmethod 
-    def add_constructor(cls, class_: str, should_save: bool = True):
-        cls._add_internal_no_name(class_, "Constructors", should_save)
+    def add_constructor(cls, namespace: str, class_: str, should_save: bool = True):
+        cls._add_internal_no_name(namespace, class_, "Constructors", should_save)
     
     @classmethod 
-    def add_field(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Fields", name, should_save)
+    def add_field(cls, namespace: str, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(namespace, class_, "Fields", name, should_save)
 
     @classmethod 
-    def add_property(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Properties", name, should_save)
+    def add_property(cls, namespace: str, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(namespace, class_, "Properties", name, should_save)
             
     @classmethod 
-    def add_method(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Methods", name, should_save)
+    def add_method(cls, namespace: str, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(namespace, class_, "Methods", name, should_save)
 
     @classmethod 
-    def add_event(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Events", name, should_save)
+    def add_event(cls, namespace: str, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(namespace, class_, "Events", name, should_save)
 
     @classmethod 
-    def add_operator(cls, class_: str, name: str, should_save: bool = True):
-        cls._add_internal(class_, "Operators", name, should_save)
+    def add_operator(cls, namespace: str, class_: str, name: str, should_save: bool = True):
+        cls._add_internal(namespace, class_, "Operators", name, should_save)
 
     @classmethod
-    def _add_internal(cls, class_: str, type_: str, name: str, should_save: bool = True):
-        if class_ not in cls.sidebar:
-            cls.sidebar[class_] = copy.deepcopy(cls.sample_object)
-            class_child = cls.sidebar[class_]["children"]
+    def _add_internal(cls, namespace: str, class_: str, type_: str, name: str, should_save: bool = True):
+        if namespace not in cls.sidebar:
+            cls.sidebar[namespace] = copy.deepcopy(cls.sample_object)
+            namespace_child = cls.sidebar[namespace]
         else:
-            class_child = cls.sidebar[class_]["children"]
+            namespace_child = cls.sidebar[namespace]
 
-        if type_ not in class_child:
-            type_child = copy.deepcopy(cls.sample_object)
-            class_child[type_] = type_child
+        if class_ not in namespace_child["children"]:
+            class_child = copy.deepcopy(cls.sample_object)
+            namespace_child["children"][class_] = class_child
         else:
-            type_child = class_child[type_]
+            class_child = namespace_child["children"][class_]
+
+        if type_ not in class_child["children"]:
+            type_child = copy.deepcopy(cls.sample_object)
+            class_child["children"][type_] = type_child
+        else:
+            type_child = class_child["children"][type_]
 
         if name not in type_child["children"]:
             name_child = copy.deepcopy(cls.sample_object)
@@ -84,18 +90,24 @@ class SidebarManager:
             cls.save()
 
     @classmethod
-    def _add_internal_no_name(cls, class_: str, type_: str, should_save: bool = True):
-        if class_ not in cls.sidebar:
-            cls.sidebar[class_] = copy.deepcopy(cls.sample_object)
-            class_child = cls.sidebar[class_]["children"]
+    def _add_internal_no_name(cls, namespace: str, class_: str, type_: str, should_save: bool = True):
+        if namespace not in cls.sidebar:
+            cls.sidebar[namespace] = copy.deepcopy(cls.sample_object)
+            namespace_child = cls.sidebar[namespace]
         else:
-            class_child = cls.sidebar[class_]["children"]
+            namespace_child = cls.sidebar[namespace]
 
-        if class_ not in class_child:
-            intro_child = copy.deepcopy(cls.sample_object)
-            class_child[type_] = intro_child
+        if class_ not in namespace_child["children"]:
+            class_child = copy.deepcopy(cls.sample_object)
+            namespace_child["children"][class_] = class_child
         else:
-            intro_child = class_child[type_]
+            class_child = namespace_child["children"][class_]
+
+        if class_ not in class_child["children"]:
+            intro_child = copy.deepcopy(cls.sample_object)
+            class_child["children"][type_] = intro_child
+        else:
+            intro_child = class_child["children"][type_]
         
         intro_child["link"] = path.join(class_.lower(), type_.lower() + ".md")
         
@@ -113,8 +125,12 @@ class SidebarManager:
 
     @classmethod
     def sort_sidebar(cls):
-        cls.sidebar = {k: cls._sort_member_types(v) if isinstance(v, dict) else v
-                       for k, v in sorted(cls.sidebar.items())}
+        ordered = {}
+        for outer_k, outer_v in sorted(cls.sidebar.items()):            
+            ordered[outer_k] = outer_v
+            for k, v in sorted(outer_v["children"].items()):
+                v = cls._sort_member_types(v)
+        cls.sidebar = ordered
 
     @classmethod
     def _sort_member_types(cls, member: dict) -> dict:

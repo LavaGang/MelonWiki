@@ -1,4 +1,5 @@
 # {class}.{propertyname} Property
+<small>Namespace: {namespace}</small>
 
 {propertydescription}
 

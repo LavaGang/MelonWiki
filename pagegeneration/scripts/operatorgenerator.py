@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-op", "Test", "TestOperator", "TestOperator(string, object)", "This is a test description", "public static int TestOperator(string thingy, object thingy2)", "doesn't apply to anything",
+command_line_args = ["-op", "TestNamespace", "Test", "TestOperator", "TestOperator(string, object)", "This is a test description", "public static int TestOperator(string thingy, object thingy2)", "doesn't apply to anything",
                      "-r", "`int`", "some test thingy that returns int",
                      "-p",
                          "string", "thingy", "this is a string parameter, \"i dunno what to say\"",
@@ -28,7 +28,7 @@ with open(path.join(operators_path, "operatortemplate.md"), "r", encoding="utf-8
 
 def start(cl_args: list[str] = sys.argv):
     try:
-        args = [ArgWrapper("-op", ["class", "name", "name_with_params", "description", "declaration", "applies_to"]),
+        args = [ArgWrapper("-op", ["namespace", "class", "name", "name_with_params", "description", "declaration", "applies_to"]),
                 ArgWrapper("-r", ["type", "description"]), 
                 ArgWrapper("-p", ["type", "name", "description"], True),
                 ArgWrapper("-e", ["type", "description"], True),
@@ -40,7 +40,7 @@ def start(cl_args: list[str] = sys.argv):
     except Exception as err:
         print(err.with_traceback())
         print("Failed to parse arguments\nYou likely just put them in the wrong order:"
-        "\noperatorgenerator.py -op class operator_name operator_description operator_declaration applies_to [-r return_type return_description] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]")
+        "\noperatorgenerator.py -op namespace class operator_name operator_description operator_declaration applies_to [-r return_type return_description] [[-p parameter_type parameter_name description ...]] [[-e exception_type description ...]] [-ex example_description] [-re remark_description]")
         input("Press any key to exit")
         exit()
 
@@ -50,15 +50,17 @@ def create_operator_page(args: ArgParser):
     page = operator_template 
 
     base_args = args.parsed_args[0].params
+    namespace = base_args["namespace"]
     class_ = base_args["class"]
     name = base_args["name"]
     description = base_args["description"]
 
     page = page.replace("{class}", class_)
+    page = page.replace("{namespace}", namespace)
     page = page.replace("{operatorname}", convert_string_to_work_in_html(base_args["name_with_params"]))
     page = page.replace("{operatordescription}", description)
 
-    type_data_path = convert_to_pagedata_path(class_)
+    type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "operators"), name.lower() + ".md.json")
     full_path = path.join(convert_to_api_reference_path(class_, "operators"), name.lower() + ".md")
 
@@ -79,7 +81,7 @@ def create_operator_page(args: ArgParser):
     with open(page_data_path, "w", encoding="utf-8") as cl_arg_file:
         json.dump(args.args, cl_arg_file, indent=4)
 
-    SidebarManager.add_operator(class_, name)
+    SidebarManager.add_operator(namespace, class_, name)
     
     return full_path
 
