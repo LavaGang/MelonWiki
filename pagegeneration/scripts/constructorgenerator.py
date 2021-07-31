@@ -115,9 +115,9 @@ def create_constructor_page(args: ArgParser):
 
     type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path), "constructors.md.json")
-    full_path = path.join(convert_to_api_reference_path(class_), "constructors.md")
+    full_path = path.join(convert_to_api_reference_path(namespace, class_), "constructors.md")
 
-    data = {"names": [], "descriptions": []}
+    data = {"names": [], "descriptions": [], "links": []}
     if args.parsed_args[1].exists:
         page = create_constructor_page_no_overloads(args, data, page)
     else:
@@ -139,6 +139,7 @@ def create_constructor_page_no_overloads(args: ArgParser, data: dict, page: str)
 
     data["names"].append(args.parsed_args[0].params["class"])
     data["descriptions"].append(args.parsed_args[0].params["description"])
+    data["links"].append(data["names"])
 
     params = parent_arg.params
     page = page.replace("{constructordeclaration}", params["declaration"])
@@ -148,8 +149,9 @@ def create_constructor_page_no_overloads(args: ArgParser, data: dict, page: str)
     return page
 
 def create_constructor_page_with_overloads(args: ArgParser, global_data: dict, page: str) -> str:
+    namespace = args.parsed_args[0].params["namespace"]
     class_ = args.parsed_args[0].params["class"]
-    page = create_overload_table(args.parsed_args[2], page, global_data, f"{class_.lower()}/constructors")
+    page = create_overload_table(args.parsed_args[2], page, global_data, f"{namespace.lower()}/{class_.lower()}/constructors")
     return page
 
 

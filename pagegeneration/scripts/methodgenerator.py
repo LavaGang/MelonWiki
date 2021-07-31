@@ -121,9 +121,9 @@ def create_method_page(args: ArgParser):
 
     type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "methods"), name.lower() + ".md.json")
-    full_path = path.join(convert_to_api_reference_path(class_, "methods"), name.lower() + ".md")
+    full_path = path.join(convert_to_api_reference_path(namespace, class_, "methods"), name.lower() + ".md")
 
-    data = {"names": [], "descriptions": []}
+    data = {"names": [], "descriptions": [], "links": []}
     if args.parsed_args[1].exists:
         page = create_method_page_no_overloads(args, data, page)
     else:
@@ -156,10 +156,11 @@ def create_method_page_no_overloads(args: ArgParser, data: dict, page: str) -> s
     return page
 
 def create_method_page_with_overloads(args: ArgParser, global_data: dict, page: str) -> str:
+    namespace = args.parsed_args[0].params["namespace"]
     class_ = args.parsed_args[0].params["class"]
     name = args.parsed_args[0].params["name"]
     page = page.replace("{methodname}", convert_string_to_work_in_html(name))
-    page = create_overload_table(args.parsed_args[2], page, global_data, f"{class_.lower()}/methods/{name.lower()}")
+    page = create_overload_table(args.parsed_args[2], page, global_data, f"{namespace.lower()}/{class_.lower()}/methods/{name.lower()}")
     return page
 
 if __name__ == "__main__":

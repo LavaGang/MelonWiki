@@ -62,9 +62,9 @@ def create_field_page(args: ArgParser):
 
     type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "fields"), name.lower() + ".md.json")
-    full_path = path.join(convert_to_api_reference_path(class_, "fields"), name.lower() + ".md")
+    full_path = path.join(convert_to_api_reference_path(namespace, class_, "fields"), name.lower() + ".md")
 
-    data = {"names": [name], "descriptions": [description]}
+    data = {"names": [name], "descriptions": [description], "links": [f"{namespace.lower()}/{class_.lower()}/fields/{name.lower()}"]}
     update_json(type_data_path, "fields", data)
 
     with open(full_path, "w", encoding="utf-8") as page_file:

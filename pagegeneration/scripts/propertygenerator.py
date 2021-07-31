@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-p", "TestNamespace", "Test", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
+command_line_args = ["-p", "TestNamespace", "A", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
                      "-pv", "`int`", "some test thingy that returns int",
                      "-e", 
                         "`shootmeexception`", "asjdfa;lksjd;lakjdf",
@@ -68,9 +68,9 @@ def create_property_page(args: ArgParser):
 
     type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "properties"), name.lower() + ".md.json")
-    full_path = path.join(convert_to_api_reference_path(class_, "properties"), name.lower() + ".md")
+    full_path = path.join(convert_to_api_reference_path(namespace, class_, "properties"), name.lower() + ".md")
 
-    data = {"names": [name], "descriptions": [description]}
+    data = {"names": [name], "descriptions": [description], "links": [f"{namespace.lower()}/{class_.lower()}/properties/{name.lower()}"]}
     update_json(type_data_path, "properties", data)
 
     with open(full_path, "w", encoding="utf-8") as page_file:

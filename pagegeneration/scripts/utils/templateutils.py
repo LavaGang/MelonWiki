@@ -74,6 +74,7 @@ def create_overload_table(args: ArgWrapper, page: str, global_data: dict, link_b
 
         global_data["names"].append(convert_string_to_work_in_html(data["name"]))
         global_data["descriptions"].append(data["description"])
+        global_data["links"].append(link_before_id)
     
     table = table_template
     table = table.replace("{rows}", "\n".join(table_rows))

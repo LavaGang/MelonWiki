@@ -62,7 +62,7 @@ def create_operator_page(args: ArgParser):
 
     type_data_path = convert_to_pagedata_path(namespace, class_)
     page_data_path = path.join(join_and_verify(type_data_path, "operators"), name.lower() + ".md.json")
-    full_path = path.join(convert_to_api_reference_path(class_, "operators"), name.lower() + ".md")
+    full_path = path.join(convert_to_api_reference_path(namespace, class_, "operators"), name.lower() + ".md")
 
     page = page.replace("{operatordeclaration}", base_args["declaration"])
     page = page.replace("{appliesto}", base_args["applies_to"])
@@ -73,7 +73,7 @@ def create_operator_page(args: ArgParser):
     page = replace_thing_with_thing_from_template(args.parsed_args[4], page, "{examples}", "## Examples\n{examples}\n", "")
     page = replace_thing_with_thing_from_template(args.parsed_args[5], page, "{remarks}", "## Remarks\n{remarks}\n", "")
 
-    data = {"names": [name], "descriptions": [description]}
+    data = {"names": [name], "descriptions": [description], "links": [f"{namespace.lower()}/{class_.lower()}/operators/{name.lower()}"]}
     update_json(type_data_path, "operators", data)
     
     with open(full_path, "w", encoding="utf-8") as page_file:

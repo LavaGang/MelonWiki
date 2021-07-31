@@ -28,7 +28,7 @@ class SidebarManager:
     with open(json_path, "r", encoding="utf-8") as sidebar_json:
         sidebar = json.load(sidebar_json)  
 
-    _desired_member_order = ["Constructor", "Fields", "Properties", "Methods", "Events", "Operators"]  
+    _desired_member_order = ["Constructors", "Fields", "Properties", "Methods", "Events", "Operators"]  
 
     @classmethod
     def add_type(cls, namespace: str, class_: str, should_save: bool = True):
@@ -84,7 +84,7 @@ class SidebarManager:
         else:
             name_child = type_child["children"][name]
 
-        name_child["link"] = convert_string_to_work_in_link("/".join([class_.lower(), type_.lower(), name.lower() + ".md"]))
+        name_child["link"] = convert_string_to_work_in_link("/".join([namespace.lower(), class_.lower(), type_.lower(), name.lower() + ".md"]))
         
         if should_save:
             cls.save()
@@ -103,13 +103,13 @@ class SidebarManager:
         else:
             class_child = namespace_child["children"][class_]
 
-        if class_ not in class_child["children"]:
-            intro_child = copy.deepcopy(cls.sample_object)
-            class_child["children"][type_] = intro_child
+        if type_ not in class_child["children"]:
+            type_child = copy.deepcopy(cls.sample_object)
+            class_child["children"][type_] = type_child
         else:
-            intro_child = class_child["children"][type_]
+            type_child = class_child["children"][type_]
         
-        intro_child["link"] = path.join(class_.lower(), type_.lower() + ".md")
+        type_child["link"] = "/".join([namespace.lower(), class_.lower(), type_.lower() + ".md"])
         
         if should_save:
             cls.save()
