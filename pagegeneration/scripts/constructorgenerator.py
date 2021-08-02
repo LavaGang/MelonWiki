@@ -12,7 +12,7 @@ from utils.typedatautils import update_json
 
 
 # Constructor with no overloads
-command_line_args = ["-cg", "TestNamespace", "Test", "This is a test description", 
+command_line_args = ["constructorgenerator.py", "-cg", "TestNamespace", "Test", "This is a test description", 
                      "-c", "public static Test<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-tp", 
                             "T", "type param 1",
@@ -29,7 +29,7 @@ command_line_args = ["-cg", "TestNamespace", "Test", "This is a test description
 ]
 
 # Constructor with overloads
-command_line_args = ["-cg", "TestNamespace", "Test", "This is a test description", 
+command_line_args = ["constructorgenerator.py", "-cg", "TestNamespace", "Test", "This is a test description", 
                      "-co", "Test<T, T1>(string, object)", "this is a test description of the first overload", "public static int Test<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-tp", 
                             "`T`", "type param 1",

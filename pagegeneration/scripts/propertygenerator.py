@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-p", "TestNamespace", "A", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
+command_line_args = ["propertygenerator.py", "-p", "TestNamespace", "A", "a", "This is a test description", "public static int TestProperty { get; }", "doesn't apply to anything",
                      "-pv", "`int`", "some test thingy that returns int",
                      "-e", 
                         "`shootmeexception`", "asjdfa;lksjd;lakjdf",

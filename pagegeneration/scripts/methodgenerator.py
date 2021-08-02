@@ -12,7 +12,7 @@ from utils.typedatautils import update_json
 
 
 # Method with no overloads
-command_line_args = ["-mg", "TestNamespace", "Test", "TestMethod", "This is a test description", 
+command_line_args = ["methodgenerator.py", "-mg", "TestNamespace", "Test", "TestMethod", "This is a test description", 
                      "-m", "TestMethod<T, T1>(string, object)", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-r", "`int`", "some test thingy that returns int",
                         "-tp", 
@@ -30,7 +30,7 @@ command_line_args = ["-mg", "TestNamespace", "Test", "TestMethod", "This is a te
 ]
 
 # Method with overloads
-command_line_args = ["-mg", "TestNamespace", "Test", "Die", "This is a test description", 
+command_line_args = ["methodgenerator.py", "-mg", "TestNamespace", "Test", "Die", "This is a test description", 
                      "-mo", "Die<T, T1>(string, object)", "this is a test description of the first overload", "public static int TestMethod<T, T1>(string thingy, object thingy2)", "doesn't apply to anything",
                         "-r", "`int`", "some test thingy that returns int",
                         "-tp", 

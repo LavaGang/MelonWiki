@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-e", "TestNamespace", "Test", "TestEvent", "This is a test description", "public static event Action TestEvent;", "doesn't apply to anything",
+command_line_args = ["eventgenerator.py", "-e", "TestNamespace", "Test", "TestEvent", "This is a test description", "public static event Action TestEvent;", "doesn't apply to anything",
                      "-fv", "`Action`",
                      "-ex",
                          "This is an example in usage, a very good one",

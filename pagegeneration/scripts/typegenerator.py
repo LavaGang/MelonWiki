@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template, table_ro
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-e", "TestNamespace", "Test", "Struct", "This is a test description", "public static struct Test", "object->fuck", "doesn't apply to anything",
+command_line_args = ["typegenerator.py", "-e", "TestNamespace", "Test", "Struct", "This is a test description", "public static struct Test", "object->fuck", "doesn't apply to anything",
                      "-ex",
                          "This is an example in usage, a very good one",
 ]

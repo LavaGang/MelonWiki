@@ -11,7 +11,7 @@ from utils.templateutils import replace_thing_with_thing_from_template
 from utils.typedatautils import update_json
 
 
-command_line_args = ["-op", "TestNamespace", "Test", "TestOperator", "TestOperator(string, object)", "This is a test description", "public static int TestOperator(string thingy, object thingy2)", "doesn't apply to anything",
+command_line_args = ["operatorgenerator.py", "-op", "TestNamespace", "Test", "TestOperator", "TestOperator(string, object)", "This is a test description", "public static int TestOperator(string thingy, object thingy2)", "doesn't apply to anything",
                      "-r", "`int`", "some test thingy that returns int",
                      "-p",
                          "string", "thingy", "this is a string parameter, \"i dunno what to say\"",
