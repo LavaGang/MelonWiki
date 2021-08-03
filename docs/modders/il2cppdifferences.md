@@ -2,7 +2,7 @@
 
 MelonLoader have some "small" things that doesn't work the exact same as if you were modding a Mono game.
 
-> If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _Slaynash#2879_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
+> If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _loukylor#0001_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
 
 ### Il2CppAssemblyUnhollower Generated Names
 
