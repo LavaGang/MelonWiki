@@ -107,9 +107,10 @@ def generate_type_in_namespace(class_path: str, class_: str):
         constructorgenerator.start(params)
     
     member_path = path.join(class_path, f"{class_}.md.json")
-    with open(path.join(member_path), encoding="utf-8") as json_file:
-        params = json.load(json_file)
-    typegenerator.start(params)
+    if path.isfile(member_path):
+        with open(path.join(member_path), encoding="utf-8") as json_file:
+            params = json.load(json_file)
+        typegenerator.start(params)
 
 if __name__ == "__main__":
     if len(command_line_args) == 1:
