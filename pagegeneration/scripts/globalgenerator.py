@@ -29,11 +29,6 @@ def start(cl_args: list[str] = sys.argv):
 
         arg_parser = ArgParser(cl_args, args)
 
-        if path.isfile(path.join(api_reference_path, "_sidebar.md")):
-            os.remove(path.join(api_reference_path, "_sidebar.md"))
-        if path.isfile(path.join(page_data_path, "_sidebar.json")):
-            os.remove(path.join(page_data_path, "_sidebar.json"))
-
         for file in os.listdir(api_reference_path):
             full_path = path.join(api_reference_path, file)
             if path.isdir(full_path):
@@ -44,6 +39,11 @@ def start(cl_args: list[str] = sys.argv):
         elif arg_parser.parsed_args[1].exists:
             generate_type_in_namespace(path.join(page_data_path, arg_parser.parsed_args[0].params["namespace"], args.parsed_args[0].params["class"]))
         else:
+            if path.isfile(path.join(api_reference_path, "_sidebar.md")):
+                os.remove(path.join(api_reference_path, "_sidebar.md"))
+            if path.isfile(path.join(page_data_path, "_sidebar.json")):
+                os.remove(path.join(page_data_path, "_sidebar.json"))
+
             for namespace in os.listdir(page_data_path):
                 namespace_path = path.join(page_data_path, namespace)
                 generate_types_in_namespace(namespace_path)
