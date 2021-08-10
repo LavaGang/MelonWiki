@@ -12,11 +12,12 @@
 - Create a new mod
     - [Quick Start](modders/quickstart.md)
     - [Mod Preferences](modders/preferences.md)
-    - [Il2Cpp differences](modders/il2cppdifferences.md)
+    - [Debugging](modders/debugging.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
     - [Xref Scanning](modders/xrefscanning.md)
     - [Attributes](modders/attributes.md)
+    - [Il2Cpp differences](modders/il2cppdifferences.md)
 * Android Support WIP
     - [General Information](android/general.md)
     - [Installation](android/installation.md)
