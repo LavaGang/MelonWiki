@@ -31,4 +31,4 @@ This hex value is the IL offset which the error was thrown at. So, to figure out
 In the case of dnSpy, you can right click the method that errored, then select `Edit IL Instructions...`. In the window that popped up, you can see each IL code and it's offset.<br>
 If you're having trouble converting this into a line number, select a random line in the erroring method's body, then open the IL window. The IL codes that are associated with that line will be highlighted. Using this, you could find which code points to which line.
 
-Of course, there are other decompilers that can view IL codes, but dnSpy is the most convinient one given it is needed to debug your mods.
+Of course, there are other decompilers that can view IL codes, but dnSpy is the most convenient one given it is needed to debug your mods.
