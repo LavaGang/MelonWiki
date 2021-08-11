@@ -2,7 +2,7 @@
 
 ## Using dnSpy
 
-?> For this, you need to have dnSpy installed, obviously. Install it [here](https://github.com/dnSpy/dnSpy).
+?> For this, you need to have dnSpy installed, obviously. Install it from [here](https://github.com/dnSpyEx/dnSpy).
 
 For those who don't know, MelonLoader is fully set up to use dnSpy's built in debugger.<br>
 To attach it, follow these steps:
