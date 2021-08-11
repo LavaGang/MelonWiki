@@ -84,7 +84,7 @@ Most recently in MelonLoader 0.4.0 and later, the following methods were added:
 Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
 > Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
-
+Then you need to add a using statement for `UnityEngine`, which looks like this: `using UnityEngine`.
 ```cs
 public override void OnUpdate()
 {
