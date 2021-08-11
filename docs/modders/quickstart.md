@@ -54,24 +54,15 @@ namespace MyProject
 MelonMod has a few virtual methods that can be overridden:
  - `OnApplicationStart()`: Called after every mod is loaded and right when the game starts.
  - `OnApplicationQuit()`: Called when the application is closing.
- - `OnLevelWasInitialized(int level)`: Called when a scene is initialized.
- - `OnLevelWasLoaded(int level)`: Called when a scene is loaded.
  - `OnUpdate()`: Called at the end of each `Update` call.
- - `OnLateUpdate()`: Called at the end of each `Update` call.
- - `OnFixedUpdate()`: Called at the end of each `Update` call.
+ - `OnLateUpdate()`: Called at the end of each `LateUpdate` call.
+ - `OnFixedUpdate()`: Called at the end of each `FixedUpdate` call.
  - `OnGUI()`: Called during the GUI update.
- - `OnModSettingsApplied()`: Called when a mod saves the preferences, or when the application quits.
-
-
-In MelonLoader 0.3.0, a few methods were added:
  - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized.
  - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded.
- - `OnGUI()`: Called during the GUI update.
  - `OnPreferencesLoaded()`: Called when a mod calls `MelonLoader.MelonPreferences.Load()`, or when MelonPreferences loads external changes.
  - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
  - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
-
-And also in MelonLoader 0.3.0 later, `OnLevelWasInitialized`, `OnLevelWasLoaded` and `OnModSettingsApplied()` are all obsolete.
 
 Most recently in MelonLoader 0.4.0 and later, the following methods were added:
  - `OnSceneWasUnloaded(int buildIndex, string sceneName)`: Called when a scene is unloaded.
@@ -79,18 +70,21 @@ Most recently in MelonLoader 0.4.0 and later, the following methods were added:
 
 ### Basic method calling
 
-!> In MelonLoader 0.3.0 and up, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads. This does not apply to Melonloader 0.2.7.4 and earlier.
+!> In MelonLoader 0.3.0 and later, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads.
 
 Let's print something to the console.<br>
-First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`.
+First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`. You will also need to use the `UnityEngine` namespace for this.
 > Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
-Then you need to add a using statement for `UnityEngine`, which looks like this: `using UnityEngine`.
 ```cs
+// At the top of the file
+using UnityEngine;
+
+// In the class
 public override void OnUpdate()
 {
-    if(Input.GetKeyDown(KeyCode.T))
+    if (Input.GetKeyDown(KeyCode.T))
     {
-        MelonModLogger.Log("You just pressed T") // Note that in MelonLoader 0.3.0 you should use MelonModLogger.Msg() as MelonModLogger.Log() is obsolete
+        MelonLogger.Log("You just pressed T") 
     }
 }
 ```
