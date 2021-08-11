@@ -1,67 +1,128 @@
 # Mod Preferences 
-Often times when creating a mod, it is needed to have some sort of config the user can edit.<br>
-Luckily, in both MelonLoader 0.2.7.4 and 0.3.0, this is built-in to MelonLoader.
+Mod preferences are very useful in modding, for a ton of reasons. They let create configs, and save data that's persistent which may be needed in many situations. Luckily, implimenting this is MelonLoader is very simple.<br>
 
-### Mod Preferences in MelonLoader 0.2.7.4
-> If you are modding using MelonLoader 0.3.0, please refer to [Mod Preferences in MelonLoader 0.3.0](modders/preferences?id=mod-preferences-in-melonloader-030)
+## Mod Preferences in MelonLoader
 
-The built-in way MelonLoader handles preferences is by using the `MelonPrefs` class.
-MelonLoader will save these preferences in `UserData\modprefs.ini`.<br>
-To make a preference, first you register a category using `RegisterCategory()`, then you can save preferences to that category using `RegisterInt()`, `RegisterFloat()`, `RegisterBool()` and `RegisterString()`.
-
-Here's an example that will register the integer `"myInt"` with the ID of `"intPreference"` and the default value of 100, to the `"MyMod"` category, which will display as `"MyMod Settings"`.
+First, you need to create a category. To demonstrate this, I will build off of the code in the [QuickStart](modders/quickstart.md), which should look something like this:
 ```cs
-// As early as possible, likely in OnApplicationStart()
-string myCategory = "MyMod"; // This will serve as a sort of ID for your category
+using MelonLoader;
+using UnityEngine;
 
-MelonPrefs.RegisterCategory(myCategory, "MyMod Settings"); 
-
-int myInt = 100; // The int here is the default value
-MelonPrefs.RegisterInt(myCategory, "intPreference", myInt, "My int Preference."); 
+namespace MyProject
+{
+    public class MyMod : MelonMod
+    {
+        public override void OnUpdate()
+        {
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                MelonModLogger.Log("You just pressed T") // Note that in MelonLoader 0.3.0 you should use MelonModLogger.Msg() as MelonModLogger.Log() is obsolete
+            }
+        }
+    }
+}
 ```
 
-To access this newly saved preference, just use `GetInt()`, `GetBool()`, `GetFloat()`, or `GetString()` respectively.
+Since we only want one category, we can add it in one of `MelonMod`'s overloads called `OnApplicationStart`. It is called only once when the game starts.
 ```cs
-int myInt = MelonPrefs.GetInt(myCategory, "intPreference");
+public override void OnApplicationStart()
+{
+
+}
 ```
 
-Keep in mind that the override `OnModSettingsApplied()` is run when mod preferences are saved, so make sure to take advantage of this in your mods.
-
-?> Multiple categories or preferences with the same name will cause errors!
-
-### Mod Preferences in MelonLoader 0.3.0 
-
-There is a huge difference between preferences in MelonLoader 0.3.0 and 0.2.7.4. In fact, the 2 systems are barely comparable.<br>
-MelonLoader 0.2.7.4 uses the `.ini` format, while MelonLoader 0.3.0 uses `.toml`. Also that, preferences are now object oriented. Which present a whole slew of advantages that will be explained during the guide.
-
-So let's start off the guide.<br>
-Starting off as always, we will create a new category. Let's call it `MyCategory`.
+Now to create the category, we can simply call `MelonPreferences.CreateCategory` and give it the identifier `OurFirstCategory`:
 ```cs
-MelonPreferences_Category myCategory = MelonPreferences.CreateCategory("MyCategory", "MyCategory");
+MelonPreferences.CreateCategory("OurFirstCategory");
 ```
 
-As I mentioned before, this is now object oriented, making creating and getting entries in a category easier.
-
-Next, let's make a bool entry called `MyBoolEntry`.
+Because we want to save it for later use in our mod, let's store the result in static field.
 ```cs
-MelonPreferences_Entry<bool> myBoolEntry = myCategory.CreateEntry("MyBoolEntry", false) // Store this in a field or property for later use
+public static MelonPreferences_Category ourFirstCategory;
+public override void OnApplicationStart()
+{
+    ourFirstCategory = MelonPreferences.CreateCategory("OurFirstCategory");
+}
 ```
-An advantage to the object oriented conevention being used now, is that to access the value or assign it a new value, simply use the `value` property.
+
+And that's it!<br>
+You also may find it necessary to add multiple categories if your mod had a lot of preferences. Luckily, this is also very simple. Just create a new one! There's no limitations to how many categories a mod can make.
+
+Now, let's start actually making preferences. For this, we just need to call the `CreateEntry` method on our category instance. Let's also make it a bool.
 ```cs
-myBoolEntry.value = true;
-MelonLogger.Msg(myBoolEntry.value); // true
+// In the OnApplicationStart overload
+                           // Identifier// Default value
+ourFirstCategory.CreateEntry("ourFirstEntry", false);
 ```
- > Keep in mind that changes to the entry's value will not be saved in the preferences file until `MelonPreferences.Save()` is called.
 
-Another advantage to object oriented conventions is the ability to add events for when the value of a pref changes.
+We should also save it in a static field for use later.
+```cs
+// In the class definition
+public static MelonPreferences_Entry<bool> ourFirstEntry;
 
-Within the `MelonPreferences_Entry<T>` class, there are 2 events that are called when the value is changed.<br>
+// In OnApplicationStart
+ourFirstEntry = ourFirstCategory.CreateEntry("ourFirstEntry", false);
+```
+
+Now, we can actually use it. Let's say we want to use this entry to enable/disable our `OnUpdate` method. This is pretty simple:
+```cs
+// In the OnUpdate overload
+// If our entry is false, then return
+if (!ourFirstEntry.value)
+    return;
+```
+
+We can also use the `value` property on our entry for the inverse, or, setting the entry value. To do so we just have to assign a value to it:
+```cs
+ourFirstEntry.value = true;
+MelonLogger.Msg(ourFirstEntry.value); // true
+```
+
+Entries are very flexible in MelonLoader. They can hold almost any serializable object and categories aren't limited to how many preferences can be stored.
+
+> Its worth noting that, the preference's value will not be reflected in the `MelonPreferences.cfg` file, where all preferences are saved, until `MelonPreferences.Save()` is called or in MelonLoader 0.4.0 and later, the `Save` method is called on your category.
+
+Overall, our final code should look something like so:
+
+```cs
+using MelonLoader;
+using UnityEngine;
+
+namespace MyProject
+{
+    public class MyMod : MelonMod
+    {
+        public static MelonPreferences_Category ourFirstCategory;
+        public static MelonPreferences_Entry<bool> ourFirstEntry;
+        
+        public override void OnApplicationStart()
+        {
+            ourFirstCategory = MelonPreferences.CreateCategory("OurFirstCategory");
+            ourFirstEntry = ourFirstCategory.CreateEntry("ourFirstEntry", false);
+        }
+
+        public override void OnUpdate()
+        {
+            if (!ourFirstEntry.value)
+                return;
+
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                MelonLogger.Msg("You just pressed T")
+            }
+        }
+    }
+}
+```
+
+Within our entry, there are 2 events that are called when the value is changed.<br>
 The first, `OnValueChangedUntyped` is non-generic and has no parameters.
 The second, `OnValueChanged` has two parameters, `oldValue` and `newValue`.
+These will call during the setter of the `value` property, not necessarily when the value actually changes.
 
- > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
+> It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
-### Mod Preferences in MelonLoader 0.4.0 and later
+## Additions in MelonLoader 0.4.0 and later
 
 In MelonLoader 0.4.0, there is no change in syntax while creating and using prefs. However, there are many improvements with the system as a whole.
 
