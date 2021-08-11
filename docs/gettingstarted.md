@@ -25,7 +25,6 @@
    - If your game is 64bit download either: <br> 
    - - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.3/MelonLoader.x64.zip) for MelonLoader 0.4.3 <br>
      - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip) for Melonloader 0.3.0 <br>
-     - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.2.7.4/MelonLoader.x64.zip) for Melonloader 0.2.7.4
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
 3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
