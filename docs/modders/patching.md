@@ -104,7 +104,6 @@ For this, you need to know how to do reflection. A guide can be found [here](mod
 
 Let's start off by using the namespace `Harmony` if you're using MelonLoader 0.3.0, or the namespace `HarmonyLib` if you're using MelonLoader 0.4.0.
 Now, we need to call the `Patch` method in our `HarmonyInstance`. The `HarmonyInstance` can be found as a property in an instance of your mod's main class. Depending on your MelonLoader version, the property will have different names:
- - In MelonLoader 0.2.7.4, it will be named `harmonyInstance`
  - In MelonLoader 0.3.0, it will be named `Harmony`
  - In MelonLoader 0.4.0 and later, it will be named `HarmonyInstance`
 
@@ -122,7 +121,6 @@ using HarmonyLib; // If you're using 0.4.0 and later
 
 // In a method, preferabally one that runs on application start
 
-HarmonyInstance harmony = this.harmonyInstance; // If you're using MelonLoader 0.2.7.4
 HarmonyInstance harmony = this.Harmony; // If you're using MelonLoader 0.3.0
 HarmonyInstance harmony = this.HarmonyInstance; // If you're using MelonLoader 0.4.0 and later
 

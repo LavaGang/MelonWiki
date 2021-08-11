@@ -1,7 +1,7 @@
 # Attributes
 
+## Attributes in MelonLoader
 
-## Attributes in ML v0.2.7.4+
 ### MelonInfo
 MelonLoader relies on assembly info to get your mod description. Hence you'll need to add this attribute to your mod
 
@@ -46,8 +46,6 @@ using MelonLoader;
 // ...
 [assembly: MelonOptionalDependencies("OtherMod", "AnotherMod")]
 ```
-
-## Attributes Introduced in ML v0.3.0
 
 ### MelonColor
 This optional assembly attributes sets the color of the melon in the console
