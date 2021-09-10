@@ -74,7 +74,7 @@ Most recently in MelonLoader 0.4.0 and later, the following methods were added:
 
 Let's print something to the console.<br>
 First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`. You will also need to use the `UnityEngine` namespace for this.
-> Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
+> Games made using Unity 2019.4+ also requires `UnityEngine.InputLegacyModule.dll` to work.
 ```cs
 // At the top of the file
 using UnityEngine;
@@ -84,7 +84,7 @@ public override void OnUpdate()
 {
     if (Input.GetKeyDown(KeyCode.T))
     {
-        MelonLogger.Msg("You just pressed T") 
+        MelonLogger.Msg("You just pressed T");
     }
 }
 ```
