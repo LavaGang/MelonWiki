@@ -73,7 +73,12 @@ Most recently in MelonLoader 0.4.0 and later, the following methods were added:
 !> In MelonLoader 0.3.0 and later, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads.
 
 Let's print something to the console.<br>
-First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`. Both of them are in `MelonLoader/Managed/`. You will also need to use the `UnityEngine` namespace for this.
+First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`.<br>
+They will be located in one of 2 places:
+- If your game is Il2Cpp, then they will be in `MelonLoader/Managed/`. 
+- If your game is mono, then they will be in `Managed/`.
+
+You will also need to use the `UnityEngine` namespace for this.
 > Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
 ```cs
 // At the top of the file
