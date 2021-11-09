@@ -89,7 +89,7 @@ public override void OnUpdate()
 {
     if (Input.GetKeyDown(KeyCode.T))
     {
-        MelonLogger.Log("You just pressed T") 
+        MelonLogger.Msg("You just pressed T");
     }
 }
 ```
