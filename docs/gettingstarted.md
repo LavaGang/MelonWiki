@@ -19,12 +19,8 @@
 
 > It's **highly** recommended to use the automated installation when you can.
 
-1. - If your game is 32bit download either: <br>
-   - - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.3/MelonLoader.x86.zip) for MelonLoader 0.4.3 <br>
-     - [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x86.zip) for MelonLoader 0.3.0
-   - If your game is 64bit download either: <br> 
-   - - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.4.3/MelonLoader.x64.zip) for MelonLoader 0.4.3 <br>
-     - [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.3.0/MelonLoader.x64.zip) for Melonloader 0.3.0 <br>
+1. - If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.5.0/MelonLoader.x86.zip)
+   - If your game is 64bit download [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/download/v0.5.0/MelonLoader.x64.zip)
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
 3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
