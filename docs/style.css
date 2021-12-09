@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600");
 
+.rootfolder:hover {
+	text-decoration: underline;
+}
+
+.active:not(.collapse) .rootfolder {
+	color: var(--accent)
+}
+
 .markdown-section code {
 	font-weight: 400 !important;
 }

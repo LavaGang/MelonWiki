@@ -1,6 +1,6 @@
-* [Getting Started](gettingstarted.md)
-* [Universal Mods](games/universal.md)
-- [Officially Supported Games]()
+- [Getting Started](gettingstarted.md)
+- [Universal Mods](games/universal.md)
+- <span class=rootfolder>Officially Supported Games</span>
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
     - [BTD6](games/btd6.md)
@@ -9,7 +9,7 @@
     - [Job Simulator](games/jobsimulator.md)
     - [Pistol Whip](games/pistolwhip.md)
     - [The Long Dark](games/tld.md)
-- [Create a new mod]()
+- <span class=rootfolder>Create a new mod</span>
     - [Quick Start](modders/quickstart.md)
     - [Mod Preferences](modders/preferences.md)
     - [Debugging](modders/debugging.md)
@@ -18,7 +18,7 @@
     - [Xref Scanning](modders/xrefscanning.md)
     - [Attributes](modders/attributes.md)
     - [Il2Cpp differences](modders/il2cppdifferences.md)
-- [Android Support WIP]()
+- <span class=rootfolder>Android Support WIP</span>
     - [General Information](android/general.md)
     - [Installation](android/installation.md)
     - [Mod Development](android/mod_development.md)
