@@ -16,7 +16,7 @@ namespace MyProject
         {
             if(Input.GetKeyDown(KeyCode.T))
             {
-                MelonModLogger.Log("You just pressed T") // Note that in MelonLoader 0.3.0 you should use MelonModLogger.Msg() as MelonModLogger.Log() is obsolete
+                LoggerInstance.Log("You just pressed T") // MelonLoader 0.4.3 and below use MelonLogger.Msg(). Below 0.3.0 uses MelonModLogger.Msg()
             }
         }
     }
@@ -75,7 +75,7 @@ if (!ourFirstEntry.value)
 We can also use the `value` property on our entry for the inverse, or, setting the entry value. To do so we just have to assign a value to it:
 ```cs
 ourFirstEntry.value = true;
-MelonLogger.Msg(ourFirstEntry.value); // true
+LoggerInstance.Msg(ourFirstEntry.value); // true
 ```
 
 Entries are very flexible in MelonLoader. They can hold almost any serializable object and categories aren't limited to how many preferences can be stored.
@@ -108,7 +108,7 @@ namespace MyProject
 
             if(Input.GetKeyDown(KeyCode.T))
             {
-                MelonLogger.Msg("You just pressed T")
+                LoggerInstance.Msg("You just pressed T")
             }
         }
     }
