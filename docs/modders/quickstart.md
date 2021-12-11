@@ -79,7 +79,9 @@ They will be located in one of 2 places:
 - If your game is mono, then they will be in `Managed/`.
 
 You will also need to use the `UnityEngine` namespace for this.
-> Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` to work.
+> Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` or `UnityEngine.InputLegacyModule` to work.
+
+> MelonLoader versions later than 0.5.1 may no longer detect your Mod's name when using `MelonLogger.Msg()`. It is recommended to use `LoggerInstance`.
 ```cs
 // At the top of the file
 using UnityEngine;
@@ -89,6 +91,10 @@ public override void OnUpdate()
 {
     if (Input.GetKeyDown(KeyCode.T))
     {
+        // MelonLoader 0.5.0 and later
+        LoggerInstance.Msg("You just pressed T");
+        
+        // MelonLoader 0.4.3 and below
         MelonLogger.Msg("You just pressed T");
     }
 }
