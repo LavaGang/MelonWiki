@@ -178,6 +178,10 @@ VerifyLoaderVersion has several overrides
 3) - `major`, `minor`, `patch`, `revision`
 4) - `major`, `minor`, `patch`, `revision`, `isminimum`    
 
+> Please note: Due to a problem with Version checking in builds below 0.5.1, mods using `VerifyLoaderVersion` may not load on later major/minor versions.
+> For Example: A mod using `VerifyLoaderVersion(0, 3, 0, true)` would not load on version 0.4.0, despite setting `isminimum` to true.
+> This was fixed in MelonLoader 0.5.1 
+
 ```cs
 using MelonLoader;
 // ...
