@@ -1,8 +1,11 @@
 # Requirements
 
 - In order to run the Automated Installer and MelonLoader you must have [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48) installed.
-- In order to run MelonLoader you must have [Microsoft Visual C++ 2015-2019 Redistributable](https://aka.ms/vs/16/release/vc_redist.x64.exe) installed.
+- In order to run MelonLoader you must install:
+  - [Microsoft Visual C++ 2015-2019 Redistributable 64 Bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) for 64 bit games.
+  - [Microsoft Visual C++ 2015-2019 Redistributable 32 Bit](https://aka.ms/vs/16/release/vc_redist.x86.exe) for 32 bit games.
 
+?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
 
 # Automated Installation
 
