@@ -11,7 +11,7 @@ Doing so will create a new empty cs file, called `Class1`. This will be our mod 
 I'll rename it `MyMod`. You can change it to whatever you would like though.
 
 You will now need to reference the main MelonLoader assembly. Right click the `Reference` directory, `Add a reference...`, and click `Browse`.<br/>
-Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.ModHandler.dll`, or if you are using MelonLoader 0.3.0 and up: `MelonLoader/MelonLoader.dll`.
+Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.dll`.
 
 MelonLoader relies on assembly info to get your mod description. We will have to setup them up.<br>
 To do that, go to the `Properties` directory, and add these three lines to `AssemblyInfo.cs`:
@@ -79,9 +79,9 @@ They will be located in one of 2 places:
 - If your game is mono, then they will be in `Managed/`.
 
 You will also need to use the `UnityEngine` namespace for this.
-> Games made using Unity 2019.4+ also requires `UnityEngine.InputModule.dll` or `UnityEngine.InputLegacyModule` to work.
+> Games made using Unity 2019.4+ also require `UnityEngine.InputLegacyModule` to work.
 
-> MelonLoader versions later than 0.5.0 may no longer detect your Mod's name when using `MelonLogger.Msg()`. It is recommended to use `LoggerInstance`.
+> MelonLoader versions the same or later than 0.5.0 may no longer detect your Mod's name when using `MelonLogger.Msg()`. It is recommended to use `LoggerInstance`.
 ```cs
 // At the top of the file
 using UnityEngine;
@@ -91,11 +91,7 @@ public override void OnUpdate()
 {
     if (Input.GetKeyDown(KeyCode.T))
     {
-        // MelonLoader 0.5.0 and later
         LoggerInstance.Msg("You just pressed T");
-        
-        // MelonLoader 0.4.3 and below
-        MelonLogger.Msg("You just pressed T");
     }
 }
 ```

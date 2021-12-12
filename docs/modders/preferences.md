@@ -16,7 +16,7 @@ namespace MyProject
         {
             if(Input.GetKeyDown(KeyCode.T))
             {
-                LoggerInstance.Log("You just pressed T") // MelonLoader 0.4.3 and below use MelonLogger.Msg(). Below 0.3.0 uses MelonModLogger.Msg()
+                LoggerInstance.Log("You just pressed T");
             }
         }
     }
