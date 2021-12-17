@@ -32,15 +32,15 @@
 # Linux Instructions
 >MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `steamtricks [appid]` with `winetricks`
 
+Please refer to your distribution's specific ways of installing Protontricks. <br>
+Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
+
 Find your game's AppID using `protontricks -S [GameName]`
 
 It is recommended to start over with a *clean* prefix.
 
 You're game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
 You are now running a clean prefix.
-
-Please refer to your distribution's specific ways of installing Protontricks. <br>
-Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
 
 Now run 
 * `protontricks [appid] --force vcrun2019` (Let visual installers run)
