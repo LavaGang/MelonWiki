@@ -39,7 +39,7 @@ Find your game's AppID using `protontricks -S [GameName]`
 
 It is recommended to start over with a *clean* prefix.
 
-You're game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
+Your game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
 You are now running a clean prefix.
 
 Now run 
