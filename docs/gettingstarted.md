@@ -29,6 +29,32 @@
 
 ?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
 
+# Linux Instructions
+>MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `steamtricks [appid]` with `winetricks`
+
+Please refer to your distribution's specific ways of installing Protontricks. <br>
+Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
+
+Find your game's AppID using `protontricks -S [GameName]`
+
+It is recommended to start over with a *clean* prefix.
+
+Your game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
+You are now running a clean prefix.
+
+Now run 
+* `protontricks [appid] --force vcrun2019` (Let visual installers run)
+* `protontricks [appid] --force dotnet472` (Cancel visual installer)
+
+Note that both of these may take some time.
+
+Then run `protontricks [appid] winecfg`<br/>
+At the bottom, switch the Windows version to Windows 10.<br>
+Go to the libraries tab, select `version` from the "new override for library" dropdown, and hit add<br/>
+Then hit OK.
+
+Now you can follow the Manual Installation instructions above, and MelonLoader should pop up on launch.
+
 # Contact
 
 If you need any help, feel free to ask us in the #melonloader-support channel of the [MelonLoader Discord](https://discord.gg/2Wn3N2P)!<br>
