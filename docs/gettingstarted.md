@@ -30,7 +30,7 @@
 ?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
 
 # Linux Instructions
->MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `steamtricks [appid]` with `winetricks`
+>MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `protontricks [appid]` with `winetricks`
 
 Please refer to your distribution's specific ways of installing Protontricks. <br>
 Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
