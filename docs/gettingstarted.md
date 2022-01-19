@@ -35,7 +35,7 @@
 Please refer to your distribution's specific ways of installing Protontricks. <br>
 Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
 
-Find your game's AppID using `protontricks -S [GameName]`
+Find your game's AppID using `protontricks -s [GameName]`
 
 It is recommended to start over with a *clean* prefix.
 
