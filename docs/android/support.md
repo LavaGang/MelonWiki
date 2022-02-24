@@ -23,7 +23,7 @@
 [//]: # (wont be taking bug reports until ready to focus for release)
 [//]: # (> **Q:** Where should I report bugs?)
 [//]: # (> )
-[//]: # (> **A:** The support discord for the Android port would be the best place. https://discord.gg/trczJcx7kK)
+[//]: # (> **A:** The support discord for the Android port would be the best place. https://discord.gg/RAFGe33Y28)
 
 > **Q:** Do mods work cross platform?
 > 
@@ -40,7 +40,7 @@
 ## Discord Guilds
 | name        | link                          | description                                                        |
 |-------------|-------------------------------|--------------------------------------------------------------------|
-| Lemon       | https://discord.gg/trczJcx7kK | A temporary discord server for supporting MelonLoader for Android. |
+| Lemon       | https://discord.gg/RAFGe33Y28 | A temporary discord server for supporting MelonLoader for Android. |
 | MelonLoader | https://discord.gg/aZhusjGydM | The main discord server for MelonLoader.                           |
 
 ## Source Code

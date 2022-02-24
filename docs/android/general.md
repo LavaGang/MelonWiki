@@ -4,7 +4,7 @@
 # General Information
 Android support is incomplete. At this time, general mod development is _not_ recommended.
 
-For any issues please visit the [dedicated discord server](https://discord.gg/trczJcx7kK).
+For any issues visit the [dedicated discord server](https://discord.gg/RAFGe33Y28).
 
 ## Support Matrix
 
