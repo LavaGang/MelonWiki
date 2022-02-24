@@ -29,5 +29,5 @@ adb logcat -v time MelonLoader:D CRASH:D Mono:W mono:D mono-rt:D Zygote:D A64_HO
 adb logcat -v time MelonLoader:D CRASH:D Mono:D mono:D mono-rt:D Zygote:D A64_HOOK:V DEBUG:D funchook:D Unity:D Binder:D AndroidRuntime:D *:S
 ```
 
-## Bug Reporting
-Please report your ML Android bugs in [the dedicated discord server](https://discord.gg/czfkRNTSpt). All bug reports are super helpful, and can be used to make ML Android more stable. 
+[//]: # (## Bug Reporting)
+[//]: # (Please report your ML Android bugs in [the dedicated discord server]&#40;https://discord.gg/trczJcx7kK&#41;. All bug reports are super helpful, and can be used to make ML Android more stable. )
