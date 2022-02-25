@@ -4,17 +4,13 @@
 # Support & Resources
 ## FAQ
 
-> **Q:** Should I write mods with Android support?
+> **Q:** Is it ready to use for modding?
 >
-> **A:** No, at the moment the port is _highly_ unstable and is not feature complete.
+> **A:** While not all games will work, if MelonLoader doesn't crash during startup, you can mod the game.
 
 > **Q:** Is the port a separate project?
 > 
 > **A:** Right now the port is on a forked version of MelonLoader. The intention is to eventually merge the fork into MelonLoader.
-
-> **Q:** Will the installation method change?
-> 
-> **A:** Yes, the current installation method is just meant to automate the basics. A user friendly installation method will be available on full release.
 
 > **Q:** Is mono support coming?
 > 
@@ -24,9 +20,10 @@
 > 
 > **A:** The main version of MelonLoader is occasionally merged into the port.
 
-> **Q:** Where should I report bugs?
-> 
-> **A:** The support discord for the Android port would be the best place. https://discord.gg/czfkRNTSpt
+[//]: # (wont be taking bug reports until ready to focus for release)
+[//]: # (> **Q:** Where should I report bugs?)
+[//]: # (> )
+[//]: # (> **A:** The support discord for the Android port would be the best place. https://discord.gg/RAFGe33Y28)
 
 > **Q:** Do mods work cross platform?
 > 
@@ -36,14 +33,18 @@
 > 
 > **A:** Compiling your project with `.NET framework 4.7.2` should be ok.
 
+> **Q:** Is bHaptics supported?
+>
+> **A:** Yes, but you need to have the [bhaptics device manger](https://sidequestvr.com/app/3165/bhaptics-player).
+
 ## Discord Guilds
-| name | link | description |
-| --- | --- | --- |
-| Lemon | https://discord.gg/czfkRNTSpt | A temporary discord server for supporting MelonLoader for Android. |
-| MelonLoader | https://discord.gg/aZhusjGydM | The main discord server for MelonLoader. |
+| name        | link                          | description                                                        |
+|-------------|-------------------------------|--------------------------------------------------------------------|
+| Lemon       | https://discord.gg/RAFGe33Y28 | A temporary discord server for supporting MelonLoader for Android. |
+| MelonLoader | https://discord.gg/aZhusjGydM | The main discord server for MelonLoader.                           |
 
 ## Source Code
-| | |
-| --- | --- |
-| https://github.com/LavaGang/MelonLoader | MelonLoader main source code |
-| https://github.com/SirCoolness/MelonLoader | Fork for Android port |
+|                                            |                              |
+|--------------------------------------------|------------------------------|
+| https://github.com/LavaGang/MelonLoader    | MelonLoader main source code |
+| https://github.com/SirCoolness/MelonLoader | Fork for Android port        |
