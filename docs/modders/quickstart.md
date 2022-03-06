@@ -103,7 +103,7 @@ This example shows how to draw a GUI element on top of most other mods through a
 ```cs
 public class MyMod : MelonMod
 {
-    public override void OnInitialize()
+    public override void OnInitializeMelon()
     {
         MelonEvents.OnGUI.Subscribe(DrawMenu, -100); // Any Melon subscribed to this event with a higher priority will be called earlier.
     }
@@ -136,7 +136,7 @@ public class MyMod : MelonMod
 {
     public static MyMod instance;
     
-    public override void OnInitialize()
+    public override void OnInitializeMelon()
     {
         instance = this;
     }
