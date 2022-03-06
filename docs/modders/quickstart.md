@@ -13,8 +13,8 @@ I'll rename it `MyMod`. You can change it to whatever you would like though.
 You will now need to reference the main MelonLoader assembly. Right click the `Reference` directory, `Add a reference...`, and click `Browse`.<br/>
 Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.dll`.
 
-MelonLoader relies on assembly info to get your mod description. We will have to setup them up.<br>
-To do that, go to the `Properties` directory, and add these 3 lines to `AssemblyInfo.cs`:
+Any type of mod requires a `MelonInfo` assembly attribute for MelonLoader to know what mod it's loading.<br>
+To set one up, go to the `Properties` directory and add these 3 lines to `AssemblyInfo.cs`:
 ```cs
 using MelonLoader;
 using MyProject; // The namespace of your mod class
@@ -46,7 +46,7 @@ namespace MyProject
 }
 ```
 
-Your mod is now a valid Melon and can be loaded by MelonLoader.
+Your mod is now a valid Melon and can be loaded by MelonLoader.<br>
 In the following paragraphs, you will learn how to add some functionality to it.
 
 ### Melon Callbacks
@@ -67,6 +67,22 @@ MelonMod comes with a few virtual callbacks that can be overridden:
 - `OnSceneWasUnloaded`: Called once a Scene unloads.
 - `OnPreferencesSaved`: Called when Melon Preferences get saved.
 - `OnPreferencesLoaded`: Called when Melon Preferences get loaded.
+
+The following example shows how to implement those callbacks:
+```cs
+using MelonLoader;
+
+namespace MyProject
+{
+    public class MyMod : MelonMod
+    {
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            LoggerInstance.Msg($"Scene {sceneName} with build index {buildIndex} has been loaded!");
+        }
+    }
+}
+```
 
 ### Melon Events
 
