@@ -11,12 +11,12 @@
     - [The Long Dark](games/tld.md)
 - <span class=rootfolder>Create a new mod</span>
     - [Quick Start](modders/quickstart.md)
+    - [Attributes](modders/attributes.md)
     - [Mod Preferences](modders/preferences.md)
-    - [Debugging](modders/debugging.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
+    - [Debugging](modders/debugging.md)
     - [Xref Scanning](modders/xrefscanning.md)
-    - [Attributes](modders/attributes.md)
     - [Il2Cpp differences](modders/il2cppdifferences.md)
 - <span class=rootfolder>Android Support WIP</span>
     - [General Information](android/general.md)
