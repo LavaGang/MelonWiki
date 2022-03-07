@@ -1,9 +1,9 @@
-# Mod Preferences 
-Mod preferences are very useful in modding, for a ton of reasons. They let create configs, and save data that's persistent which may be needed in many situations. Luckily, implimenting this is MelonLoader is very simple.<br>
+# Melon Preferences 
+Melon preferences are very useful in modding for a ton of reasons. They let Melons create configs and save data that's persistent, which may be needed in many situations. 
 
-## Mod Preferences in MelonLoader
+## Setting up Melon Preferences
 
-First, you need to create a category. To demonstrate this, I will build off of the code in the [QuickStart](modders/quickstart.md), which should look something like this:
+To create any Melon Preference Entries, we will first need to create a Melon Preference Category. To demonstrate this, let's use this simple example mod:
 ```cs
 using MelonLoader;
 using UnityEngine;
@@ -23,102 +23,59 @@ namespace MyProject
 }
 ```
 
-Since we only want one category, we can add it in one of `MelonMod`'s overloads called `OnApplicationStart`. It is called only once when the game starts.
+The following example shows how to create a simple Melon Preference Category. It is recommended initialize all your Categories and Entries before a Melon has been fully initialized, therefore, we will only be using a `OnInitializeMelon` callback for that.
 ```cs
-public override void OnApplicationStart()
-{
+private MelonPreferences_Category ourFirstCategory;
 
-}
-```
-
-Now to create the category, we can simply call `MelonPreferences.CreateCategory` and give it the identifier `OurFirstCategory`:
-```cs
-MelonPreferences.CreateCategory("OurFirstCategory");
-```
-
-Because we want to save it for later use in our mod, let's store the result in static field.
-```cs
-public static MelonPreferences_Category ourFirstCategory;
-public override void OnApplicationStart()
+public override void OnInitializeMelon()
 {
     ourFirstCategory = MelonPreferences.CreateCategory("OurFirstCategory");
 }
 ```
 
+?> Creating a Melon Preference Category will not override any existing categories and will only create one if it doesn't exist yet.
+
 And that's it!<br>
-You also may find it necessary to add multiple categories if your mod had a lot of preferences. Luckily, this is also very simple. Just create a new one! There's no limitations to how many categories a mod can make.
+You may also find it necessary to add multiple categories if your mod has a lot of preferences. Luckily, this is also very simple. You can create as many categories as needed; there's no limitations to how many categories a mod can make.
 
-Now, let's start actually making preferences. For this, we just need to call the `CreateEntry` method on our category instance. Let's also make it a bool.
+Now, let's start actually making preferences. For this, we just need to call the `CreateEntry` method from our category instance.<br>
+You can use any Type for entries as long as it's serializable by [Tomlet](https://github.com/SamboyCoding/Tomlet).<br>
+For this instance, let's simply use a Boolean
 ```cs
-// In the OnApplicationStart overload
-                           // Identifier// Default value
-ourFirstCategory.CreateEntry("ourFirstEntry", false);
-```
+private MelonPreferences_Category ourFirstCategory;
+private MelonPreferences_Entry<bool> ourFirstEntry;
 
-We should also save it in a static field for use later.
-```cs
-// In the class definition
-public static MelonPreferences_Entry<bool> ourFirstEntry;
-
-// In OnApplicationStart
-ourFirstEntry = ourFirstCategory.CreateEntry("ourFirstEntry", false);
-```
-
-Now, we can actually use it. Let's say we want to use this entry to enable/disable our `OnUpdate` method. This is pretty simple:
-```cs
-// In the OnUpdate overload
-// If our entry is false, then return
-if (!ourFirstEntry.value)
-    return;
-```
-
-We can also use the `value` property on our entry for the inverse, or, setting the entry value. To do so we just have to assign a value to it:
-```cs
-ourFirstEntry.value = true;
-LoggerInstance.Msg(ourFirstEntry.value); // true
-```
-
-Entries are very flexible in MelonLoader. They can hold almost any serializable object and categories aren't limited to how many preferences can be stored.
-
-> Its worth noting that, the preference's value will not be reflected in the `MelonPreferences.cfg` file, where all preferences are saved, until `MelonPreferences.Save()` is called or in MelonLoader 0.4.0 and later, the `Save` method is called on your category.
-
-Overall, our final code should look something like so:
-
-```cs
-using MelonLoader;
-using UnityEngine;
-
-namespace MyProject
+public override void OnInitializeMelon()
 {
-    public class MyMod : MelonMod
+    ourFirstCategory = MelonPreferences.CreateCategory("OurFirstCategory");
+    
+    ourFirstEntry = ourFirstCategory.CreateEntry<bool>("OurFirstEntry", true);
+}
+```
+
+Once an entry has been created, it is ready for use.<br>
+Any entry instance has it's own `Value` property which allows us to get and set it's value.<br>
+The following example demonstrates how to use it:
+```cs
+private MelonPreferences_Entry<bool> ourFirstEntry;
+
+public override void OnUpdate()
+{
+    if (Input.GetKeyDown(KeyCode.T))
     {
-        public static MelonPreferences_Category ourFirstCategory;
-        public static MelonPreferences_Entry<bool> ourFirstEntry;
-        
-        public override void OnApplicationStart()
-        {
-            ourFirstCategory = MelonPreferences.CreateCategory("OurFirstCategory");
-            ourFirstEntry = ourFirstCategory.CreateEntry("ourFirstEntry", false);
-        }
+        bool oldEntryValue = ourFirstEntry.Value;
+        ourFirstEntry.Value = !oldEntryValue; // Toggles the entry boolean
 
-        public override void OnUpdate()
-        {
-            if (!ourFirstEntry.value)
-                return;
-
-            if(Input.GetKeyDown(KeyCode.T))
-            {
-                LoggerInstance.Msg("You just pressed T")
-            }
-        }
+        LoggerInstance.Log($"Our first entry value is {ourFirstEntry.Value}");
     }
 }
 ```
 
-Within our entry, there are 2 events that are called when the value is changed.<br>
-The first, `OnValueChangedUntyped` is non-generic and has no parameters.
-The second, `OnValueChanged` has two parameters, `oldValue` and `newValue`.
-These will call during the setter of the `value` property, not necessarily when the value actually changes.
+> Its worth noting that entry values will not be automatically saved to the `MelonPreferences.cfg` file until `MelonPreferences.Save()` is called. The `Save` method is automatically called on the `MelonEvents::OnApplicationQuit` event, meaning all preferences will still be automatically saved before a game is closed.
+
+Within our entry, there are 2 Melon Events that are called when the value is changed.<br>
+The first, `OnEntryValueChangedUntyped` is non-generic and has 2 boxed parameters: `oldValue` and `newValue`.
+The second, `OnEntryValueChanged` has 2 parameters: `oldValue` and `newValue`.
 
 > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
