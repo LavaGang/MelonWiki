@@ -12,7 +12,7 @@
 - <span class=rootfolder>Create a new mod</span>
     - [Quick Start](modders/quickstart.md)
     - [Attributes](modders/attributes.md)
-    - [Mod Preferences](modders/preferences.md)
+    - [Melon Preferences](modders/preferences.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
     - [Debugging](modders/debugging.md)
