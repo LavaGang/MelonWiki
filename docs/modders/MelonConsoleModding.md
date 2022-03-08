@@ -3,7 +3,7 @@
 !> The Melon Console relies on Unity's IMGUI module and may not work on some games that might have some parts of the module stripped.
 !> We are planning on switching to another rendering library in the future to solve this issue.
 
-The [Melon Console](ExtraFeatures/MelonConsole.md) allows Mods to register their own Melon Commands.<br>
+The [Melon Console](../ExtraFeatures/MelonConsole.md) allows Mods to register their own Melon Commands.<br>
 Mod commands can be useful for non-GUI Mod features, but also for debugging.
 
 ### Registering Commands
