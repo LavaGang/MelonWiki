@@ -11,7 +11,7 @@
     - [The Long Dark](games/tld.md)
 - <span class=rootfolder>Extra Features</span>
     - [Melon Console](ExtraFeatures/MelonConsole.md)
-- <span class=rootfolder>Create a new mod</span>
+- <span class=rootfolder>Developing Melons</span>
     - [Quick Start](modders/quickstart.md)
     - [Attributes](modders/attributes.md)
     - [Melon Preferences](modders/preferences.md)
