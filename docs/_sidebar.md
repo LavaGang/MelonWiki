@@ -15,6 +15,7 @@
     - [Quick Start](modders/quickstart.md)
     - [Attributes](modders/attributes.md)
     - [Melon Preferences](modders/preferences.md)
+    - [Melon Console](modders/MelonConsoleModding.md)
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
     - [Debugging](modders/debugging.md)
