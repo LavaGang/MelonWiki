@@ -9,6 +9,8 @@
     - [Job Simulator](games/jobsimulator.md)
     - [Pistol Whip](games/pistolwhip.md)
     - [The Long Dark](games/tld.md)
+- <span class=rootfolder>Extra Features</span>
+    - [Melon Console](ExtraFeatures/MelonConsole.md)
 - <span class=rootfolder>Create a new mod</span>
     - [Quick Start](modders/quickstart.md)
     - [Attributes](modders/attributes.md)
