@@ -36,7 +36,7 @@ The Melon Console comes with some additional built-in commands. Here is a full l
 | melonassembly.unregister [path]	| Unregisters all Melons in a Melon Assembly. |
 | melon.isregistered [name] \[author]	| Prints `true` if a Melon with the given info is already registered, otherwise prints `false`. |
 
-Modders also have the ability to register their own Melon Commands in their Mods! More on registering Melon Commands in the [Modders Guide](modders/MelonConsoleModders.md).
+Modders also have the ability to register their own Melon Commands in their Mods! More on registering Melon Commands in the [Modders Guide](../modders/MelonConsoleModding.md).
 
 ### Previous Commands
 
