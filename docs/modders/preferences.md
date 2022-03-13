@@ -68,14 +68,14 @@ Now, we can actually use it. Let's say we want to use this entry to enable/disab
 ```cs
 // In the OnUpdate overload
 // If our entry is false, then return
-if (!ourFirstEntry.value)
+if (!ourFirstEntry.Value)
     return;
 ```
 
-We can also use the `value` property on our entry for the inverse, or, setting the entry value. To do so we just have to assign a value to it:
+We can also use the `Value` property on our entry for the inverse, or, setting the entry value. To do so we just have to assign a value to it:
 ```cs
-ourFirstEntry.value = true;
-LoggerInstance.Msg(ourFirstEntry.value); // true
+ourFirstEntry.Value = true;
+LoggerInstance.Msg(ourFirstEntry.Value); // true
 ```
 
 Entries are very flexible in MelonLoader. They can hold almost any serializable object and categories aren't limited to how many preferences can be stored.
@@ -118,7 +118,7 @@ namespace MyProject
 Within our entry, there are 2 events that are called when the value is changed.<br>
 The first, `OnValueChangedUntyped` is non-generic and has no parameters.
 The second, `OnValueChanged` has two parameters, `oldValue` and `newValue`.
-These will call during the setter of the `value` property, not necessarily when the value actually changes.
+These will call during the setter of the `Value` property, not necessarily when the value actually changes.
 
 > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
