@@ -55,7 +55,9 @@ MelonMod comes with a few virtual callbacks that can be overridden:
 - `OnInitializeMelon`: Called when the Melon is registered. Executes before the Melon's info is printed to the console.<br>
   This callback may run before the Support Module is loaded and before the Engine is fully initialized.<br>
   Do not reference any game/Unity members in this callback or override `OnEngineInitialized` instead.
-- `OnEngineInitialized`: Called after the Melon was registered. It is safe to make any game/Unity calls from this callback.
+- `OnLoaderInitialized`: Called after the Melon was registered. This callback waits until MelonLoader has fully initialized<br>
+  It is safe to make any game/Unity calls from this callback.
+- `OnLoaderLateInitialized`: Called after `OnLoaderInitialized`. This callback waits until Unity has invoked the first 'Start' messages.
 - `OnDeinitializeMelon`: Called before the Melon is unregistered.
 - `OnUpdate`: Called once per frame.
 - `OnFixedUpdate`: Called every 0.02 seconds, unless `Time.fixedDeltaTime` has a different value. It is recommended to do all important Physics loops inside this Callback.
@@ -122,7 +124,7 @@ Fortunately, MelonLoader has it's own logging system which is also available to 
 
 Any `MelonMod` has it's own logger instance which can be accessed through the `LoggerInstance` property:
 ```cs
-public override void OnEngineInitialized()
+public override void OnLoaderInitialized()
 {
     LoggerInstance.Msg("Hello World!");
 }
@@ -141,7 +143,7 @@ public class MyMod : MelonMod
         instance = this;
     }
     
-    public override void OnEngineInitialized()
+    public override void OnLoaderInitialized()
     {
         HelloWorld();
     }
