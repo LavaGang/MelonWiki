@@ -1,3 +1,10 @@
+# What is MelonLoader
+MelonLoader is a Universal Mod-Loader for Games built in the [Unity Engine](https://unity.com).
+
+You can find mods for games by asking in their respective communities or by looking through our Officially Supported Games list.
+
+!> Please note that MelonLoader does not condone the use of malicious acting mods. If it becomes an issue in a certain game, we may actively try to prevent MelonLoader from working on that game. Please stay wholesome ^^.
+
 # Requirements
 
 - In order to run the Automated Installer and MelonLoader you must have [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48) installed.
