@@ -1,11 +1,9 @@
 # What is MelonLoader
 MelonLoader is a Universal Mod-Loader for Games built in the [Unity Engine](https://unity.com).
 
-MelonLoader allows you to load .NET mods for games targeting both Mono and Il2Cpp.
+You can find mods for games by asking in their respective communities or by looking through our Officially Supported Games list.
 
-!> MelonLoader was originally made for friendly and wholesome mods.
-We do not support the use of MelonLoader for malicious purposes, such as:
-Cheating, gaining advantage over other players, abusing a game's multiplayer system, obtaining locked rewards, inconveniencing other players, and ruining the fun or experience for others.
+!> Please note that MelonLoader does not condone the use of malicious acting mods. If it becomes an issue in a certain game, we may actively try to prevent MelonLoader from working on that game. Please stay wholesome ^^.
 
 # Requirements
 
