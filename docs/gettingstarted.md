@@ -3,7 +3,7 @@ MelonLoader is a Universal Mod-Loader for Games built in the [Unity Engine](http
 
 You can find mods for games by asking in their respective communities or by looking through our Officially Supported Games list.
 
-!> Please note that MelonLoader does not condone the use of malicious acting mods. If it becomes an issue in a certain game, we may actively try to prevent MelonLoader from working on that game. Please stay wholesome ^^.
+!> Please note that MelonLoader does not condone the use of malicious mods. e.g. mods that allow for cheating in online games, among other things.
 
 # Requirements
 
