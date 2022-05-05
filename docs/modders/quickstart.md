@@ -54,7 +54,7 @@ In the following paragraphs, you will learn how to add some functionality to it.
 MelonMod comes with a few virtual callbacks that can be overridden:
 - `OnInitializeMelon`: Called when the Melon is registered. Executes before the Melon's info is printed to the console.<br>
   This callback may run before the Support Module is loaded and before the Engine is fully initialized.<br>
-  Do not reference any game/Unity members in this callback or override `OnEngineInitialized` instead.
+  Do not reference any game/Unity members in this callback or override `OnLoaderInitialized` instead.
 - `OnLoaderInitialized`: Called after the Melon was registered. This callback waits until MelonLoader has fully initialized<br>
   It is safe to make any game/Unity calls from this callback.
 - `OnLoaderLateInitialized`: Called after `OnLoaderInitialized`. This callback waits until Unity has invoked the first 'Start' messages.
