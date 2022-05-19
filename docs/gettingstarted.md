@@ -71,6 +71,7 @@ Or, if you see any issues with the wiki, please contact one of the editors in th
 | --quitfix	| Fixes the Hanging Process Issue with some Games |
 | --melonloader.consoleontop | Forces the Console to always stay on-top of all other Applications |
 | --melonloader.hideconsole	| Hides the Console |
+| --melonloader.disablestartscreen | Disables the Melon Start Screen |
 | --melonloader.hidewarnings | Hides Warnings from Displaying |
 | --melonloader.debug	| Debug Mode |
 | --melonloader.dab	| Debug Analytics Blocker |
