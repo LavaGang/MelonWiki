@@ -55,7 +55,7 @@ public override void OnInitializeMelon()
 
 Once an entry has been created, it is ready for use.<br>
 Any entry instance has it's own `Value` property which allows us to get and set it's value.<br>
-The following example demonstrates how to use it:
+The following example demonstrates its usage:
 ```cs
 private MelonPreferences_Entry<bool> ourFirstEntry;
 
@@ -71,7 +71,7 @@ public override void OnUpdate()
 }
 ```
 
-> Its worth noting that entry values will not be automatically saved to the `MelonPreferences.cfg` file until `MelonPreferences.Save()` is called. The `Save` method is automatically called on the `MelonEvents::OnApplicationQuit` event, meaning all preferences will still be automatically saved before a game is closed.
+> It's worth noting that entry values will not be automatically saved to the `MelonPreferences.cfg` file until `MelonPreferences.Save()` is called. The `Save` method is automatically called on the `MelonEvents::OnApplicationQuit` event, meaning all preferences will still be automatically saved before a game is closed.
 
 Within our entry, there are 2 Melon Events that are called when the value is changed.<br>
 The first, `OnEntryValueChangedUntyped` is non-generic and has 2 boxed parameters: `oldValue` and `newValue`.
