@@ -79,28 +79,11 @@ The second, `OnEntryValueChanged` has 2 parameters: `oldValue` and `newValue`.
 
 > It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
 
-## Additions in MelonLoader 0.4.0 and later
+## Custom Save Paths
 
-In MelonLoader 0.4.0, there is no change in syntax while creating and using prefs. However, there are many improvements with the system as a whole.
+Since saving to a single file might end up in a huge mess, it's possible to save categories to custom paths, instead of the main `MelonPreferences.cfg` path.<br>
+To do this, we can use the `SetFilePath` method after creating the category to set it's destination path. To save the category, use the `SaveToFile` method.<br>
 
-The two largest differences between preferences in MelonLoader 0.4.0 and 0.3.0 is the use of the `Tomlet` lib instead of `Tomlyn` as our Toml lib,
-and the use of object oriented conventions while saving and using preferences.
-
-The main difference between the two libs, is that custom serializers are almost never needed, as Tomlet will handle most of that for you.
-In fact, Tomlet will handle deserializing and serializing most Unity types for you.
-To demonstrate this, let's say we had this type:
-```cs
-public class MyCustomType
-{
-    public Vector3 myVector;
-    public List<int> myList;
-}
-```
-We could simply make the entry's type `MyCustomType` while creating it, and Tomlet would save the entry fine.
-
-Another addition to MelonLoader 0.4.0 is the ability to save categories to specific files instead of the main `MelonPreferences.cfg` file.<br>
-To do this, we simply call the `SetFilePath` method after creating the category and when we want to save, we call the `SaveToFile` method.<br>
-This would look something like this:
 ```cs
 myCategory.SetFilePath("Foo/Bar.cfg");
 
@@ -108,11 +91,10 @@ myCategory.SetFilePath("Foo/Bar.cfg");
 
 myCategory.SaveToFile();
 ```
-If we wanted to set the category's file path, but not load the preferences from the file yet, simply set the `autoload` param in `SetFilePath` to false, and manually call `LoadFromFile`.
+Since calling `SetFilePath` will also automatically load all the category data from the said file, there is a special parameter to prevent that from happening: `autoload`.
 ```cs
 myCategory.SetFilePath("Foo/Bar.cfg", autoload: false);
 
-// When you want to load the prefs from the file
-
+// Manually load the category data
 myCategory.LoadFromFile();
 ```
