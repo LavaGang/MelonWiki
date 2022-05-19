@@ -63,7 +63,7 @@ When contacting, please include the specific issue you're having, as well as a l
 Or, if you see any issues with the wiki, please contact one of the editors in the [credits](credits.md) in the MelonLoader Discord
 
 
-# Launch parameters
+# Launch Arguments
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
