@@ -1,5 +1,6 @@
 - [Getting Started](gettingstarted.md)
 - [Universal Mods](games/universal.md)
+- [Plugins](plugins.md)
 - <span class=rootfolder>Officially Supported Games</span>
     - [Audica](games/audica.md)
     - [BONEWORKS](games/boneworks.md)
