@@ -31,3 +31,4 @@ Here is the list of persons that have helped in any way to the creation of Melon
 ### Outsiders
 - Perfare: Developer of Il2CppDumper
 - pardeike: Developer of Harmony
+- ghorsington: Developer of HarmonyX (fork)
