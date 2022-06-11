@@ -39,11 +39,17 @@ For classes:
 When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
  - Inherit from a non-abstract Il2Cpp class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
- - Register the class before using it, using `ClassInjector.RegisterTypeInIl2Cpp<T>()`
- - If you need to instantiate it from the mono-side, you need to have a constructor calling `ClassInjector.DerivedConstructorPointer<T>()` and `ClassInjector.DerivedConstructorBody(this)`
+ - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>()` 
+ - If you need to instantiate it from the mono-side, you need to have a constructor calling `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorPointer<T>()` and `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorBody(this)`
+
+Note that `MelonLoader.RegisterTypeInIl2Cpp` will register all parent types if added to a child class. It is good practice to add the attribute to every custom injected class however.
 
 Here is a very basic example:
 ```cs
+// You must reference `UnhollowerBaseLib.dll` for this to work
+using UnhollowerRuntimeLib;
+
+[RegisterTypeInIl2Cpp]
 class MyCustomComponent : MonoBehaviour
 {
     public MyCustomComponent(IntPtr ptr) : base(ptr) {}
@@ -56,7 +62,8 @@ class MyCustomComponent : MonoBehaviour
 }
 ```
 
-A good practice is to call `ClassInjector.RegisterTypeInIl2Cpp<T>()` as early as possible to avoid issue.<br/>
+If you choose to manually call `ClassInjector.RegisterTypeInIl2Cpp<T>()`, it would look like this.<br/>
+Keep in mind, it must be called before the class is ever used.<br>
 In a mod, it would look like this:
 ```cs
 class MyMod : MelonMod
