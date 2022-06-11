@@ -97,11 +97,16 @@ To do that, MelonLoader includes replacement class: `MelonLoader.MelonCoroutines
 ### Usage of Il2Cpp Types
 
 In case you want to run an Il2Cpp method taking a type, you may want to use `.GetType()`.<br/>
-`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.Il2CppType`.
+`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.GetIl2CppType()` or `UnhollowerRuntimeLib.Il2CppType.Of<T>()`.
 ```cs
-Resources.FindObjectsOfTypeAll(Camera.Il2CppType);
+Resources.FindObjectsOfTypeAll(Camera.GetIl2CppType());
+
+// You must reference `UnhollowerBaseLib.dll` for this.
+using UnhollowerRuntimeLib;
+
+Resources.FindObjectsOfTypeAll(Il2CppType.Of<Camera>());
 ```
-Note: you can use the Mono type directly in case of generic method:
+Note: you can use the Mono type directly in generic methods:
 ```cs
 Resources.FindObjectsOfTypeAll<Camera>();
 ```
