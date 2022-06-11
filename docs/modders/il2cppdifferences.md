@@ -86,13 +86,31 @@ If you don't want to expose a method to the Il2Cpp side (either because it's not
 
 ### Coroutines
 
-!> This part contains some unreleased code.
-
-In a standard Mono game, you would use `StartCoroutine`. Since MelonMod isn't a component, and that anyway we can't use a Mono IEnumerator on Il2Cpp due to how those are handled in C#, we need to do it another way.
+In a standard Mono game, you would use `StartCoroutine`. Since MelonMod isn't a component, and we also can't use a Mono IEnumerator on Il2Cpp due to how those are handled in C#, we need to do it another way.
 
 To do that, MelonLoader includes replacement class: `MelonLoader.MelonCoroutines`!
- - `CoroD Start<T>(T routine)`: Starts a new coroutine, which will be ran at the end of the frame.
- - `void Stop(CoroD routine)`: Stops a running coroutine.
+ - `object Start(IEnumerator routine)`: Starts a new coroutine, which will be ran at the end of the frame.
+ - `void Stop(object coroutineToken)`: Stops a running coroutine.
+
+Otherwise, coroutines work nearly identically to regular unity:
+```cs
+System.Collections.IEnumerator myCoroutine() {
+    LoggerInstance.Msg("This logs immediately");
+    yield return null;
+
+    LoggerInstance.Msg("This logs on the next frame");
+    yield return new WaitForSeconds(5.0);
+
+    LoggerInstance.Msg("This logs after 5 seconds of the last log");
+}
+
+// ... in some method
+object routine = MelonCoroutines.Start(myCoroutine());
+
+// If you ever decide to stop the routine, pass the return value of
+// Start into Stop
+MelonCoroutines.Stop(routine);
+```
 
 ### Usage of Il2Cpp Types
 
