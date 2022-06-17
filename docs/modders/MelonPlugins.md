@@ -14,7 +14,7 @@ using MelonLoader;
 
 [MelonInfo(typeof(Test.TestPlugin), "Test", "1.0.0", "SlidyDev")]
 [MelonColor(ConsoleColor.Blue)]
-[MelonGame("Vrchat", "Vrchat")]
+[MelonGame("SomeCoolDevTeam", "SomeCoolGame")]
 
 namespace Test
 {
