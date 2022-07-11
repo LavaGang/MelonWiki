@@ -39,11 +39,17 @@ For classes:
 When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
  - Inherit from a non-abstract Il2Cpp class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
- - Register the class before using it, using `ClassInjector.RegisterTypeInIl2Cpp<T>()`
- - If you need to instantiate it from the mono-side, you need to have a constructor calling `ClassInjector.DerivedConstructorPointer<T>()` and `ClassInjector.DerivedConstructorBody(this)`
+ - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>()` 
+ - If you need to instantiate it from the mono-side, you need to have a constructor calling `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorPointer<T>()` and `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorBody(this)`
+
+Note that `MelonLoader.RegisterTypeInIl2Cpp` will register all parent types if added to a child class. It is good practice to add the attribute to every custom injected class however.
 
 Here is a very basic example:
 ```cs
+// You must reference `UnhollowerBaseLib.dll` for this to work
+using UnhollowerRuntimeLib;
+
+[RegisterTypeInIl2Cpp]
 class MyCustomComponent : MonoBehaviour
 {
     public MyCustomComponent(IntPtr ptr) : base(ptr) {}
@@ -56,7 +62,8 @@ class MyCustomComponent : MonoBehaviour
 }
 ```
 
-A good practice is to call `ClassInjector.RegisterTypeInIl2Cpp<T>()` as early as possible to avoid issue.<br/>
+If you choose to manually call `ClassInjector.RegisterTypeInIl2Cpp<T>()`, it would look like this.<br/>
+Keep in mind, it must be called before the class is ever used.<br>
 In a mod, it would look like this:
 ```cs
 class MyMod : MelonMod
@@ -86,22 +93,45 @@ If you don't want to expose a method to the Il2Cpp side (either because it's not
 
 ### Coroutines
 
-!> This part contains some unreleased code.
-
-In a standard Mono game, you would use `StartCoroutine`. Since MelonMod isn't a component, and that anyway we can't use a Mono IEnumerator on Il2Cpp due to how those are handled in C#, we need to do it another way.
+In a standard Mono game, you would use `StartCoroutine`. Since MelonMod isn't a component, and we also can't use a Mono IEnumerator on Il2Cpp due to how those are handled in C#, we need to do it another way.
 
 To do that, MelonLoader includes replacement class: `MelonLoader.MelonCoroutines`!
- - `CoroD Start<T>(T routine)`: Starts a new coroutine, which will be ran at the end of the frame.
- - `void Stop(CoroD routine)`: Stops a running coroutine.
+ - `object Start(IEnumerator routine)`: Starts a new coroutine, which will be ran at the end of the frame.
+ - `void Stop(object coroutineToken)`: Stops a running coroutine.
+
+Otherwise, coroutines work nearly identically to regular unity:
+```cs
+System.Collections.IEnumerator myCoroutine() {
+    LoggerInstance.Msg("This logs immediately");
+    yield return null;
+
+    LoggerInstance.Msg("This logs on the next frame");
+    yield return new WaitForSeconds(5.0);
+
+    LoggerInstance.Msg("This logs after 5 seconds of the last log");
+}
+
+// ... in some method
+object routine = MelonCoroutines.Start(myCoroutine());
+
+// If you ever decide to stop the routine, pass the return value of
+// Start into Stop
+MelonCoroutines.Stop(routine);
+```
 
 ### Usage of Il2Cpp Types
 
 In case you want to run an Il2Cpp method taking a type, you may want to use `.GetType()`.<br/>
-`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.Il2CppType`.
+`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.GetIl2CppType()` or `UnhollowerRuntimeLib.Il2CppType.Of<T>()`.
 ```cs
-Resources.FindObjectsOfTypeAll(Camera.Il2CppType);
+Resources.FindObjectsOfTypeAll(Camera.GetIl2CppType());
+
+// You must reference `UnhollowerBaseLib.dll` for this.
+using UnhollowerRuntimeLib;
+
+Resources.FindObjectsOfTypeAll(Il2CppType.Of<Camera>());
 ```
-Note: you can use the Mono type directly in case of generic method:
+Note: you can use the Mono type directly in generic methods:
 ```cs
 Resources.FindObjectsOfTypeAll<Camera>();
 ```
