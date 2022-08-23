@@ -212,7 +212,7 @@ namespace TimeFreezer
             {
                 instance.LoggerInstance.Msg("Freezing");
                 
-                MelonEvents.OnGUI.Subscribe(DrawFrozenText, -100); // Register the 'Frozen' label
+                MelonEvents.OnGUI.Subscribe(DrawFrozenText, 100); // Register the 'Frozen' label
                 baseTimeScale = Time.timeScale; // Save the original time scale before freezing
                 Time.timeScale = 0;
             }
