@@ -52,13 +52,13 @@ In the following paragraphs, you will learn how to add some functionality to it.
 ### Melon Callbacks
 
 MelonMod comes with a few virtual callbacks that can be overridden:
-- `OnInitializeMelon`: Called when the Melon is registered. Executes before the Melon's info is printed to the console.<br>
-  This callback may run before the Support Module is loaded and before the Engine is fully initialized.<br>
-  Do not reference any game/Unity members in this callback or override `OnLoaderInitialized` instead.
-- `OnLoaderInitialized`: Called after the Melon was registered. This callback waits until MelonLoader has fully initialized<br>
-  It is safe to make any game/Unity calls from this callback.
-- `OnLoaderLateInitialized`: Called after `OnLoaderInitialized`. This callback waits until Unity has invoked the first 'Start' messages.
-- `OnDeinitializeMelon`: Called before the Melon is unregistered.
+- `OnEarlyInitializeMelon`: Called when the Melon is registered. Executes before the Melon's info is printed to the console.<br>
+  This callback may run before the Support Module is loaded.<br>
+  Do not reference any game/Unity members in this callback or override `OnInitializeMelon` instead.
+- `OnInitializeMelon`: Called after the Melon was registered. This callback waits until MelonLoader has fully initialized<br>
+  It is safe to make any game/Unity references from and after this callback.
+- `OnLateInitializeMelon`: Called after `OnInitializeMelon`. This callback waits until Unity has invoked the first 'Start' messages.
+- `OnDeinitializeMelon`: Called before the Melon is unregistered. Also called before the game is closed.
 - `OnUpdate`: Called once per frame.
 - `OnFixedUpdate`: Called every 0.02 seconds, unless `Time.fixedDeltaTime` has a different value. It is recommended to do all important Physics loops inside this Callback.
 - `OnLateUpdate`: Called once per frame after all `OnUpdate` callbacks have finished.
@@ -107,7 +107,7 @@ public class MyMod : MelonMod
 {
     public override void OnInitializeMelon()
     {
-        MelonEvents.OnGUI.Subscribe(DrawMenu, -100); // Any Melon subscribed to this event with a higher priority will be called earlier.
+        MelonEvents.OnGUI.Subscribe(DrawMenu, 100); // The higher the value, the lower the priority.
     }
     
     private void DrawMenu()
@@ -185,7 +185,7 @@ namespace TimeFreezer
         private static bool frozen;
         private static float baseTimeScale;
 
-        public override void OnInitializeMelon()
+        public override void OnEarlyInitializeMelon()
         {
             instance = this;
             freezeToggleKey = KeyCode.Space;
