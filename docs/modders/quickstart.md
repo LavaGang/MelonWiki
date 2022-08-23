@@ -220,7 +220,7 @@ namespace TimeFreezer
             {
                 instance.LoggerInstance.Msg("Unfreezing");
                 
-                MelonEvents.OnGUI.Unsubscribe(typeof(TimeFreezerMod).GetMethod(nameof(DrawFrozenText))); // Unregister the 'Frozen' label
+                MelonEvents.OnGUI.Unsubscribe(DrawFrozenText); // Unregister the 'Frozen' label
                 Time.timeScale = baseTimeScale; // Reset the time scale to what it was before we froze the time
             }
         }
