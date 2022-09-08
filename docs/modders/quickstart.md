@@ -13,30 +13,25 @@ I'll rename it `MyMod`. You can change it to whatever you would like though.
 You will now need to reference the main MelonLoader assembly. Right click the `Reference` directory, `Add a reference...`, and click `Browse`.<br/>
 Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.dll`.
 
-MelonLoader relies on assembly info to get your mod description. We will have to setup them up.<br>
-To do that, go to the `Properties` directory, and add these three lines to `AssemblyInfo.cs`:
+Any type of mod requires a `MelonInfo` assembly attribute for MelonLoader to know what mod it's loading.<br>
+To set one up, go to the `Properties` directory and add these 3 lines to `AssemblyInfo.cs`:
 ```cs
 using MelonLoader;
+using MyProject; // The namespace of your mod class
 // ...
 [assembly: MelonInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
-[assembly: MelonGame("GameStudio", "GameName")]
 ```
 MelonInfo contains 4 required parameters and an optional one:
 - `MyMod`: The main class of your mod. We will talk about it later
 - `My Mod Name`: The name of your mod
 - `version`: The version of the mod. It should respect the [semver format](https://semver.org/) (example: `1.0.0`)
 - `Author Name`: The name of author of the mod
-- `Download Link`: The link to download or find the mod, this is optional
-
-MelonGame contains 2 parameters:
-- `GameStudio`: The name of the developer(s) of the game, as defined in the Unity settings.
-- `GameName`: The name of the game, as defined in the Unity settings.
-
-?> You can get the value of `GameName` and `GameStudio` of the game you are modding at the top of one of its Log file.<br/>You can also set these two parameters to `null` if you want your mod to be Universal.
-
-We are almost ready. Let's go back to our `MyMod` class, add a `using MelonLoader;`, and make our `MyMod` class inherit from `MelonMod`.
+- `Download Link`: The link to download or find the mod [optional]
 
 ### The MelonMod class
+
+We are almost ready. Let's go back to our `MyMod` class and turn it into a Melon.<br>
+First, let's add `using MelonLoader;` and make our `MyMod` class inherit from `MelonMod`.
 
 At this point, your `MyMod` class should looks like this:
 ```cs
@@ -51,49 +46,192 @@ namespace MyProject
 }
 ```
 
-MelonMod has a few virtual methods that can be overridden:
- - `OnApplicationStart()`: Called after every mod is loaded and right when the game starts.
- - `OnApplicationQuit()`: Called when the application is closing.
- - `OnUpdate()`: Called at the end of each `Update` call.
- - `OnLateUpdate()`: Called at the end of each `LateUpdate` call.
- - `OnFixedUpdate()`: Called at the end of each `FixedUpdate` call.
- - `OnGUI()`: Called during the GUI update.
- - `OnSceneWasInitialized(int buildIndex, string sceneName)`: Called when a scene is initialized.
- - `OnSceneWasLoaded(int buildIndex, string sceneName)`: Called when a scene is loaded.
- - `OnPreferencesLoaded()`: Called when a mod calls `MelonLoader.MelonPreferences.Load()`, or when MelonPreferences loads external changes.
- - `OnPreferencesSaved()`: Called when a mod calls `MelonLoader.MelonPreferences.Save()`, or when the application quits.
- - `BONEWORKS_OnLoadingScreen()`: (BONEWORKS only) called when the loading screen shows as BONEWORKS loads scene differently.
+Your mod is now a valid Melon and can be loaded by MelonLoader.<br>
+In the following paragraphs, you will learn how to add some functionality to it.
 
-Most recently in MelonLoader 0.4.0 and later, the following methods were added:
- - `OnSceneWasUnloaded(int buildIndex, string sceneName)`: Called when a scene is unloaded.
- - `OnApplicationLateStart()`: Called after `OnApplicationStart`.
+### Melon Callbacks
 
-### Basic method calling
+MelonMod comes with a few virtual callbacks that can be overridden:
+- `OnEarlyInitializeMelon`: Called when the Melon is registered. Executes before the Melon's info is printed to the console.<br>
+  This callback may run before the Support Module is loaded.<br>
+  Do not reference any game/Unity members in this callback or override `OnInitializeMelon` instead.
+- `OnInitializeMelon`: Called after the Melon was registered. This callback waits until MelonLoader has fully initialized<br>
+  It is safe to make any game/Unity references from and after this callback.
+- `OnLateInitializeMelon`: Called after `OnInitializeMelon`. This callback waits until Unity has invoked the first 'Start' messages.
+- `OnDeinitializeMelon`: Called before the Melon is unregistered. Also called before the game is closed.
+- `OnUpdate`: Called once per frame.
+- `OnFixedUpdate`: Called every 0.02 seconds, unless `Time.fixedDeltaTime` has a different value. It is recommended to do all important Physics loops inside this Callback.
+- `OnLateUpdate`: Called once per frame after all `OnUpdate` callbacks have finished.
+- `OnGUI`: Called at every [IMGUI](https://docs.unity3d.com/Manual/GUIScriptingGuide.html) event. Only use this for drawing IMGUI Elements.
+- `OnApplicationQuit`: Called when the game is told to close.
+- `OnSceneWasLoaded`: Called when a new Scene is loaded.
+- `OnSceneWasInitialized`: Called once the active Scene is fully initialized.
+- `OnSceneWasUnloaded`: Called once a Scene unloads.
+- `OnPreferencesSaved`: Called when Melon Preferences get saved.
+- `OnPreferencesLoaded`: Called when Melon Preferences get loaded.
 
-!> In MelonLoader 0.3.0 and later, due to protections against loading control flow obfuscated assemblies, assemblies under ~5kb will not load properly. If you have a very small mod that throws a `BadImageFormatException` while trying to load it, consider adding more of anything really until it loads.
-
-Let's print something to the console.<br>
-First, you will need to add a reference to `UnityEngine.CoreModule.dll` and `Il2Cppmscorlib.dll`.<br>
-They will be located in one of 2 places:
-- If your game is Il2Cpp, then they will be in `MelonLoader/Managed/`. 
-- If your game is mono, then they will be in `Managed/`.
-
-You will also need to use the `UnityEngine` namespace for this.
-> Games made using Unity 2019.4+ also require `UnityEngine.InputLegacyModule` to work.
-
-> MelonLoader versions the same or later than 0.5.0 may no longer detect your Mod's name when using `MelonLogger.Msg()`. It is recommended to use `LoggerInstance`.
+The following example shows how to implement those callbacks:
 ```cs
-// At the top of the file
-using UnityEngine;
+using MelonLoader;
 
-// In the class
-public override void OnUpdate()
+namespace MyProject
 {
-    if (Input.GetKeyDown(KeyCode.T))
+    public class MyMod : MelonMod
     {
-        LoggerInstance.Msg("You just pressed T");
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            LoggerInstance.Msg($"Scene {sceneName} with build index {buildIndex} has been loaded!");
+        }
     }
 }
 ```
 
-You now have a mod that prints "You just pressed T" when you, well press the T key!
+### Melon Events
+
+Some callbacks mentioned in the previous paragraph are just shorthand for MelonLoader's global MelonEvents.
+
+MelonEvents are special events that Melons can subscribe to without having to worry about deinitialization.<br>
+MelonEvents were programmed to automatically dispose any subscribtions from deinitialized Melons.
+
+The advantage of using MelonEvents instead of virtual callbacks is the ability to subscribe to events with a custom priority.<br>
+This is useful in cases your callback has to run earlier/later than a callback from any other mod.<br>
+Another advantage of MelonEvents is the ability to subscribe to events in other classes which can help keeping a cleaner mod structure.
+
+Most global MelonEvents can be found in the public `MelonLoader.MelonEvents` class.
+
+?> The following example references the `UnityEngine.IMGUIModule` assembly.
+
+This example shows how to draw a GUI element on top of most other mods through a MelonEvent:
+```cs
+public class MyMod : MelonMod
+{
+    public override void OnInitializeMelon()
+    {
+        MelonEvents.OnGUI.Subscribe(DrawMenu, 100); // The higher the value, the lower the priority.
+    }
+    
+    private void DrawMenu()
+    {
+        GUI.Box(new Rect(0, 0, 300, 500), "My Menu");
+    }
+}
+```
+
+### Logging
+
+In modding, logging is very important for making the mod users aware of what your mod is doing, but also for diagnosing issues.<br>
+Fortunately, MelonLoader has it's own logging system which is also available to mods.
+
+Any `MelonMod` has it's own logger instance which can be accessed through the `LoggerInstance` property:
+```cs
+public override void OnLoaderInitialized()
+{
+    LoggerInstance.Msg("Hello World!");
+}
+```
+
+In order to access the logger instance from a static method or from another class, you'll have to use a singleton for your mod class.<br>
+Fortunately, MelonLoader comes with a generic singleton class for mod classes, namely `Melon<T>` where `T` is your mod class.<br>
+Through `Melon<T>`, you can access your mod instance and your logger instance from anywhere.
+```cs
+public class MyMod : MelonMod
+{
+    public override void OnLoaderInitialized()
+    {
+        HelloWorld();
+    }
+    
+    public static void HelloWorld()
+    {
+        Melon<MyMod>.Logger.Msg("Hello World from a static method!");
+    }
+}
+```
+
+### Assembly References
+
+As seen in the previous `OnGUI` example, calling game/Unity methods is as simple as in a normal unity script.<br>
+However, compared to Unity, you have to reference all the game and Unity assemblies manually.
+
+For games using the [Mono runtime](https://www.mono-project.com), all the game/Unity assemblies can be found in `[Game Directory]\[Game Name]_data\Managed\`.<br>
+For games using the IL2CPP runtime, all the game/Unity assemblies can be found in `[Game Directory]\MelonLoader\Managed\` (make sure you have ran the game with MelonLoader at least once!).
+
+Since IL2CPP converts all game assemblies to C++, MelonLoader is using [Il2CppAssemblyUnhollower](https://github.com/knah/Il2CppAssemblyUnhollower), an IL2CPP proxy assembly generator which allows us to use IL2CPP assemblies from C#.
+Before we can use any assemblies generated by the Unhollower, it's required to reference the following assemblies first:
+- `il2cppmscorlib`
+- `UnhollowerBaseLib`
+
+At this point, you're ready to make your first functional Melon.
+
+### Basic Mod Example
+
+?> The following example mod references the `UnityEngine.CoreModule`, `UnityEngine.InputLegacyModule` and `UnityEngine.IMGUIModule` assemblies.
+
+This example mod allows the user to freeze and unfreeze the game by pressing the spacebar:
+```cs
+using UnityEngine;
+using MelonLoader;
+
+[assembly: MelonInfo(typeof(TimeFreezer.TimeFreezerMod), "Time Freezer", "1.0.0", "SlidyDev")]
+
+namespace TimeFreezer
+{
+    public class TimeFreezerMod : MelonMod
+    {
+        public static TimeFreezerMod instance;
+        
+        private static KeyCode freezeToggleKey;
+        
+        private static bool frozen;
+        private static float baseTimeScale;
+
+        public override void OnEarlyInitializeMelon()
+        {
+            instance = this;
+            freezeToggleKey = KeyCode.Space;
+        }
+
+        public override void OnLateUpdate()
+        {
+            if (Input.GetKeyDown(freezeToggleKey))
+            {
+                ToggleFreeze();
+            }
+        }
+        
+        public static void DrawFrozenText()
+        {
+            GUI.Label(new Rect(20, 20, 1000, 200), "<b><color=cyan><size=100>Frozen</size></color></b>");
+        }
+
+        private static void ToggleFreeze()
+        {
+            frozen = !frozen;
+
+            if (frozen)
+            {
+                instance.LoggerInstance.Msg("Freezing");
+                
+                MelonEvents.OnGUI.Subscribe(DrawFrozenText, 100); // Register the 'Frozen' label
+                baseTimeScale = Time.timeScale; // Save the original time scale before freezing
+                Time.timeScale = 0;
+            }
+            else
+            {
+                instance.LoggerInstance.Msg("Unfreezing");
+                
+                MelonEvents.OnGUI.Unsubscribe(DrawFrozenText); // Unregister the 'Frozen' label
+                Time.timeScale = baseTimeScale; // Reset the time scale to what it was before we froze the time
+            }
+        }
+
+        public override void OnDeinitializeMelon()
+        {
+            if (frozen)
+            {
+                ToggleFreeze(); // Unfreeze the game in case the melon gets unregistered
+            }
+        }
+    }
+}
+```

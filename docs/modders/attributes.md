@@ -48,7 +48,7 @@ using MelonLoader;
 ```
 
 ### MelonColor
-This optional assembly attributes sets the color of the melon in the console
+This optional assembly attribute sets the color of the melon in the console
 
 MelonColor contains 1 parameter:
 - `color`
@@ -57,6 +57,18 @@ MelonColor contains 1 parameter:
 using MelonLoader;
 // ...
 [assembly: MelonColor(ConsoleColor.Green)]
+```
+
+### MelonAuthorColor
+This optional assembly attribute sets the color of your name whenever it's printed to the console
+
+MelonAuthorColor contains 1 parameter:
+- `color`
+
+```cs
+using MelonLoader;
+// ...
+[assembly: MelonAuthorColor(ConsoleColor.Red)]
 ```
 
 ### MelonIncompatibleAssemblies

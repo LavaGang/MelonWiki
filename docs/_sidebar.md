@@ -10,15 +10,19 @@
     - [Job Simulator](games/jobsimulator.md)
     - [Pistol Whip](games/pistolwhip.md)
     - [The Long Dark](games/tld.md)
-- <span class=rootfolder>Create a new mod</span>
+<!--- - <span class=rootfolder>Extra Features</span>
+    - [Melon Console](ExtraFeatures/MelonConsole.md) -->
+- <span class=rootfolder>Developing Melons</span>
     - [Quick Start](modders/quickstart.md)
-    - [Mod Preferences](modders/preferences.md)
-    - [Debugging](modders/debugging.md)
+    - [Attributes](modders/attributes.md)
+    - [Melon Preferences](modders/preferences.md)
+    <!--- - [Melon Console](modders/MelonConsoleModding.md)-->
     - [Reflection](modders/reflection.md)
     - [Method Patching](modders/patching.md)
+    - [Debugging](modders/debugging.md)
     - [Xref Scanning](modders/xrefscanning.md)
-    - [Attributes](modders/attributes.md)
     - [Il2Cpp differences](modders/il2cppdifferences.md)
+    - [Plugins](modders/MelonPlugins.md)
     - [AssetRipper](modders/assetripper.md)
 - <span class=rootfolder>Android Support WIP</span>
     - [General Information](android/general.md)

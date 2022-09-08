@@ -29,8 +29,8 @@ You can find mods for games by asking in their respective communities or by look
 
 > It's **highly** recommended to use the automated installation when you can.
 
-1. - If your game is 32bit download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/latest/download/MelonLoader.x86.zip)
-   - If your game is 64bit download [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/latest/download/MelonLoader.x64.zip)
+1. - If your game is 64bit, download [MelonLoader.x64.zip](https://github.com/LavaGang/MelonLoader/releases/latest/download/MelonLoader.x64.zip)
+   - If your game is 32bit, download [MelonLoader.x86.zip](https://github.com/LavaGang/MelonLoader/releases/latest/download/MelonLoader.x86.zip)
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
 3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
@@ -70,31 +70,7 @@ When contacting, please include the specific issue you're having, as well as a l
 Or, if you see any issues with the wiki, please contact one of the editors in the [credits](credits.md) in the MelonLoader Discord
 
 
-# Launch commands
-
-MelonLoader has some launch arguments, listed here:
-
-| Argument              | Description                              |
-| --------------------- | ---------------------------------------- |
-| --no-mods	| Launch game without loading Mods |
-| --quitfix	| Fixes the Hanging Process Issue with some Games |
-| --melonloader.hideconsole	| Hides the Normal Console |
-| --melonloader.hidewarnings | Hides Warnings from Displaying |
-| --melonloader.debug	| Debug Mode/Console |
-| --melonloader.magenta	| Magenta Console Color |
-| --melonloader.rainbow	| Rainbow Console Color |
-| --melonloader.randomrainbow	| Random Rainbow Console Color |
-| --melonloader.maxlogs	| Max Log Files [ Default: 10 ] [ Disable: 0 ] |
-| --melonloader.maxwarnings	| Max Warnings per Log File [ Default: 100 ] [ Disable: 0 ] |
-| --melonloader.maxerrors	| Max Errors per Log File [ Default: 100 ] [ Disable: 0 ] |
-| --melonloader.loadmodeplugins	| Load Mode for Plugins [ Default: 0 ] |
-| --melonloader.loadmodemods | Load Mode for Mods [ Default: 0 ] |
-| --melonloader.agregenerate | Forces Assembly to be Regenerated on Il2Cpp Games |
-| --melonloader.agfvunhollower | Forces use a Specified Version of Il2CppAssemblyUnhollower |
-| --melonloader.consoleontop | Forces the Console over all other Applications |
-
-
-MelonLoader 0.3.0 and up has slightly different launch arguments, listed here:
+# Launch Arguments
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
@@ -102,6 +78,7 @@ MelonLoader 0.3.0 and up has slightly different launch arguments, listed here:
 | --quitfix	| Fixes the Hanging Process Issue with some Games |
 | --melonloader.consoleontop | Forces the Console to always stay on-top of all other Applications |
 | --melonloader.hideconsole	| Hides the Console |
+| --melonloader.disablestartscreen | Disables the Melon Start Screen |
 | --melonloader.hidewarnings | Hides Warnings from Displaying |
 | --melonloader.debug	| Debug Mode |
 | --melonloader.dab	| Debug Analytics Blocker |
