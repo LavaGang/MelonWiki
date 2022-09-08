@@ -124,7 +124,7 @@ Fortunately, MelonLoader has it's own logging system which is also available to 
 
 Any `MelonMod` has it's own logger instance which can be accessed through the `LoggerInstance` property:
 ```cs
-public override void OnLoaderInitialized()
+public override void OnInitializeMelon()
 {
     LoggerInstance.Msg("Hello World!");
 }
@@ -136,7 +136,7 @@ Through `Melon<T>`, you can access your mod instance and your logger instance fr
 ```cs
 public class MyMod : MelonMod
 {
-    public override void OnLoaderInitialized()
+    public override void OnInitializeMelon()
     {
         HelloWorld();
     }
