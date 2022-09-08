@@ -48,13 +48,11 @@ Loading a Melon Assembly will instantly resolve all Melons from the assembly, wh
 Any Melons that failed to resolve will be stored in the `MelonAssembly::RottenMelons` property.
 
 Once Melons are loaded, they have to be registered to become functional. You can register a Melon with the `MelonBase::Register` method.<br>
-Registering a Melon calls its `OnInitializeMelon` callback. It also registers all Harmony patches (unless the `HarmonyDontPatchAll` attribute is present).<br>
-The `OnEngineInitialized` callback gets called right after the initalization callback, unless the engine hasn't fully initialized yet.<br>
-In that case, the `OnEngineInitialized` callback will be called as soon as the `OnApplicationLateStart` event occurs.
+Registering a Melon calls its `OnInitializeMelon` callback. It also registers all Harmony patches (unless the `HarmonyDontPatchAll` attribute is present).
 
 Sometimes it's necessary to register Melons in the right order. For example, a Melon with a higher priority should be registered first.<br>
 Melon's with the same priority may have to be loaded in the right order too. For example, if Melon A references Melon B, Melon B should be registered before Melon A.<br>
 Fortunately, the `MelonBase` class comes with a static `RegisterSorted` method that automatically registers a list of Melons in the right order.
 
 It is also possible to unregister Melons.<br>
-Unregistering a Melon will deactive it by unsubscribing it from all Melon Events, unpatching all its Harmony patches, unregistering all it's [Melon Commands](MelonConsoleModding.md) and by calling the `OnDeinitializeMelon` callback.
+Unregistering a Melon will deactive it by unsubscribing it from all Melon Events, unpatching all its Harmony patches, and by calling the `OnDeinitializeMelon` callback.
