@@ -23,6 +23,7 @@
     - [Xref Scanning](modders/xrefscanning.md)
     - [Il2Cpp differences](modders/il2cppdifferences.md)
     - [Plugins](modders/MelonPlugins.md)
+    - [AssetRipper](modders/assetripper.md)
 - <span class=rootfolder>Android Support WIP</span>
     - [General Information](android/general.md)
     - [Installation](android/installation.md)
