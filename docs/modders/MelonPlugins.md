@@ -55,4 +55,4 @@ Melon's with the same priority may have to be loaded in the right order too. For
 Fortunately, the `MelonBase` class comes with a static `RegisterSorted` method that automatically registers a list of Melons in the right order.
 
 It is also possible to unregister Melons.<br>
-Unregistering a Melon will deactive it by unsubscribing it from all Melon Events, unpatching all its Harmony patches, unregistering all it's [Melon Commands](MelonConsoleModding.md) and by calling the `OnDeinitializeMelon` callback.
+Unregistering a Melon will deactive it by unsubscribing it from all Melon Events, unpatching all its Harmony patches, and by calling the `OnDeinitializeMelon` callback.
