@@ -49,18 +49,16 @@ It is recommended to start over with a *clean* prefix.
 Your game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
 You are now running a clean prefix.
 
-Now run 
-* `protontricks [appid] --force vcrun2019` (Let visual installers run)
-* `protontricks [appid] --force dotnet472` (Cancel visual installer)
-
-Note that both of these may take some time.
-
-Then run `protontricks [appid] winecfg`<br/>
+Run `protontricks [appid] winecfg`<br/>
 At the bottom, switch the Windows version to Windows 10.<br>
 Go to the libraries tab, select `version` from the "new override for library" dropdown, and hit add<br/>
 Then hit OK.
 
 Now you can follow the Manual Installation instructions above, and MelonLoader should pop up on launch.
+
+Should this not work, you can try installing both `vcrun2019`, and `dotnet472`. Note that these should NOT be required, usually.
+* `protontricks [appid] --force vcrun2019` (Let visual installers run)
+* `protontricks [appid] --force dotnet472` (Cancel visual installer)
 
 # Contact
 
