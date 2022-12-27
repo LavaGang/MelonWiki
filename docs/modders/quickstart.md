@@ -14,19 +14,30 @@ You will now need to reference the main MelonLoader assembly. Right click the `R
 Find to the folder of the game you installed MelonLoader on. The file you need to reference from here is `MelonLoader/MelonLoader.dll`.
 
 Any type of mod requires a `MelonInfo` assembly attribute for MelonLoader to know what mod it's loading.<br>
+Additionally, a `MelonGame` assembly attribute is needed so MelonLoader knows what games your mod supports.<br>
 To set one up, go to the `Properties` directory and add these 3 lines to `AssemblyInfo.cs`:
 ```cs
 using MelonLoader;
 using MyProject; // The namespace of your mod class
 // ...
 [assembly: MelonInfo(typeof(MyMod), "My Mod Name", "version", "Author Name")]
+[assembly: MelonGame("Game Developer", "Game Name")]
 ```
-MelonInfo contains 4 required parameters and an optional one:
+`MelonInfo` contains 4 required parameters and an optional one:
 - `MyMod`: The main class of your mod. We will talk about it later
 - `My Mod Name`: The name of your mod
 - `version`: The version of the mod. It should respect the [semver format](https://semver.org/) (example: `1.0.0`)
 - `Author Name`: The name of author of the mod
 - `Download Link`: The link to download or find the mod [optional]
+
+`MelonGame` contains 2 optional parameters
+- `Game Developer`: The developer of the game
+- `Game Name`: The name of the game
+
+Both parameters in `MelonGame` can be left empty to have MelonLoader not check them.<br>
+Omitting the `Game Name` parameter makes the mod load on all games made by the same developer, and omitting both parameters makes the mod load on all games.
+
+?> Often the name of the game and developer doesn't match the marketing. To get guaranteed correct information find the `app.info` file in the `<Game Name>\<Game Name>_Data\` folder.
 
 ### The MelonMod class
 

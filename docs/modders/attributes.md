@@ -23,7 +23,7 @@ using MelonLoader;
 ### MelonGame
 This is another required assembly attribute similar to MelonInfo that MelonLoader relies on to get info on your mod. Hence you'll need to add this attribute to your mod also
 
-MelonGame contains 2 parameters:
+MelonGame contains 2 optional parameters:
 - `developer`: The name of the developer(s) of the game, as defined in the Unity settings.
 - `name`: The name of the game, as defined in the Unity settings.
 
@@ -33,7 +33,7 @@ using MelonLoader;
 [assembly: MelonGame("GameStudio", "GameName")]
 ```
 
-?> You can leave this attribute empty if you want to mark your mod as universal for all games 
+?> You can leave this attribute empty if you want to mark your mod as universal for all games, or leave `name` empty to have it work on all of a specific developer's games
 
 ### MelonOptionalDependencies
 This optional assembly attribute marks the assembly names of the dependencies that should be regarded as optional for your mod/plugin
