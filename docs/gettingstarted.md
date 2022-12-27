@@ -12,7 +12,7 @@ You can find mods for games by asking in their respective communities or by look
   - [Microsoft Visual C++ 2015-2019 Redistributable 64 Bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) for 64 bit games.
   - [Microsoft Visual C++ 2015-2019 Redistributable 32 Bit](https://aka.ms/vs/16/release/vc_redist.x86.exe) for 32 bit games.
 
-?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
+?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit).
 
 # Automated Installation
 
@@ -34,10 +34,10 @@ You can find mods for games by asking in their respective communities or by look
 2. Extract the MelonLoader folder from the zip file you just downloaded to the Game's Installation Folder.
 3. Extract version.dll as well from the zip file you just downloaded to the Game's Installation Folder. 
 
-?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit). Example: `Among Us.exe (32 bit)` vs `BONEWORKS.exe`
+?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit).
 
 # Linux Instructions
->MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `protontricks [appid]` with `winetricks`
+> MelonLoader has no native Linux build available. These instructions are for getting MelonLoader working under Steam's Proton. Applies to Wine too, simply substitute `protontricks [appid]` with `winetricks`
 
 Please refer to your distribution's specific ways of installing Protontricks. <br>
 Arch based distributions may find it in the AUR. Using an AUR helper like yay: `yay -S protontricks` or `yay -S protontricks-git`
