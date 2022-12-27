@@ -1,10 +1,12 @@
-# Plugins
+# Universal Plugins
 
 ## What Are Plugins
 
-Plugins allow you to modify MelonLoader's behavior and to add additional features. <br>
-Plugins are always loaded before Mods. <br>
+Plugins are always loaded before Mods. Because of this, they're especially useful for creating mod auto-updaters. There are many other usages for plugins though.<br>
+
 All plugin files should be put in the `Plugins` folder, which will be located in your game's directory.
+
+!> Plugins and Mods are **NOT** compatible. Do not place Plugins in the `Mods` folder.
 
 ## Universal Plugins
 
