@@ -4,9 +4,23 @@
 
 ### Basic mod setup
 
-!> MelonLoader currently only supports C# mods, made using .NET Framework up to version 4.7.2.
+First, you will need to create a new project. Unity versions require different project templates:<br>
+- Any `Il2Cpp` game:
+  - Template: Class Library
+  - Framework: .NET 6.0
+- `Mono` game after or on `Unity 2021.2`: 
+  - Template: Class Library
+  - Framework: .NET Standard 2.1
+- `Mono` game after or on `Unity 2018.1`:
+  - Template: Class Library (.NET Framework)
+  - Framework: .NET Framework 4.7.2
+- `Mono` game after or on `Unity 2017.1`:
+  - Template: Class Library (.NET Framework)
+  - Framework: .NET Framework 3.5 or 4.7.2 (depending on the game)
+- Any other version:
+  - Tempalte: class Library (.NET Framework)
+  - Framework: .NET Framework 3.5
 
-At first, you will need to create a new project of type `Class Library (.NET Framework)`, and select a version up to 4.7.2.<br>
 Doing so will create a new empty cs file, called `Class1`. This will be our mod main class.<br>
 I'll rename it `MyMod`. You can change it to whatever you would like though.
 
@@ -15,7 +29,7 @@ Find to the folder of the game you installed MelonLoader on. The file you need t
 
 Any type of mod requires a `MelonInfo` assembly attribute for MelonLoader to know what mod it's loading.<br>
 Additionally, a `MelonGame` assembly attribute is needed so MelonLoader knows what games your mod supports.<br>
-To set one up, go to the `Properties` directory and add these 3 lines to `AssemblyInfo.cs`:
+To set one up, go to the `Properties` directory and add these 3 lines to `AssemblyInfo.cs` or `Program.cs`:
 ```cs
 using MelonLoader;
 using MyProject; // The namespace of your mod class
@@ -30,7 +44,7 @@ using MyProject; // The namespace of your mod class
 - `Author Name`: The name of author of the mod
 - `Download Link`: The link to download or find the mod [optional]
 
-`MelonGame` contains 2 optional parameters
+`MelonGame` contains 2 optional parameters:
 - `Game Developer`: The developer of the game
 - `Game Name`: The name of the game
 
