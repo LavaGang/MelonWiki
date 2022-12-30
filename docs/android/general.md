@@ -1,4 +1,4 @@
-﻿> **WARNING:** Android support is **WIP (work in progress)**.
+> **WARNING:** Android support is **WIP (work in progress)**.
 >
 > Use it at your own risk.
 # General Information
@@ -11,16 +11,16 @@ For any issues visit the [dedicated discord server](https://discord.gg/RAFGe33Y2
 | abi          | mono    | il2cpp |
 |--------------|---------|--------|
 | armeabi-v7a  | ❌       | ❌      |
-| arm64-v8a    | ⚠️      | ✅      |
+| arm64-v8a    | ➖      | ✅      |
 | x86          | ❌️      | ❌      |
-| x86_64       | ⚠️    ️ | ❌      |
+| x86_64       | ➖    ️ | ❌      |
 
-✅ Support Implemented<br />
-❌ Support not implemented<br />
-⚠️ Unsupported by Unity<br />
+✅ Supported<br />
+❌ Unsupported<br />
+➖ Unsupported by Unity<br />
 
 ## Extra Info
 |                               |       |
 |-------------------------------|-------|
-| Current MelonLoader Features  | 0.4.1 |
+| Current MelonLoader Features  | 0.5.7 |
 | Android Documentation Version | 0.0.2 |
