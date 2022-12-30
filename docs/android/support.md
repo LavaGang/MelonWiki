@@ -27,7 +27,7 @@
 
 > **Q:** Do mods work cross platform?
 > 
-> **A:** Yes, mods can work cross platform. If the targets of the game are both Il2Cpp the process should be smooth. If some versions of the game are Mono and some are Il2Cpp, it may be more difficult to make your mod cross platform. 
+> **A:** Yes, mods can work cross platform. If the targets of the game are both Il2Cpp, then the process should be smooth. If some versions of the game are Mono and some are Il2Cpp, it may be more difficult to make your mod cross platform. 
 
 > **Q:** Do I need anything special to compile my mod?
 > 
