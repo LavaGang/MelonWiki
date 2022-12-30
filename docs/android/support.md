@@ -1,4 +1,4 @@
-﻿> **WARNING:** Android support is **WIP (work in progress)**.
+> **WARNING:** Android support is **WIP (work in progress)**.
 >
 > Use it at your own risk.
 # Support & Resources
@@ -12,9 +12,9 @@
 > 
 > **A:** Right now the port is on a forked version of MelonLoader. The intention is to eventually merge the fork into MelonLoader.
 
-> **Q:** Is mono support coming?
+> **Q:** Is Mono support coming?
 > 
-> **A:** Supporting mono games on android is currently not planned. Unity is phasing out support for mono on android. If there is enough demand, this will be reconsidered.
+> **A:** Supporting Mono games on Android is currently not planned. Unity is phasing out support for Mono on Android. If there is enough demand, this will be reconsidered.
 
 > **Q:** Does the port support the latest MelonLoader features?
 > 
@@ -27,15 +27,15 @@
 
 > **Q:** Do mods work cross platform?
 > 
-> **A:** Yes mod can work cross platform. If the targets of the game are both il2cpp the process should be smooth. If some versions of the game is mono and some is il2cpp, It may be more difficult to make your mod cross platform. 
+> **A:** Yes, mods can work cross platform. If the targets of the game are both Il2Cpp the process should be smooth. If some versions of the game are Mono and some are Il2Cpp, it may be more difficult to make your mod cross platform. 
 
 > **Q:** Do I need anything special to compile my mod?
 > 
-> **A:** Compiling your project with `.NET framework 4.7.2` should be ok.
+> **A:** Compiling your project with `.NET Framework 4.7.2` should be it.
 
 > **Q:** Is bHaptics supported?
 >
-> **A:** Yes, but you need to have the [bhaptics device manger](https://sidequestvr.com/app/3165/bhaptics-player).
+> **A:** Yes, but you need to have the [bHaptics device manager](https://sidequestvr.com/app/3165/bhaptics-player).
 
 ## Discord Guilds
 | name        | link                          | description                                                        |
@@ -47,4 +47,4 @@
 |                                            |                              |
 |--------------------------------------------|------------------------------|
 | https://github.com/LavaGang/MelonLoader    | MelonLoader main source code |
-| https://github.com/SirCoolness/MelonLoader | Fork for Android port        |
+| https://github.com/LemonLoader/MelonLoader | Fork for Android port        |
