@@ -1,19 +1,29 @@
 # Debugging
 
-## Using dnSpy
+## Using dnSpy to debug Mono games
 
 ?> For this, you need to have dnSpy installed, obviously. Install it from [here](https://github.com/dnSpyEx/dnSpy).
 
 For those who don't know, MelonLoader is fully set up to use dnSpy's built in debugger.<br>
 To attach it, follow these steps:
  - Go into dnSpy, then in the top, select `Debug` -> `Start Debugging` and select `Unity` as the debug engine.
- - Then, for the executable, select your game's executable
- - And in the `Arguments` box, add `--melonloader.debug` and any other arguments you want
+ - Then, for the executable, select your game's executable.
+ - In the `Arguments` box, add `--melonloader.debug` and any other arguments you want.
  - Finally, to add breakpoints, simply drag and drop the mod you want to debug into dnSpy's Assembly Explorer, then add breakpoints regularly.
 
 If you've followed all the steps, properly, this should all work.
 
 !> If you have any other doorstops or loaders installed on the game, that do not support dnSpy's debugger, then the game will crash on load.
+
+## Using an IDE to debug Il2Cpp games
+
+?> For this, you need to have Visual Studio, Rider, or some other debugger installed, obviously.
+
+!> This is only compatible with MelonLoader `0.6.0` and above.
+
+To attach the debugger, follow these steps:
+ - Run the game in a command prompt with `--melonloader.launchdebugger`, `--melonloader.debug`, and any other arguments you want.
+ - Attach it to your workspace when the pop-up appears.
 
 ## Reading Exceptions
 
