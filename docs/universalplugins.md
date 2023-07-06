@@ -13,3 +13,4 @@ All plugin files should be put in the `Plugins` folder, which will be located in
 | Name                                                                                            | Author                                  | Description                                               |
 | ----------------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------------------- |
 | [Discord Status](https://github.com/MelonEnjoyers/MelonLoaderDiscordStatus/blob/main/README.md) | [SlidyDev](https://github.com/SlidyDev) | A Universal MelonLoader plugin for Discord Rich Presence. |
+| [OpenVR AMD FSR Injector](https://github.com/LavaGang/ML_OpenVR_FSR/releases) | [HerpDerpinstine](https://github.com/HerpDerpinstine)       | Loads the OpenVR FSR Mod at Runtime. |  |  |
