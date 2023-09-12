@@ -6,20 +6,22 @@
 
 First, you will need to create a new project. Unity versions require different project templates:<br>
 - Any `Il2Cpp` game:
-  - Template: Class Library
-  - Framework: .NET 6.0
+  - Template: `Class Library`
+  - Framework: `.NET 6.0`
 - `Mono` game after or on `Unity 2021.2`: 
-  - Template: Class Library
-  - Framework: .NET Standard 2.1
+  - Template: `Class Library`
+  - Framework: `.NET Standard 2.1`
 - `Mono` game after or on `Unity 2018.1`:
-  - Template: Class Library (.NET Framework)
-  - Framework: .NET Framework 4.7.2
+  - Template: `Class Library (.NET Framework)`
+  - Framework: `.NET Framework 4.7.2`
 - `Mono` game after or on `Unity 2017.1`:
-  - Template: Class Library (.NET Framework)
-  - Framework: .NET Framework 3.5 or 4.7.2 (depending on the game)
+  - Template: `Class Library (.NET Framework)`
+  - Framework: `.NET Framework 3.5` or `.NET Framework 4.7.2` (depending on the game)
 - Any other version:
-  - Tempalte: class Library (.NET Framework)
-  - Framework: .NET Framework 3.5
+  - Tempalte: `Class Library (.NET Framework)`
+  - Framework: `.NET Framework 3.5`
+
+?> Please note that `Class Library` and `Class Library (.NET Framework)` are different templates.
 
 Doing so will create a new empty cs file, called `Class1`. This will be our mod main class.<br>
 I'll rename it `MyMod`. You can change it to whatever you would like though.
