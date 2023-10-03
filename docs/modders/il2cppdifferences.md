@@ -4,11 +4,11 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 > If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _loukylor#0001_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
 
-### Il2CppAssemblyUnhollower Generated Names
+### Il2cppInterop Generated Names
 
 ?> You may ignore this section if your game is not obfuscated
 
-Il2CppAssemblyUnhollower is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
+Il2cppInterop is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
 
 The names are generated following certain rules:
 For fields and properties:
@@ -34,20 +34,20 @@ For classes:
 
 ### Custom Components / Il2Cpp Type Inheritance
 
-> For more info, please check [Il2CppAssemblyUnhollower's readme on github](https://github.com/knah/Il2CppAssemblyUnhollower#class-injection)
+> For more info, please check [Il2CppInterop's readme on github](https://github.com/BepInEx/Il2CppInterop/blob/master/Documentation/Class-Injection.md)
 
 When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
  - Inherit from a non-abstract Il2Cpp class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
- - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>()` 
- - If you need to instantiate it from the mono-side, you need to have a constructor calling `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorPointer<T>()` and `UnhollowerRuntimeLib.ClassInjector.DerivedConstructorBody(this)`
+ - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `Il2CppInterop.Runtime.Injection.ClassInjector.RegisterTypeInIl2Cpp.RegisterTypeInIl2Cpp<T>()` 
+ - If you need to instantiate it from the mono-side, you need to have a constructor calling `Il2CppInterop.Runtime.Injection.ClassInjector.DerivedConstructorPointer<T>()` and `Il2CppInterop.Runtime.Injection.ClassInjector.DerivedConstructorBody(this)`
 
 Note that `MelonLoader.RegisterTypeInIl2Cpp` will register all parent types if added to a child class. It is good practice to add the attribute to every custom injected class however.
 
 Here is a very basic example:
 ```cs
-// You must reference `UnhollowerBaseLib.dll` for this to work
-using UnhollowerRuntimeLib;
+// You must reference `Il2cppInterop.Runtime.dll` for this to work
+using Il2CppInterop.Runtime;
 
 [RegisterTypeInIl2Cpp]
 class MyCustomComponent : MonoBehaviour
@@ -122,12 +122,10 @@ MelonCoroutines.Stop(routine);
 ### Usage of Il2Cpp Types
 
 In case you want to run an Il2Cpp method taking a type, you may want to use `.GetType()`.<br/>
-`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `.GetIl2CppType()` or `UnhollowerRuntimeLib.Il2CppType.Of<T>()`.
+`.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `Il2CppInterop.Runtime.Il2CppType.Of<T>()`.
 ```cs
-Resources.FindObjectsOfTypeAll(Camera.GetIl2CppType());
-
-// You must reference `UnhollowerBaseLib.dll` for this.
-using UnhollowerRuntimeLib;
+// You must reference `Il2cppInterop.Runtime.dll` for this.
+using Il2CppInterop.Runtime;
 
 Resources.FindObjectsOfTypeAll(Il2CppType.Of<Camera>());
 ```
@@ -137,6 +135,7 @@ Resources.FindObjectsOfTypeAll<Camera>();
 ```
 
 ### Casting Il2Cpp Types
+!> This code is subject to change and become easier with the upcoming updates
 
 In a standard Mono game, casting is quite easy.<br/>
 Let's say we have a class `MyChildClass`, which inherit from `MyParentClass`.<br />
@@ -150,7 +149,7 @@ MyChildClass childInstanceCasted = (MyChildClass) childInstance;
 ```
 We can't do that with Il2Cpp objects. We have to use some methods from Il2CppAssemblyUnhollower:
 ```cs
-using UnhollowerBaseLib;
+using Il2CppInterop.Runtime;
 // ...
 MyChildClass childInstanceCasted = childInstance.TryCast<MyChildClass>();
 // or

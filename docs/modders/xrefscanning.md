@@ -14,13 +14,13 @@ Note that on Il2Cpp games Xref Scanning cannot find virtual method calls, delega
 
 ### Finding Methods Calls Within a Method
 
-First, ensure you have `UnhollowerBaseLib.dll` referenced. It can be found in the `MelonLoader/Managed` folder.<br>
-Now we can use `UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase)` to scan our method (`methodBase`) of choice in the form of a `MethodBase`.<br>
-This will return an `IEnumerable<UnhollowerRuntimeLib.XrefScans.XrefInstance>`, which we can loop through.<br>
+First, ensure you have `Il2CppInterop.Common.dll` referenced. It can be found in the `MelonLoader/net6` folder.<br>
+Now we can use `Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase)` to scan our method (`methodBase`) of choice in the form of a `MethodBase`.<br>
+This will return an `IEnumerable<Il2CppInterop.Common.XrefScans.XrefInstance>`, which we can loop through.<br>
 Here's what your code should look like so far:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
     
 }
@@ -29,8 +29,8 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 With this set up, we can now call `TryResolve()` on the `XrefInstance` to get the `MethodBase` representing a method called in the scanned method.<br>
 The final code should look like this:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
     MethodBase calledMethod = instance.TryResolve();
     
@@ -43,13 +43,13 @@ Note that `TryResolve` may not always return a `MethodBase`. So, make sure to ha
 
 Doing this is almost identical to finding method calls within a method. The only difference is using `UsedBy` instead of `XrefScan`.
 
-First, ensure you have `UnhollowerBaseLib.dll` referenced. It can be found in the `MelonLoader/Managed` folder.<br>
-Now we can use `UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
-This will return an `IEnumerable<UnhollowerRuntimeLib.XrefScans.XrefInstance>`, which we can loop through.<br>
+First, ensure you have `Il2CppInterop.Common.dll` referenced. It can be found in the `MelonLoader/net6` folder.<br>
+Now we can use `Il2CppInterop.Common.XrefScans.XrefScanner.UsedBy(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
+This will return an `IEnumerable<Il2CppInterop.Common.XrefScans.XrefInstance>`, which we can loop through.<br>
 Here's what your code should look like so far:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.UsedBy(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
     
 }
@@ -58,8 +58,8 @@ foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances)
 With this set up, we can now call `TryResolve()` on the `XrefInstance` to get the `MethodBase` representing a method that used the scanned method.<br>
 The final code should look like this:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.UsedBy(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.UsedBy(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
     MethodBase calledMethod = instance.TryResolve();
     
@@ -72,26 +72,26 @@ Note that `TryResolve` may not always return a `MethodBase`. So, make sure to ha
 
 The first steps of doing this are very similar to finding methods that use a method and finding methods called within a method.
 
-First, ensure you have `UnhollowerBaseLib.dll` referenced. It can be found in the `MelonLoader/Managed` folder.<br>
-Now we can use `UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
-This will return an `IEnumerable<UnhollowerRuntimeLib.XrefScans.XrefInstance>`, which we can loop through.<br>
+First, ensure you have `Il2CppInterop.Common.dll` referenced. It can be found in the `MelonLoader/net6` folder.<br>
+Now we can use `Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase)` to scan our method of choice in the form of a `MethodBase`.<br>
+This will return an `IEnumerable<Il2CppInterop.Common.XrefScans.XrefInstance>`, which we can loop through.<br>
 Here's what your code should look like so far:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
     
 }
 ```
 
 Now this is where finding strings splits.<br>
-To find the strings, we must ensure that the `UnhollowerRuntimeLib.XrefScans.XrefType` of our instance is `Global`.<br>
+To find the strings, we must ensure that the `Il2CppInterop.Common.XrefScans.XrefType` of our instance is `Global`.<br>
 This can be done like so:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
-    if (instance.Type == UnhollowerRuntimeLib.XrefScans.XrefType.Global)
+    if (instance.Type == Il2CppInterop.Common.XrefScans.XrefType.Global)
     {
         
     }
@@ -107,10 +107,10 @@ If we did not make sure our instance type was global, `ReadAsObject()` would ret
 If we now call `ToString()` on the instance, we can get the strings used in the scanned method.<br>
 This looks like this:
 ```cs
-var instances = UnhollowerRuntimeLib.XrefScans.XrefScanner.XrefScan(methodBase);
-foreach (UnhollowerRuntimeLib.XrefScans.XrefInstance instance in instances) 
+var instances = Il2CppInterop.Common.XrefScans.XrefScanner.XrefScan(methodBase);
+foreach (Il2CppInterop.Common.XrefScans.XrefInstance instance in instances) 
 {
-    if (instance.Type == UnhollowerRuntimeLib.XrefScans.XrefType.Global)
+    if (instance.Type == Il2CppInterop.Common.XrefScans.XrefType.Global)
     {
         Il2CppSystem.Object methodObject = instance.ReadAsObject();
         string usedString = methodObject.ToString();
