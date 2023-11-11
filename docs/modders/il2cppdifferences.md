@@ -39,7 +39,7 @@ For classes:
 When making a class inheriting from an Il2Cpp type, we have to follow these 4 rules:
  - Inherit from a non-abstract Il2Cpp class
  - Have a constructor taking an IntPtr and passing it to a base constructor (called by the Il2Cpp side)
- - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `Il2CppInterop.Runtime.Injection.ClassInjector.RegisterTypeInIl2Cpp.RegisterTypeInIl2Cpp<T>()` 
+ - Register the class before using it by adding the `MelonLoader.RegisterTypeInIl2Cpp` attribute to the class or using `Il2CppInterop.Runtime.Injection.ClassInjector.RegisterTypeInIl2Cpp<T>()` 
  - If you need to instantiate it from the mono-side, you need to have a constructor calling `Il2CppInterop.Runtime.Injection.ClassInjector.DerivedConstructorPointer<T>()` and `Il2CppInterop.Runtime.Injection.ClassInjector.DerivedConstructorBody(this)`
 
 Note that `MelonLoader.RegisterTypeInIl2Cpp` will register all parent types if added to a child class. It is good practice to add the attribute to every custom injected class however.
