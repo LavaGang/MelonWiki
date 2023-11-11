@@ -147,7 +147,7 @@ MyChildClass childInstanceCasted = childInstance as MyChildClass;
 // or
 MyChildClass childInstanceCasted = (MyChildClass) childInstance;
 ```
-We can't do that with Il2Cpp objects. We have to use some methods from Il2CppAssemblyUnhollower:
+We can't do that with Il2Cpp objects. We have to use some methods from Il2CppInterop:
 ```cs
 using Il2CppInterop.Runtime;
 // ...

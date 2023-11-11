@@ -25,7 +25,6 @@ Here is the list of persons that have helped in any way to the creation of Melon
 - Sinai: Creator of CppExplorer and MonoExplorer
 - MintLily: Creator of XSOverlayTitleHider and GamePriority
 - loukylor: Modder and editor of the wiki
-- KosmicShovel: Modder and *barely an editor of the wiki*
 - SirCoolness: Developer of Android support
 
 ### Outsiders
