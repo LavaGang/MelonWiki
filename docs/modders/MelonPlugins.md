@@ -56,3 +56,13 @@ Fortunately, the `MelonBase` class comes with a static `RegisterSorted` method t
 
 It is also possible to unregister Melons.<br>
 Unregistering a Melon will deactive it by unsubscribing it from all Melon Events, unpatching all its Harmony patches, and by calling the `OnDeinitializeMelon` callback.
+
+### Harmony Patching
+
+Harmony patches work a little different with plugins, as you need to manually tell Harmony to patch your methods.
+
+First off, you need to add the `HarmonyDontPatchAll` attribute to your assembly (`[assembly: HarmonyDontPatchAll]`) in order to stop MelonLoader from trying to do your patches for you.
+
+In order to get Harmony to patch your methods, you either need to use [manual patching](https://melonwiki.xyz/#/modders/patching?id=patching-manually), or call `HarmonyInstance.PatchAll(MelonAssembly.Assembly);` in your `OnInitializeMelon` override. 
+
+After doing those steps, you should be able to patch normally.
