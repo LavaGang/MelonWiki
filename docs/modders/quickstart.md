@@ -18,7 +18,7 @@ First, you will need to create a new project. Unity versions require different p
   - Template: `Class Library (.NET Framework)`
   - Framework: `.NET Framework 3.5` or `.NET Framework 4.7.2` (depending on the game)
 - Any other version:
-  - Tempalte: `Class Library (.NET Framework)`
+  - Template: `Class Library (.NET Framework)`
   - Framework: `.NET Framework 3.5`
 
 ?> Please note that `Class Library` and `Class Library (.NET Framework)` are different templates.
