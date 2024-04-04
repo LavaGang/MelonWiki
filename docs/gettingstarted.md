@@ -55,9 +55,11 @@ At the bottom, switch the Windows version to Windows 10.<br>
 Go to the libraries tab, select `version` from the "new override for library" dropdown, and hit add<br/>
 Then hit OK.
 
-!> Il2Cpp games require windows version of [dotnet 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0#runtime-desktop-6.0.19). We recommend the .NET Desktop Runtime, x64 or x86 depending on if your game is 64 bit or 32 bit
+!> Il2Cpp games require the Windows version of [dotnet 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0#runtime-desktop-6.0.28). We recommend the .NET Desktop Runtime, x64 or x86 depending on if your game is 64 bit or 32 bit.
 
-To install it, run `protontricks [appid] uninstaller`, click `Install...`, switch `Files of Type` to `.exe` and run the .NET 6.0 installer from the link above.
+To install it automatically, run `protontricks [appid] dotnetdesktop6`.
+
+To install it manually, run `protontricks [appid] uninstaller`, click `Install...`, switch `Files of Type` to `.exe` and run the .NET 6.0 installer from the link above.
 
 Now you can follow the Manual Installation instructions above, or run the Automated installer through wine (until we make it cross-platform) and MelonLoader should pop up on launch.
 
