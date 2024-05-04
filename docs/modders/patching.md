@@ -143,5 +143,52 @@ Since it would be very annoying having to manually unpatch every single patch in
 
 ## Patching using Native Hooks
 
-!> Coming Soon
+Harmony patches are recommended for most cases but in the event that Harmony cannot find a method or something else happens, you've got native hooks!
+Using native hooks does use pointers and reflection so may want to read up a bit on those if needed.
+
+Here's the code that we're going to be using, its a simple patch of UnityEngine.Object.get_name to log the name then we return a string of our choice
+
+```
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+private delegate IntPtr GetNameDelegate(
+	IntPtr instance,
+	IntPtr methodInfo
+);
+private static GetNameDelegate _originalMethod;
+private static GetNameDelegate _patchDelegate;
+public static unsafe IntPtr GetName(IntPtr instance,IntPtr methodInfo){
+	IntPtr result=_originalMethod(instance,methodName);
+	string name=IL2CPP.PointerToValueGeneric<string>(result,false,false);
+	Log(name);
+	return IL2CPP.ManagedStringToIl2Cpp("test");
+}
+public override unsafe void OnLateInitializeMelon(){
+	IntPtr originalMethod=*(IntPtr*)(IntPtr)type1.GetFields(BindingFlags.NonPublic|BindingFlags.Static).First(a=>a.Name.Contains("get_name")).GetValue(type1);
+	_patchDelegate=GetName;
+	IntPtr delegatePointer=Marshal.GetFunctionPointerForDelegate(_patchDelegate);
+	NativeHook<GetNameDelegate>hook=new NativeHook<GetNameDelegate>(originalMethod,delegatePointer);
+	hook.Attach();
+	_originalMethod=hook.Trampoline;
+}
+```
+
+First, we need a method to put our patch code in obviously so make one that returns a pointer and the amount of parameters that the target method has, this includes the instance and method info. Since get_name
+has no parameters, we just put the instance and methodinfo. The type of these parameters need to be IntPtr too.
+
+Next, we make a delegate that returns a pointer with the same parameter stuff in our patch method.
+We then need to make a couple of static delegate fields that holds the pointer for our patch method and the pointer for the target method after its been patched.
+
+Now, in our mods initialize method, we get the type that has the method we want to patch then we do a bit of reflection to get the field that has the pointer for our method.
+Melonloader generates these fields for every method but they are not usually public, you can run a foreach on getfields or look at the generated assembly if you want the names of every field.
+
+Once we got the pointer for the desired method, the patch method delegate is set to hold our patch then we get the pointer for it.
+
+A new NativeHook class is made with the generic being our main delegate then the target method' pointer and then our delegate' pointer.
+
+We call the Attach method on our newly created NativeHook to actually hook the target method then we store the pointer to the target method in _originalMethod.
+
+The result variable in our patch method is the result of what the method would return, you can use IL2CPP.PointerToValueGeneric to get the result into something usable (in this case, a string we then log).
+
+To return something different, you can use IL2CPP.Il2CppObjectBaseToPtr but since this is just a string, tiny bit less messing around on the mods side if we use IL2CPP.ManagedStringToIl2Cpp.
+Long as a pointer that points to something that matches the type that the method returns was used, it'll work
 
