@@ -163,7 +163,7 @@ public static unsafe IntPtr GetName(IntPtr instance,IntPtr methodInfo){
 	return IL2CPP.ManagedStringToIl2Cpp("test");
 }
 public override unsafe void OnLateInitializeMelon(){
-	IntPtr originalMethod=*(IntPtr*)(IntPtr)type1.GetFields(BindingFlags.NonPublic|BindingFlags.Static).First(a=>a.Name.Contains("get_name")).GetValue(type1);
+	IntPtr originalMethod=*(IntPtr*)(IntPtr)typeof(UnityEngine.Object).GetFields(BindingFlags.NonPublic|BindingFlags.Static).First(a=>a.Name.Contains("get_name")).GetValue(type1);
 	_patchDelegate=GetName;
 	IntPtr delegatePointer=Marshal.GetFunctionPointerForDelegate(_patchDelegate);
 	NativeHook<GetNameDelegate>hook=new NativeHook<GetNameDelegate>(originalMethod,delegatePointer);
