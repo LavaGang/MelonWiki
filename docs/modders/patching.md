@@ -149,7 +149,7 @@ Using native hooks does use pointers (and to get said pointers, reflection) so m
 Here's the code that we're going to be using, its a simple patch of the getter for UnityEngine.Object.name to log the name 
 then we return a string of our choice. Will probably break some things in a game if they rely on the name but this is just for fun
 
-```
+```cs
 //delegate for our patch, same number of parameters as our patch method
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 private delegate IntPtr GetNameDelegate(
@@ -158,14 +158,14 @@ private delegate IntPtr GetNameDelegate(
 );
 
 //two static fields with our delegate type
-private static NativeHook<GetNameDelegate>Hook;
+private static NativeHook<GetNameDelegate> Hook;
 private static GetNameDelegate _patchDelegate;
 
 //the patch method, dealing with unmanaged to managed then back to unmanaged so pointers galore
 public static unsafe IntPtr GetName(IntPtr instance, IntPtr methodInfo)
 {
 	IntPtr result = hook.Trampoline(instance, methodName);
-	string name = IL2CPP.PointerToValueGeneric<string>(result, false, false);
+	string name = IL2CPP.PointerToValueGeneric<string> (result, false, false);
 	Logger.Msg(name);
 	return IL2CPP.ManagedStringToIl2Cpp("MelonLoader");
 }
@@ -188,7 +188,7 @@ public override unsafe void OnLateInitializeMelon()
 	IntPtr delegatePointer = Marshal.GetFunctionPointerForDelegate(_patchDelegate);
 
     //creating the NativeHook with our target method' IntPtr and patch delegate' IntPtr
-	NativeHook<GetNameDelegate>hook = new NativeHook<GetNameDelegate>(originalMethod, delegatePointer);
+	NativeHook<GetNameDelegate> hook = new NativeHook<GetNameDelegate> (originalMethod, delegatePointer);
 
     //very important part, actually telling it to attach and hook into the target method
 	hook.Attach();
@@ -224,7 +224,7 @@ A new ``NativeHook`` is made with the generic being our main delegate type (``Ge
 and then our patch delegate' IntPtr. We use ``Marshal.GetFunctionPointerForDelegate`` for this.
 
 We call the ``Attach`` method on our newly created ``NativeHook`` (``hook``) to actually hook the target method then we store the hook 
-in that static field we made earlir for it, ``private static NativeHook<GetNameDelegate>Hook``
+in that static field we made earlir for it, ``private static NativeHook<GetNameDelegate> Hook``
 
 The ``result`` variable in our patch method is the result of what the method would return, you can use ``IL2CPP.PointerToValueGeneric`` 
 to get the result into something usable (in this case, a string we then log). ``IL2CPP.PointerToValueGeneric`` works on parameters too
