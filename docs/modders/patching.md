@@ -224,7 +224,7 @@ A new ``NativeHook`` is made with the generic being our main delegate type (``Ge
 and then our patch delegate' IntPtr. We use ``Marshal.GetFunctionPointerForDelegate`` for this.
 
 We call the ``Attach`` method on our newly created ``NativeHook`` (``hook``) to actually hook the target method then we store the hook 
-in that static field we made earlir for it, ``private static NativeHook<GetNameDelegate> Hook``
+in that static field we made earlier for it, ``private static NativeHook<GetNameDelegate> Hook``
 
 The ``result`` variable in our patch method is the result of what the method would return, you can use ``IL2CPP.PointerToValueGeneric`` 
 to get the result into something usable (in this case, a string we then log). ``IL2CPP.PointerToValueGeneric`` works on parameters too
