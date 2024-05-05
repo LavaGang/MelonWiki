@@ -158,13 +158,13 @@ private delegate IntPtr GetNameDelegate(
 );
 
 //two static fields with our delegate type
-private static GetNameDelegate _originalMethod;
+private static NativeHook<GetNameDelegate>Hook;
 private static GetNameDelegate _patchDelegate;
 
 //the patch method, dealing with unmanaged to managed then back to unmanaged so pointers galore
 public static unsafe IntPtr GetName(IntPtr instance, IntPtr methodInfo)
 {
-	IntPtr result = _originalMethod(instance, methodName);
+	IntPtr result = hook.Trampoline(instance, methodName);
 	string name = IL2CPP.PointerToValueGeneric<string>(result, false, false);
 	Logger.Msg(name);
 	return IL2CPP.ManagedStringToIl2Cpp("MelonLoader");
@@ -176,12 +176,10 @@ public static MelonLogger.Instance Logger;
 public override unsafe void OnLateInitializeMelon()
 {
     Logger=LoggerInstance;
-    //getting the type that has the target method
 
-    Type type = typeof(UnityEngine.Object);
-    //getting the IntPtr from the private static field for our target method from the type
-	IntPtr originalMethod = *(IntPtr*) (IntPtr) type.GetFields(BindingFlags.NonPublic | BindingFlags.Static).
-        First(a => a.Name.Contains("get_name")).GetValue(type);
+    //getting the IntPtr for our target method with GetIl2CppMethodInfoPointerFieldForGeneratedMethod
+	IntPtr originalMethod = *(IntPtr*) (IntPtr) Il2CppInteropUtils.
+        GetIl2CppMethodInfoPointerFieldForGeneratedMethod(typeof(UnityEngine.Object).GetMethod("get_name").GetValue(null);
 
     //storing our patch method in one of the delegate fields
 	_patchDelegate = GetName;
@@ -195,8 +193,8 @@ public override unsafe void OnLateInitializeMelon()
     //very important part, actually telling it to attach and hook into the target method
 	hook.Attach();
 
-    //setting _originalMethod so we got somewhere to read the originalmethods stuff
-	_originalMethod = hook.Trampoline;
+    //storing the hook so we can use the trampoline in it to run the original method in our patch
+	Hook = hook.Trampoline;
 }
 ```
 
@@ -207,8 +205,8 @@ you're not sure, check it in a disassembler such as IDA or Ghidra. All parameter
 Since the method we're patching has no parameters, we just put the instance and methodinfo
 
 Next, we make a delegate (``GetNameDelegate``) that returns a pointer with the same parameter stuff in our patch method. All IntPtr too
-We then need to make a couple of static fields with our delegate type (``_originalMethod`` & ``_patchDelegate``) that holds the original 
-method stuff after the target method has been patched and our patch method.
+We then need to make a couple of static fields with the first one holding a ``NativeHook<GetNameDelegate>`` with our delegate type 
+(``hook``) and a second that will have the patch method in it
 
 Now, in our mods initialize method, we get the type (``typeof(UnityEngine.Object``) that has the method we want to patch then we 
 do a bit of reflection and Linq (make sure you put your methods name in here) to get the ``IntPtr`` for the target method.
@@ -225,8 +223,8 @@ we get the IntPtr for it.
 A new ``NativeHook`` is made with the generic being our main delegate type (``GetNameDelegate``), the target method' IntPtr 
 and then our patch delegate' IntPtr. We use ``Marshal.GetFunctionPointerForDelegate`` for this.
 
-We call the ``Attach`` method on our newly created ``NativeHook`` to actually hook the target method then we store the delegate from 
-``NativeHook.Trampoline`` to ``_originalMethod``.
+We call the ``Attach`` method on our newly created ``NativeHook`` (``hook``) to actually hook the target method then we store the hook 
+in that static field we made earlir for it, ``private static NativeHook<GetNameDelegate>Hook``
 
 The ``result`` variable in our patch method is the result of what the method would return, you can use ``IL2CPP.PointerToValueGeneric`` 
 to get the result into something usable (in this case, a string we then log). ``IL2CPP.PointerToValueGeneric`` works on parameters too
