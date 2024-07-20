@@ -95,7 +95,7 @@ Or, if you see any issues with the wiki, please contact one of the editors in th
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
-| --no-mods	| Launch game without loading any Plugins Mods |
+| --no-mods	| Launch game without loading any Plugins or Mods |
 | --quitfix	| Fixes the Hanging Process Issue with some Games |
 | --melonloader.consoleontop | Forces the Console to always stay on-top of all other Applications |
 | --melonloader.hideconsole	| Hides the Console |
