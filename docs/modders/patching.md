@@ -46,7 +46,8 @@ public class Example
 This will mostly be a repeat of what the [Harmony Docs](https://harmony.pardeike.net/articles/patching.html) say. But here we go!<br>
 For this example, I will be patching `Example.PrivateMethod(int param1)`.
 
-With MelonLoader 0.5.4+, Harmony is included in the MelonLoader folder, named `0Harmony.dll`, be sure to reference it before continuing.<br>
+With MelonLoader 0.6.0+, Harmony is included in the `MelonLoader\net6` folder for Il2Cpp and `MelonLoader\net35` for Mono, named `0Harmony.dll`.<br>
+With MelonLoader 0.5.4-0.5.7, Harmony is included directly under the `MelonLoader` folder for both Il2Cpp and Mono, also named `0Harmony.dll`.<br>
 On previous versions, it is directly embedded into `MelonLoader.dll`.
 
 Let's create a new class. It can be named anything and have any access modifiers, however, we must add the `HarmonyPatch` attribute for it to be picked up by Harmony.<br>
