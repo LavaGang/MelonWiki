@@ -205,8 +205,6 @@ namespace TimeFreezer
 {
     public class TimeFreezerMod : MelonMod
     {
-        public static TimeFreezerMod instance;
-        
         private static KeyCode freezeToggleKey;
         
         private static bool frozen;
@@ -214,7 +212,6 @@ namespace TimeFreezer
 
         public override void OnEarlyInitializeMelon()
         {
-            instance = this;
             freezeToggleKey = KeyCode.Space;
         }
 
@@ -237,7 +234,7 @@ namespace TimeFreezer
 
             if (frozen)
             {
-                instance.LoggerInstance.Msg("Freezing");
+                Melon<TimeFreezerMod>.Msg("Freezing");
                 
                 MelonEvents.OnGUI.Subscribe(DrawFrozenText, 100); // Register the 'Frozen' label
                 baseTimeScale = Time.timeScale; // Save the original time scale before freezing
@@ -245,7 +242,7 @@ namespace TimeFreezer
             }
             else
             {
-                instance.LoggerInstance.Msg("Unfreezing");
+                Melon<TimeFreezerMod>.Msg("Unfreezing");
                 
                 MelonEvents.OnGUI.Unsubscribe(DrawFrozenText); // Unregister the 'Frozen' label
                 Time.timeScale = baseTimeScale; // Reset the time scale to what it was before we froze the time
