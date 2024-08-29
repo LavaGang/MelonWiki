@@ -2,6 +2,21 @@
 
 !> This tutorial assumes that you have a fair grasp of the C# programming language and basic knowledge of Visual Studio and Unity Engine.
 
+### Visual Studio Template
+An automated Visual Studio 2022 template for creating MelonLoader mods and plugins is available.<br>
+It handles the creation of the required boilerplate (the `MelonMod`/`MelonPlugin` class, `MelonInfo`, and `MelonGame`) as well as referencing the required assemblies for mod development, mainly MelonLoader, Harmony, and for Il2Cpp, proxy assemblies and the unhollower (Il2CppAssemblyUnhollower or Il2CppInterop). It also handles variation between MelonLoader or Unity versions, such as framework versions or override changes.
+
+0. Download MelonLoader to your game and run it once before continuing.
+1. Download the VSIX from the [GitHub repo](https://github.com/TrevTV/MelonLoader.VSWizard/releases).
+2. Close all instances of Visual Studio and run the VSIX installer (double-clicking it should open it).
+3. Open Visual Studio and create a new project.
+4. Search for `MelonLoader` and click on either Mod or Plugin.
+5. Enter the project info and press Create.
+6. Select the EXE of the game you are modding and press Open.
+7. Wait for the project creation and it should open a Visual Studio window with a working project.
+
+You may want to change the author in the `MelonInfo` attribute. It defaults to your computer's username.
+
 ### Basic mod setup
 
 First, you will need to create a new project. Unity versions require different project templates:<br>
