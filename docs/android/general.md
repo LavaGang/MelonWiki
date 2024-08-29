@@ -22,5 +22,4 @@ For any issues visit the [dedicated discord server](https://discord.gg/RAFGe33Y2
 ## Extra Info
 |                               |       |
 |-------------------------------|-------|
-| Current MelonLoader Features  | 0.5.7 |
-| Android Documentation Version | 0.0.2 |
+| Current MelonLoader Features  | 0.6.5 |
