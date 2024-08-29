@@ -234,7 +234,7 @@ namespace TimeFreezer
 
             if (frozen)
             {
-                Melon<TimeFreezerMod>.Msg("Freezing");
+                Melon<TimeFreezerMod>.Logger.Msg("Freezing");
                 
                 MelonEvents.OnGUI.Subscribe(DrawFrozenText, 100); // Register the 'Frozen' label
                 baseTimeScale = Time.timeScale; // Save the original time scale before freezing
@@ -242,7 +242,7 @@ namespace TimeFreezer
             }
             else
             {
-                Melon<TimeFreezerMod>.Msg("Unfreezing");
+                Melon<TimeFreezerMod>.Logger.Msg("Unfreezing");
                 
                 MelonEvents.OnGUI.Unsubscribe(DrawFrozenText); // Unregister the 'Frozen' label
                 Time.timeScale = baseTimeScale; // Reset the time scale to what it was before we froze the time
