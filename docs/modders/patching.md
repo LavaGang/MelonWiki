@@ -46,7 +46,7 @@ public class Example
 This will mostly be a repeat of what the [Harmony Docs](https://harmony.pardeike.net/articles/patching.html) say. But here we go!<br>
 For this example, I will be patching `Example.PrivateMethod(int param1)`.
 
-Harmony is included in `MelonLoader.dll`, so there's no need to download the nuget package or reference the dll.
+Harmony is included in the MelonLoader folder, named `0Harmony.dll`, be sure to reference it before continuing.
 
 Let's create a new class. It can be named anything and have any access modifiers, however, we must add the `HarmonyPatch` attribute for it to be picked up by Harmony.<br>
 In the attribute, we specify what method we would like to patch. This is similar to [getting a method using Reflection](modders/reflection?id=calling-a-method-using-reflection).<br>
