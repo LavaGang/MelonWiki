@@ -4,11 +4,11 @@ MelonLoader have some "small" things that doesn't work the exact same as if you 
 
 > If you find something that doesn't seems natural with Il2Cpp and that isn't listed here, please ping _loukylor#0001_ on the [MelonLoader Discord](https://discord.gg/2Wn3N2P).
 
-### Il2cppInterop Generated Names
+### Il2CppInterop Generated Names
 
 ?> You may ignore this section if your game is not obfuscated
 
-Il2cppInterop is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
+Il2CppInterop is what is used to generate proxy mono assemblies from Il2Cpp code. It will automatically assign auto-generated to obfuscated names. 
 
 The names are generated following certain rules:
 For fields and properties:
@@ -46,7 +46,7 @@ Note that `MelonLoader.RegisterTypeInIl2Cpp` will register all parent types if a
 
 Here is a very basic example:
 ```cs
-// You must reference `Il2cppInterop.Runtime.dll` for this to work
+// You must reference `Il2CppInterop.Runtime.dll` for this to work
 using Il2CppInterop.Runtime;
 
 [RegisterTypeInIl2Cpp]
@@ -124,7 +124,7 @@ MelonCoroutines.Stop(routine);
 In case you want to run an Il2Cpp method taking a type, you may want to use `.GetType()`.<br/>
 `.GetType()` would actually returns the Mono type, and not the original Il2Cpp type. To do so, we need to replace it with `Il2CppInterop.Runtime.Il2CppType.Of<T>()`.
 ```cs
-// You must reference `Il2cppInterop.Runtime.dll` for this.
+// You must reference `Il2CppInterop.Runtime.dll` for this.
 using Il2CppInterop.Runtime;
 
 Resources.FindObjectsOfTypeAll(Il2CppType.Of<Camera>());

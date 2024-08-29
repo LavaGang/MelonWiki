@@ -46,7 +46,9 @@ public class Example
 This will mostly be a repeat of what the [Harmony Docs](https://harmony.pardeike.net/articles/patching.html) say. But here we go!<br>
 For this example, I will be patching `Example.PrivateMethod(int param1)`.
 
-Harmony is included in `MelonLoader.dll`, so there's no need to download the nuget package or reference the dll.
+With MelonLoader 0.6.0+, Harmony is included in the `MelonLoader\net6` folder for Il2Cpp and `MelonLoader\net35` for Mono, named `0Harmony.dll`.<br>
+With MelonLoader 0.5.4-0.5.7, Harmony is included directly under the `MelonLoader` folder for both Il2Cpp and Mono, also named `0Harmony.dll`.<br>
+On previous versions, it is directly embedded into `MelonLoader.dll`.
 
 Let's create a new class. It can be named anything and have any access modifiers, however, we must add the `HarmonyPatch` attribute for it to be picked up by Harmony.<br>
 In the attribute, we specify what method we would like to patch. This is similar to [getting a method using Reflection](modders/reflection?id=calling-a-method-using-reflection).<br>
@@ -150,50 +152,46 @@ Here's the code that we're going to be using, its a simple patch of the getter f
 then we return a string of our choice. Will probably break some things in a game if they rely on the name but this is just for fun
 
 ```cs
-//delegate for our patch, same number of parameters as our patch method
+// Delegate for our patch, same number of parameters as our patch method
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 private delegate IntPtr GetNameDelegate(
 	IntPtr instance,
 	IntPtr methodInfo
 );
 
-//two static fields with our delegate type
+// Two static fields with our delegate type
 private static NativeHook<GetNameDelegate> Hook;
 private static GetNameDelegate _patchDelegate;
 
-//the patch method, dealing with unmanaged to managed then back to unmanaged so pointers galore
+// The patch method, dealing with unmanaged to managed then back to unmanaged, so pointers galore
 public static unsafe IntPtr GetName(IntPtr instance, IntPtr methodInfo)
 {
 	IntPtr result = hook.Trampoline(instance, methodName);
 	string name = IL2CPP.PointerToValueGeneric<string> (result, false, false);
-	Logger.Msg(name);
+	Melon<MyMod>.Logger.Msg(name);
 	return IL2CPP.ManagedStringToIl2Cpp("MelonLoader");
 }
 
-//logging instance
-public static MelonLogger.Instance Logger;
-//our mods initialize method, prefer OnLateInitializeMelon to make sure everything is loaded and available
+// Our mod's initialize method, prefer OnLateInitializeMelon to make sure everything is loaded and available
 public override unsafe void OnLateInitializeMelon()
 {
-    Logger=LoggerInstance;
-
-    //getting the IntPtr for our target method with GetIl2CppMethodInfoPointerFieldForGeneratedMethod
+    // Getting the IntPtr for our target method with GetIl2CppMethodInfoPointerFieldForGeneratedMethod
 	IntPtr originalMethod = *(IntPtr*) (IntPtr) Il2CppInteropUtils.
-        GetIl2CppMethodInfoPointerFieldForGeneratedMethod(typeof(UnityEngine.Object).GetMethod("get_name").GetValue(null);
+        GetIl2CppMethodInfoPointerFieldForGeneratedMethod(typeof(UnityEngine.Object).GetMethod("get_name").GetValue(null));
 
-    //storing our patch method in one of the delegate fields
+    // Storing our patch method in one of the delegate fields
 	_patchDelegate = GetName;
 
-    //getting the IntPtr from _patchDelegate
+    // Getting the IntPtr from _patchDelegate
 	IntPtr delegatePointer = Marshal.GetFunctionPointerForDelegate(_patchDelegate);
 
-    //creating the NativeHook with our target method' IntPtr and patch delegate' IntPtr
+    // Creating the NativeHook with our target method' IntPtr and patch delegate' IntPtr
 	NativeHook<GetNameDelegate> hook = new NativeHook<GetNameDelegate> (originalMethod, delegatePointer);
 
-    //very important part, actually telling it to attach and hook into the target method
+    // Very important part, actually telling it to attach and hook into the target method
 	hook.Attach();
 
-    //storing the hook so we can use the trampoline in it to run the original method in our patch
+    // Storing the hook so we can use the trampoline in it to run the original method in our patch
 	Hook = hook.Trampoline;
 }
 ```

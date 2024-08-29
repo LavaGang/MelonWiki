@@ -14,7 +14,7 @@ namespace MyProject
     {
         public override void OnUpdate()
         {
-            if(Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 LoggerInstance.Log("You just pressed T");
             }
