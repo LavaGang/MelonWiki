@@ -20,10 +20,9 @@
 > 
 > **A:** The main version of MelonLoader is occasionally merged into the port.
 
-[//]: # (wont be taking bug reports until ready to focus for release)
-[//]: # (> **Q:** Where should I report bugs?)
-[//]: # (> )
-[//]: # (> **A:** The support discord for the Android port would be the best place. https://discord.gg/RAFGe33Y28)
+> **Q:** Where should I report bugs?
+> 
+> **A:** The [issues tab](https://github.com/LemonLoader/MelonLoader/issues) of the LemonLoader repo.
 
 > **Q:** Do mods work cross platform?
 > 
@@ -31,11 +30,7 @@
 
 > **Q:** Do I need anything special to compile my mod?
 > 
-> **A:** Compiling your project with `.NET Framework 4.7.2` should be it.
-
-> **Q:** Is bHaptics supported?
->
-> **A:** Yes, but you need to have the [bHaptics device manager](https://sidequestvr.com/app/3165/bhaptics-player).
+> **A:** If referencing Lemon assemblies only, your mod must use .NET 8. If you reference PC assemblies, then you can work as normal under .NET 6.
 
 ## Discord Guilds
 | name        | link                          | description                                                        |
