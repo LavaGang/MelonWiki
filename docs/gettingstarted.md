@@ -7,7 +7,6 @@ You can find mods for games by asking in their respective communities or by look
 
 # Requirements
 
-- In order to run the Automated Installer and MelonLoader you must have [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48) installed.
 - In order to run MelonLoader you must install:
   - [Microsoft Visual C++ 2015-2019 Redistributable 64 Bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) for 64 bit games.
   - [Microsoft Visual C++ 2015-2019 Redistributable 32 Bit](https://aka.ms/vs/16/release/vc_redist.x86.exe) for 32 bit games.
@@ -17,14 +16,31 @@ You can find mods for games by asking in their respective communities or by look
 
 # Automated Installation
 
-1. Download [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe).
-2. Run MelonLoader.Installer.exe.
-3. Click the SELECT button.
-4. Select and Open the Game's EXE in your Game's Installation Folder.
-5. Select which Version of MelonLoader to install using the Drop-Down List.  (Or leave it as-is for the Latest Version.)
-6. Click the INSTALL or RE-INSTALL button.
+<a href="https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe"><img src="https://img.shields.io/github/downloads/LavaGang/MelonLoader.Installer/latest/MelonLoader.Installer.exe?style=for-the-badge&label=Download%20Latest%20for%20Windows"></a><br>
+<a href="https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.Linux"><img src="https://img.shields.io/github/downloads/LavaGang/MelonLoader.Installer/latest/MelonLoader.Installer.Linux?style=for-the-badge&label=Download%20Latest%20for%20Linux"></a>
+
+The installer should automatically list installed Unity games on your machine.
+
+### Supported game launchers on Windows
+- Steam
+- Epic Games Store
+- GOG
+
+### Supported game launchers on Linux
+- Steam
+
+### Games from unsupported launchers
+If the game you're trying to mod isn't listed, you can locate it manually by clicking on the `Add Game Manually` button.
+
+### MelonLoader Installation
+To install MelonLoader, click on the game you wish to mod. Next, select your preferred version and hit the big `Install` button.
 
 ?> Make sure the version of MelonLoader you select is the one that your game uses. You can check by asking in the respective community. A list of them can be found in the `Officially Supported Games` tab.
+
+### Nightly builds
+!> We strongly advise against enabling Nightly builds unless you know what you're doing.
+
+Nightly builds are bleeding-edge builds, generated right after any changes are made to the project. They can be enabled with the switch under the version selection menu.
 
 # Manual Installation
 
@@ -37,10 +53,20 @@ You can find mods for games by asking in their respective communities or by look
 
 ?> If you aren't sure if your game is 32bit or 64bit an easy way to find out is to to use the task manager. If your game is 32bit, the game name will be followed by (32 bit).
 
-# Linux Instructions
+# Linux Launch Instructions
 
-## Windows Games
-Please refer to your distribution's specific ways of installing Protontricks. <br>
+## Windows Games (Wine/Proton)
+
+To allow MelonLoader to load, you'll need to export the following environment variable:
+`WINEDLLOVERRIDES="version=n,b"`
+
+On Steam, you can set the launch options to:
+`WINEDLLOVERRIDES="version=n,b" %command%`
+
+### Il2Cpp Games
+!> Il2Cpp games require the Windows version of [dotnet 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0#runtime-desktop-6.0.28). We recommend the .NET Desktop Runtime, x64 or x86 depending on if your game is 64 bit or 32 bit.
+
+?> Please refer to your distribution's specific ways of installing Protontricks. <br>
 Arch based distributions may find it in the AUR. Using an AUR helper like paru: `paru -S protontricks` or `paru -S protontricks-git`
 
 Find your game's AppID using `protontricks -s [GameName]`
@@ -50,38 +76,31 @@ It is recommended to start over with a *clean* prefix.
 Your game's (default) proton prefix will be located at ` ~/.local/share/Steam/steamapps/compatdata/[appid]`. Delete that folder, and start the game once.<br/>
 You are now running a clean prefix.
 
-Run `protontricks [appid] winecfg`<br/>
-At the bottom, switch the Windows version to Windows 10.<br>
-Go to the libraries tab, select `version` from the "new override for library" dropdown, and hit add<br/>
-Then hit OK.
-
-!> Il2Cpp games require the Windows version of [dotnet 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0#runtime-desktop-6.0.28). We recommend the .NET Desktop Runtime, x64 or x86 depending on if your game is 64 bit or 32 bit.
-
-To install it automatically, run `protontricks [appid] dotnetdesktop6`.
+To install dotnet automatically, run `protontricks [appid] dotnetdesktop6`.
 
 To install it manually, run `protontricks [appid] uninstaller`, click `Install...`, switch `Files of Type` to `.exe` and run the .NET 6.0 installer from the link above.
 
-Now you can follow the Manual Installation instructions above, or run the Automated installer through wine (until we make it cross-platform) and MelonLoader should pop up on launch.
-
-Should this not work, you can try installing both `vcrun2019`, and `dotnet472`. Note that these should NOT be required, usually.
-* `protontricks [appid] --force vcrun2019` (Let visual installers run)
-* `protontricks [appid] --force dotnet472` (Cancel visual installer)
-
 ## Linux Native Games
-MelonLoader offers native linux builds, since version 0.6.0. <br>
-download the linux zip from our [Releases](https://github.com/LavaGang/MelonLoader/releases), and place the files inside of it in your game folder. <br>
-to make MelonLoader load with the game, you need to use `LD_PRELOAD`
 
-From the command line: `export LD_PRELOAD=$LD_PRELOAD:/path/to/game/folder/libversion.so` <br>
-In the Steam Launch Options: `LD_PRELOAD=$LD_PRELOAD:/path/to/game/folder/libversion.so %command%`
+To make MelonLoader load with the game, you need to include the MelonLoader bootstrap library in the `LD_PRELOAD` environment variable.
 
+Because including full/relative paths in `LD_PRELOAD` is a bad idea, we should first add the path of the game directory to the `LD_LIBRARY_PATH` environment variable:
+`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_PRELOAD"`
+
+Finally, let's add the MelonLoader bootstrap library to `LD_PRELOAD` (just the file name):
+`LD_PRELOAD="libversion.so"`
+
+On Steam, you can set the launch options to:
+`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_PRELOAD" LD_PRELOAD="libversion.so" %command%`
+
+### Il2Cpp Games
 !> Il2Cpp games require .NET 6.0.
 
 Please refer to your distribution's package manager on how to install it. <br>
 Arch based distributions may find it in the AUR. Using an AUR helper like paru: `paru -S dotnet-runtime-6.0`
 
 ### Pitfalls
-* Cpp2IL doesn't currently come in a zip on linux, so permissions aren't carried over. You may need to `chmod +x /path/to/game/folder/MelonLoader/Dependencies/Il2CppAssemblyGenerator/Cpp2IL/Cpp2IL` it.
+* Cpp2IL doesn't currently come in a zip on linux, so permissions aren't carried over. You may need to `chmod +x /path/to/game/folder/MelonLoader/Dependencies/Il2CppAssemblyGenerator/Cpp2IL/Cpp2IL` it. This process will eventually become automated.
 
 # Contact
 
