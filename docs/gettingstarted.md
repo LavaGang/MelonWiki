@@ -114,23 +114,16 @@ Or, if you see any issues with the wiki, please contact one of the editors in th
 
 | Argument              | Description                              |
 | --------------------- | ---------------------------------------- |
-| --no-mods	| Launch game without loading any Plugins or Mods |
-| --quitfix	| Fixes the Hanging Process Issue with some Games |
+| --no-mods | Launches the Game without loading any Plugins or Mods |
+| --quitfix | Fixes the Hanging Process Issue with some Games |
+| --melonloader.consolemode | Changes the Theme Display Mode of the Console [ Default = 0 ] |
 | --melonloader.consoleontop | Forces the Console to always stay on-top of all other Applications |
-| --melonloader.hideconsole	| Hides the Console |
-| --melonloader.disablestartscreen | Disables the Melon Start Screen |
+| --melonloader.consoledst | Keeps the Console Title as Original |
+| --melonloader.hideconsole | Hides the Console |
 | --melonloader.hidewarnings | Hides Warnings from Displaying |
-| --melonloader.debug	| Debug Mode |
-| --melonloader.dab	| Debug Analytics Blocker |
-| --melonloader.magenta	| Magenta Console Color |
-| --melonloader.rainbow	| Rainbow Console Color |
-| --melonloader.randomrainbow	| Random Rainbow Console Color |
-| --melonloader.maxlogs	| Max Log Files [ Default: 10 ] [ Disable: 0 ] |
-| --melonloader.maxwarnings	| Max Warnings per Log File [ Default: 100 ] [ Disable: 0 ] |
-| --melonloader.maxerrors	| Max Errors per Log File [ Default: 100 ] [ Disable: 0 ] |
+| --melonloader.debug | Debug Mode |
+| --melonloader.maxlogs | Max Log Files [ Default: 10 ] [ NoCap: 0 ] |
 | --melonloader.loadmodeplugins | Load Mode for Plugins [ Default: 0 ] |
 | --melonloader.loadmodemods | Load Mode for Mods [ Default: 0 ] |
-| --melonloader.agfregenerate	| Forces Regeneration of Assembly |
-| --melonloader.agfvunity	| Forces use a Specified Version of Unity Dependencies |
-| --melonloader.agfvdumper | Forces use a Specified Version of Dumper |
-| --melonloader.agfvunhollower | Forces use a Specified Version of Il2CppAssemblyUnhollower |
+| --melonloader.basedir | Changes the Proxy's Load Directory for the Bootstrap |
+| --melonloader.disablestartscreen | Disable the Start Screen |
