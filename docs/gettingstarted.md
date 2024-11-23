@@ -85,13 +85,13 @@ To install it manually, run `protontricks [appid] uninstaller`, click `Install..
 To make MelonLoader load with the game, you need to include the MelonLoader bootstrap library in the `LD_PRELOAD` environment variable.
 
 Because including full/relative paths in `LD_PRELOAD` is a bad idea, we should first add the path of the game directory to the `LD_LIBRARY_PATH` environment variable:
-`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_PRELOAD"`
+`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH"`
 
 Finally, let's add the MelonLoader bootstrap library to `LD_PRELOAD` (just the file name):
 `LD_PRELOAD="libversion.so"`
 
 On Steam, you can set the launch options to:
-`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_PRELOAD" LD_PRELOAD="libversion.so" %command%`
+`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH" LD_PRELOAD="libversion.so" %command%`
 
 ### Il2Cpp Games
 !> Il2Cpp games require .NET 6.0.
