@@ -166,7 +166,7 @@ private static GetNameDelegate _patchDelegate;
 // The patch method, dealing with unmanaged to managed then back to unmanaged, so pointers galore
 public static unsafe IntPtr GetName(IntPtr instance, IntPtr methodInfo)
 {
-	IntPtr result = hook.Trampoline(instance, methodName);
+	IntPtr result = hook.Trampoline(instance, methodInfo);
 	string name = IL2CPP.PointerToValueGeneric<string> (result, false, false);
 	Melon<MyMod>.Logger.Msg(name);
 	return IL2CPP.ManagedStringToIl2Cpp("MelonLoader");
@@ -177,7 +177,7 @@ public override unsafe void OnLateInitializeMelon()
 {
     // Getting the IntPtr for our target method with GetIl2CppMethodInfoPointerFieldForGeneratedMethod
 	IntPtr originalMethod = *(IntPtr*) (IntPtr) Il2CppInteropUtils.
-        GetIl2CppMethodInfoPointerFieldForGeneratedMethod(typeof(UnityEngine.Object).GetMethod("get_name").GetValue(null));
+        GetIl2CppMethodInfoPointerFieldForGeneratedMethod(typeof(UnityEngine.Object).GetMethod("get_name")).GetValue(null);
 
     // Storing our patch method in one of the delegate fields
 	_patchDelegate = GetName;
