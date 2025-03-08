@@ -77,7 +77,7 @@ Within our entry, there are 2 Melon Events that are called when the value is cha
 The first, `OnEntryValueChangedUntyped` is non-generic and has 2 boxed parameters: `oldValue` and `newValue`.
 The second, `OnEntryValueChanged` has 2 parameters: `oldValue` and `newValue`.
 
-> It is important to remember that both of these events will call when the value is set to, not necessarily whent the value actually changes.
+> It is important to remember that both of these events will call when the value is set to, not necessarily when the value actually changes.
 
 ## Custom Save Paths
 
