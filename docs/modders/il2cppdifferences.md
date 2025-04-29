@@ -83,13 +83,92 @@ class MyMod : MelonMod
 }
 ```
 
+If you want to expose a field to the IL2CPP side, it would look like this. <br/>
+Keep in mind that currently, deserialization for component fields is not supported. Any fields on the component will initially have their default value as defined in the mono assembly.<br/>
+Also notable is, that the implicit operator of this field will throw an error if you try to set it.<br/>
+
+Here a simple example, where we expose a int field to the Il2Cpp side:
+```cs
+using using Il2CppInterop.Runtime.InteropTypes.Fields;
+
+[RegisterTypeInIl2Cpp]
+class MyCustomComponent(IntPtr ptr) : MonoBehaviour(ptr)
+{
+    // This field will be visible to IL2CPP
+    public Il2CppValueField<int> Test;
+}
+
+// Usage in C# side:
+```cs
+    MyCustomComponent component = GetComponent<MyCustomComponent>();
+    component.Test = 42 // This will throw an error
+    component.Test.Value = 42; // This will work
+```
+
+If we want to implement interfaces, we would do it like this example. Where we implement the imaganary `ISaveData` and `ISerializable`.<br/>
+This could be of course also a MonoBehaviour, but for the sake of this example, we will use a simple class.
+```cs
+using IL2cppExample.Saving; // This is the namespace of the imaganary interfaces 
+
+[RegisterTypeInIl2CppWithInterfaces(typeof(ISaveData), typeof(ISerializable))]
+[Serializable]
+public class MyData : Il2CppSystem.Object
+{
+    public MyData(IntPtr ptr) : base(ptr) { }
+
+    // Implement the interface methods here
+    public void Save() { /* ... */ }
+    public void Load() { /* ... */ }
+}
+```
+
 Limitations:
- - Interfaces can't be implemented
  - Virtual methods can't be overridden
- - Only instance methods are exposed to IL2CPP side - no fields, properties, events or static methods will be visible to IL2CPP reflection
+ - Only instance methods are exposed to IL2CPP side and a limited type of fields - no properties, events or static methods will be visible to IL2CPP reflection
  - Only a limited set of types are supported for method signatures
 
 If you don't want to expose a method to the Il2Cpp side (either because it's not required or to avoid errors), you can add the `[HideFromIl2Cpp]` attribute to the method
+
+### Enums
+
+Enums in generic classes can't be used.
+
+Imagine this on the IL2CPP side, where we have a generic class `SomeGenericContainer<T>` with a field `T` and a class `Example<T>` with an enum `Comparer`. We want to store the enum in the generic container class.<br/>
+This is how it would look like on the IL2CPP side:
+```cs
+namespace Il2CppExmaple.Example;
+
+public class Example<T> : MonoBehaviour where T : System.Enum 
+{ 
+    [OriginalName("Example.dll", "", "Comparer")]
+    public enum Comparer
+    {
+        Equals,
+        EqualsNot,
+        IsSmaller,
+        IsBigger,
+        IsSmallerEqual,
+        IsBiggerEqual
+    }
+}
+```
+
+And this on our side:
+```cs
+using Il2CppExample.Example;
+
+public class CompareExample : MonoBehaviour
+{
+    public SomeGenericContainer<Example<Comparar>.Comparer> container = new SomeGenericContainer<Example<Comparar>.Comparer>(); 
+}
+```
+
+This will throw: 
+```
+Exception in IL2CPP-to-Managed trampoline, not passing it to il2cpp: System.TypeInitializationException: The type initializer for 'SomeGenericContainer`1' threw an exception.`
+ ---> System.TypeInitializationException: The type initializer for 'Il2CppInterop.Runtime.Il2CppClassPointerStore`1' threw an exception.
+ ---> System.InvalidOperationException: Late bound operations cannot be performed on fields with types for which Type.ContainsGenericParameters is true.
+```
 
 ### Coroutines
 
