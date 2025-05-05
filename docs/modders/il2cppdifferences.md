@@ -126,49 +126,9 @@ Limitations:
  - Virtual methods can't be overridden
  - Only instance methods are exposed to IL2CPP side and a limited type of fields - no properties, events or static methods will be visible to IL2CPP reflection
  - Only a limited set of types are supported for method signatures
+ - Using nested enums from generic classes as generic parameters in IL2CPP (e.g., Example<T>.Comparer) causes a TypeInitializationException because IL2CPP cannot resolve types with unbound generic parameters. This results in a runtime error during interop
 
 If you don't want to expose a method to the Il2Cpp side (either because it's not required or to avoid errors), you can add the `[HideFromIl2Cpp]` attribute to the method
-
-### Enums
-
-Enums in generic classes can't be used.
-
-Imagine this on the IL2CPP side, where we have a generic class `SomeGenericContainer<T>` with a field `T` and a class `Example<T>` with an enum `Comparer`. We want to store the enum in the generic container class.<br/>
-This is how it would look like on the IL2CPP side:
-```cs
-namespace Il2CppExmaple.Example;
-
-public class Example<T> : MonoBehaviour where T : System.Enum 
-{ 
-    [OriginalName("Example.dll", "", "Comparer")]
-    public enum Comparer
-    {
-        Equals,
-        EqualsNot,
-        IsSmaller,
-        IsBigger,
-        IsSmallerEqual,
-        IsBiggerEqual
-    }
-}
-```
-
-And this on our side:
-```cs
-using Il2CppExample.Example;
-
-public class CompareExample : MonoBehaviour
-{
-    public SomeGenericContainer<Example<Comparar>.Comparer> container = new SomeGenericContainer<Example<Comparar>.Comparer>(); 
-}
-```
-
-This will throw: 
-```
-Exception in IL2CPP-to-Managed trampoline, not passing it to il2cpp: System.TypeInitializationException: The type initializer for 'SomeGenericContainer`1' threw an exception.`
- ---> System.TypeInitializationException: The type initializer for 'Il2CppInterop.Runtime.Il2CppClassPointerStore`1' threw an exception.
- ---> System.InvalidOperationException: Late bound operations cannot be performed on fields with types for which Type.ContainsGenericParameters is true.
-```
 
 ### Coroutines
 
