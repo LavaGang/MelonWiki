@@ -231,3 +231,59 @@ but we're not looking at that for now.
 To return something different, you can use ``IL2CPP.Il2CppObjectBaseToPtr`` but since this is just a string, tiny bit less messing 
 around on the mods side if we use ``IL2CPP.ManagedStringToIl2Cpp``.
 As long as a IntPtr is returned that points to the same type that the method expects, it should work
+
+### Patching Native DLL Methods
+Example below demonstrates how to hook native C function which is outside of the GameAssembly or Unity spectrum. But you can use this example to hook in GameAssembly's functions as well.
+```cs
+// Required to get base address of the DLL.
+[DllImport("kernel32.dll", SetLastError = true)]
+private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+// Define the delegate matching our Dll's function parameters.
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+private unsafe delegate IntPtr LoadBufferDelegate(IntPtr luaState, IntPtr buffer, IntPtr size);
+
+private static LoadBufferDelegate patch;
+private static NativeHook<LoadBufferDelegate> Hook;
+
+public static unsafe IntPtr lua_loadbuffer(IntPtr luaState, IntPtr buffer, IntPtr size)
+{
+	MelonLogger.Msg($"Hooked in! bufferSize: {size.ToInt64()}");
+
+	// Converting buffer in to C# byte array
+	int length = (int)size.ToInt64();
+	byte[] managedArray = new byte[length];
+	Marshal.Copy(buffer, managedArray, 0, length);
+
+	// Do some cool stuff
+
+	// Execute the original function
+	var hookTrampoline = Hook.Trampoline(luaState, buffer, size);
+	return hookTrampoline;
+}
+
+
+public override unsafe void OnLateInitializeMelon()
+{
+	// Function's offset
+	var functionOffset = 0x163D30;
+	// Getting DLL's base address, and adding function's offset
+	var targetAddress = GetModuleHandle("tolua.dll") + functionOffset;
+
+	// Rest same as before, getting delegate's pointer and creating the hook.
+
+	patch = lua_loadbuffer;
+	
+	IntPtr delegatePointer = Marshal.GetFunctionPointerForDelegate(patch);
+	
+	Hook = new NativeHook<loadbufferDelegate> (targetAddress, delegatePointer);
+	
+	Hook.Attach();
+}
+```
+We have to becareful about following areas:
+* `GetModuleHandle` used to get DLL's base address in memory. Only works in Windows.
+* `functionOffset` since this DLL outside of the GameAssembly Melonloader does not hold our hand. You need to inspect the target DLL and get the RVA(Relative Memory Address).
+* `LoadBufferDelegate` delegate must match with target function's footprint. Example function accepts 3 parameters, so we put 3 IntPtr `luaState, buffer, size`. Later you need to convert them to their relative types. You can use IL2CPP's helper functions, see the previous example.
+
+
