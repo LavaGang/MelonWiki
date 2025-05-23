@@ -233,6 +233,7 @@ around on the mods side if we use ``IL2CPP.ManagedStringToIl2Cpp``.
 As long as a IntPtr is returned that points to the same type that the method expects, it should work
 
 ### Patching Native DLL Methods
+Example below demonstrates how to hook native C function which is outside of the GameAssembly or Unity spectrum. But you can use this example to hook in GameAssembly's functions as well.
 ```cs
 // Required to get base address of the DLL.
 [DllImport("kernel32.dll", SetLastError = true)]
@@ -280,4 +281,9 @@ public override unsafe void OnLateInitializeMelon()
 	Hook.Attach();
 }
 ```
-With MelonLoader's NativeHook, you can basically hook in everything game loads not just GameAssembly or generated fields.
+We have to becareful about following areas:
+* `GetModuleHandle` used to get DLL's base address in memory. Only works in Windows.
+* `functionOffset` since this DLL outside of the GameAssembly Melonloader does not hold our hand. You need to inspect the target DLL and get the RVA(Relative Memory Address).
+* `LoadBufferDelegate` delegate must match with target function's footprint. Example function accepts 3 parameters, so we put 3 IntPtr `luaState, buffer, size`. Later you need to convert them to their relative types. You can use IL2CPP's helper functions, see the previous example.
+
+
