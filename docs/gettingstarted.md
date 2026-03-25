@@ -82,25 +82,60 @@ To install it manually, run `protontricks [appid] uninstaller`, click `Install..
 
 ## Linux Native Games
 
-To make MelonLoader load with the game, you need to include the MelonLoader bootstrap library in the `LD_PRELOAD` environment variable.
+#### Important: Proper Library Loading
 
-Because including full/relative paths in `LD_PRELOAD` is a bad idea, we should first add the path of the game directory to the `LD_LIBRARY_PATH` environment variable:
-`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH"`
+  For compatibility and security reasons, do not point`LD_PRELOAD`to a specific file path. Using a path in`LD_PRELOAD`can cause the loader to ignore the library during secure execution (setuid) and may prevent the library from finding its own dependencies.
 
-Finally, let's add the MelonLoader bootstrap library to `LD_PRELOAD` (just the file name):
-`LD_PRELOAD="libversion.so"`
+  1. Add the game folder to your`LD_LIBRARY_PATH` environment variable.
+  2. Reference the library by filename only in`LD_PRELOAD`.
 
-On Steam, you can set the launch options to:
-`LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH" LD_PRELOAD="libversion.so" %command%`
+  __Non-Steam launch options__:
+  ```sh
+  LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH" LD_PRELOAD="MelonLoader.Bootstrap.so:$LD_PRELOAD" ./game_binary
+  ```
 
-### Il2Cpp Games
-!> Il2Cpp games require .NET 6.0.
+  __Steam launch options__:
+  ```sh
+  LD_LIBRARY_PATH="/full/path/to/game/directory:$LD_LIBRARY_PATH" LD_PRELOAD="MelonLoader.Bootstrap.so:$LD_PRELOAD" %command%
+  ```
 
-Please refer to your distribution's package manager on how to install it. <br>
-Arch based distributions may find it in the AUR. Using an AUR helper like paru: `paru -S dotnet-runtime-6.0`
+  ### Linux Native Il2Cpp Games
+  !> Il2Cpp-based games require the .NET 6.0 Runtime to function.
+
+  Please refer to your distribution's package manager on how to install it.
+  * __Debian / Ubuntu:__
+  ```bash
+  sudo apt update && sudo apt install dotnet-runtime-6.0
+  ```
+  * __Fedora:__
+  ```bash
+  sudo dnf install dotnet-runtime-6.0
+  ```
+  Arch Linux:
+  Available in the AUR. Using an AUR helper like`paru`:
+  ```bash
+  paru -S dotnet-runtime-6.0
+  ```
+#### Sandboxed Environments
+  If you are using __Flatpak__, __Snap__, __AppImage__, which is common on Immutable OS-s (such as __Bazzite__), the application is isolated from your host system's environment variables and directories.
+
+  To allow MelonLoader to find the required files, you must manually point it to your .NET installation using the `DOTNET_ROOT` variable. Without this, the loader will fail, typically showing the following error in your MelonLoader logs:
+
+  ```cs
+  [10:01:42.483] [MelonLoader.Bootstrap] Failed to load Hostfxr
+  ```
+
+  To fix this, pass the variable directly when launching the game:
+  ```bash
+  DOTNET_ROOT="/path/to/your/dotnet" ./game_binary
+  ```
 
 ### Pitfalls
-* Cpp2IL doesn't currently come in a zip on linux, so permissions aren't carried over. You may need to `chmod +x /path/to/game/folder/MelonLoader/Dependencies/Il2CppAssemblyGenerator/Cpp2IL/Cpp2IL` it. This process will eventually become automated.
+* __Permissions Issue__: Since Cpp2IL is currently distributed without preserved Linux permissions, you may need to manually mark the binary as executable. Failure to do so will prevent the Assembly Generator from running.
+```sh
+chmod +x /path/to/game/folder/MelonLoader/Dependencies/Il2CppAssemblyGenerator/Cpp2IL/Cpp2IL
+```
+This process is automated starting from the release version 7.2 and onwards.
 
 # Contact
 
